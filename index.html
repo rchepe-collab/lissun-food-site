@@ -359,6 +359,18 @@ label.estr input{margin-top:3px;accent-color:var(--accent)}
 .tipo-e{font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:700}
 .selo-g.g-baixa{background:var(--box-2);color:var(--muted);border-color:var(--line-2)}
 .selo-g.g-media{background:var(--warn-soft);color:var(--warn)}
+
+/* ===== Academia e proposta por serviço ===== */
+details.aca-l summary{display:flex;flex-direction:column;gap:2px}
+.aca-res{font-weight:400;color:var(--muted);font-size:.84rem}
+.aca-corpo{display:flex;flex-direction:column;gap:8px;margin-top:10px;font-size:.92rem;line-height:1.6}
+.aca-corpo h4{font-family:var(--f-body);font-size:.95rem;color:var(--accent);margin:8px 0 0}
+.aca-corpo p{color:var(--fg);margin:0;max-width:80ch}
+.aca-corpo ul{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:4px;max-width:84ch}
+table.servs td:first-child input{min-width:260px}
+table.servs td.num input{min-width:110px;text-align:right}
+table.servs tfoot td,table.servs-doc tfoot td{font-weight:700;background:var(--accent-wash)}
+table.servs-doc td{white-space:normal}
 </style>
 
 <div class="fb" id="fb" hidden>
@@ -415,7 +427,7 @@ label.estr input{margin-top:3px;accent-color:var(--accent)}
 const SB_URL = 'https://hbulkifctnzxsctgnzgx.supabase.co';
 const SB_KEY = 'sb_publishable_V-l3TnnJMIlL-VyG-NhU9w_bhpRG6He';
 const SEGMENTO = 'restaurante';
-const LF_VERSAO = 'v101';   // selo da versão publicada: o pipeline não deixa o site voltar para um número menor
+const LF_VERSAO = 'v102';   // selo da versão publicada: o pipeline não deixa o site voltar para um número menor
 { const sm = document.querySelector('.sb-nome small'); if (sm) sm.textContent = 'Lissun · ' + LF_VERSAO; }
 const sbc = (window.supabase && window.supabase.createClient) ? window.supabase.createClient(SB_URL, SB_KEY) : null;
 
@@ -494,7 +506,7 @@ const vazioU = () => ({
   metaTipo:'', metaValor:'', politica:'', arred:'', base:'',
   fichas:[], buffet:[{fichaId:'',part:''}],
   diag:{resp:{}, res:null, quando:null, erro:null},
-  proposta:{prazo:'',investimento:'',condicoes:'',validade:'',consultor:'',contato:'',extras:'',obs:'',fora:[]},
+  proposta:{prazo:'',investimento:'',condicoes:'',validade:'',consultor:'',contato:'',extras:'',obs:'',fora:[],itens:[],_iniciada:false,calc:null},
   relatorio:{obs:''},
   cenario:{base:'', aj:{}, res:null, erro:null},
   riscos:{res:null, erro:null, quando:null},
@@ -514,7 +526,7 @@ function normalizarU(t){
   if (!Array.isArray(u.buffet) || !u.buffet.length) u.buffet = [{fichaId:'',part:''}];
   const v0 = vazioU();
   u.diag = Object.assign(v0.diag, t.diag || {}); if (!u.diag.resp || typeof u.diag.resp !== 'object') u.diag.resp = {};
-  u.proposta = Object.assign(v0.proposta, t.proposta || {}); if (!Array.isArray(u.proposta.fora)) u.proposta.fora = [];
+  u.proposta = Object.assign(v0.proposta, t.proposta || {}); if (!Array.isArray(u.proposta.fora)) u.proposta.fora = []; if (!Array.isArray(u.proposta.itens)) u.proposta.itens = [];
   u.relatorio = Object.assign(v0.relatorio, t.relatorio || {});
   u.cenario = Object.assign(v0.cenario, t.cenario || {}); if (!u.cenario.aj || typeof u.cenario.aj !== 'object') u.cenario.aj = {};
   u.riscos = Object.assign(v0.riscos, t.riscos || {});
@@ -737,7 +749,8 @@ const AJUDA = {
   versao:['Um nome para lembrar o momento desta versão.','Escolha do consultor.','Use a data e o motivo: "Outubro, antes do reajuste", "Proposta enviada".'],
   prop_extras:['Serviços que você vai fazer e que o diagnóstico não listou.','O seu escopo de trabalho.','Um serviço por linha, do jeito que o dono vai ler.'],
   prop_prazo:['Quanto tempo o trabalho vai levar.','O seu planejamento.','Ex.: em semanas ou meses, a partir da assinatura.'],
-  prop_invest:['O valor do seu trabalho.','A sua tabela de honorários.','A ferramenta não sugere valor: escreva o total como vai aparecer na proposta.'],
+  prop_servicos:['Os serviços que você vai fazer, um por linha, com o valor de cada um.','O diagnóstico traz a lista inicial; o resto é o seu escopo.','Reescreva com as suas palavras, apague o que não vai fazer e acrescente o que faltar. Tudo é editável.'],
+  prop_valor:['O valor deste serviço.','A sua tabela de honorários (horas do serviço × valor da sua hora).','A ferramenta não sugere valor. O total é a soma dos serviços com valor, feita no servidor; serviço sem valor aparece como "a combinar".'],
   prop_cond:['Como o dono vai pagar.','A sua política de cobrança.','À vista, entrada mais parcelas, mensal…'],
   prop_valid:['Até quando a proposta vale.','A sua política comercial.','Uma data ou um prazo em dias.'],
   prop_consultor:['Quem assina a proposta.','O seu nome ou o da sua empresa.','Aparece no fim da proposta e na capa do relatório.'],
@@ -764,7 +777,7 @@ const th = (rot, aj='', num=true) => `<th${num?' class="num"':''}>${rot} ${ajB(a
 const rmB = (acao, i, extra='') => `<td><button class="rm" type="button" data-acao="${acao}" data-i="${i}" ${extra} aria-label="Remover linha">×</button></td>`;
 const nomeLimpo = (id) => TITULO[id].replace(/^\d · /,'');
 const topoTela = (id, lead) => `
-  ${id !== 'academia' ? `<a class="aca" href="#academia">${svg('chapeu')} Aprenda esta tela na Academia →</a>` : ''}
+  ${id !== 'academia' ? `<a class="aca" href="#academia" data-aca="${id}">${svg('chapeu')} Aprenda esta tela na Academia →</a>` : ''}
   <div class="cab"><h1>${nomeLimpo(id)}</h1><span class="trilha"><b>Restaurante</b>${SECAO[id] ? ' › ' + SECAO[id] : ''} › ${nomeLimpo(id)}</span></div>
   ${lead ? `<p class="frase" style="color:var(--muted)">${lead}</p>` : ''}`;
 const linkTela = (id) => `<a href="#${id}">${TITULO[id]}</a>`;
@@ -1117,39 +1130,68 @@ function diagRes(){
     <div class="linha-acoes"><a class="btn" href="#proposta">Montar a proposta com este diagnóstico →</a></div>`;
 }
 
-// ---------- Proposta comercial ----------
-function servicosProposta(){
-  const D = U.diag.res, P = U.proposta, vistos = new Set(), out = [];
-  (D ? D.pontos_atencao : []).filter(a => !P.fora.includes(a.id)).forEach(a => { if (!vistos.has(a.servico)) { vistos.add(a.servico); out.push(a.servico); } });
-  return out.concat(linhasTexto(P.extras));
+// ---------- Proposta comercial (valor por serviço; o total é somado no servidor) ----------
+const servicosDoDiag = () => { const D = U.diag.res, vistos = new Set(), out = [];
+  (D ? D.pontos_atencao : []).forEach(a => { if (!vistos.has(a.servico)) { vistos.add(a.servico); out.push(a.servico); } }); return out; };
+function iniciarProposta(){
+  const P = U.proposta; if (P._iniciada) return; P._iniciada = true;
+  // rascunhos da versão anterior: serviços marcados + "outros serviços" viram linhas editáveis
+  const D = U.diag.res, fora = P.fora || [], vistos = new Set();
+  if (D) D.pontos_atencao.filter(a => !fora.includes(a.id)).forEach(a => { if (!vistos.has(a.servico)) { vistos.add(a.servico); P.itens.push({ servico: a.servico, valor: '' }); } });
+  linhasTexto(P.extras).forEach(t => P.itens.push({ servico: t, valor: '' }));
+  if (!P.itens.length) P.itens.push({ servico: '', valor: '' });
 }
 function propostaTela(){
-  const topo = topoTela('proposta','O diagnóstico vira proposta de trabalho: o que foi encontrado, o que será feito, prazo e investimento. O valor é você quem define.');
-  const D = U.diag.res;
-  if (!D) return topo + `<div class="vazio"><p>A proposta nasce do diagnóstico. Faça o Diagnóstico rápido primeiro.</p><a class="btn pri" href="#diagnostico">Ir para o Diagnóstico rápido</a></div>`;
-  const P = U.proposta;
-  return topo + `<div class="caixa nao-imprime"><h2>O que entra na proposta</h2>
-      ${D.pontos_atencao.length ? `<div class="servicos">${D.pontos_atencao.map(a => `<label class="op"><input type="checkbox" data-sv="${a.id}"${P.fora.includes(a.id) ? '' : ' checked'}><span>${esc(a.servico)}</span></label>`).join('')}</div>` : '<p class="ajuda">O diagnóstico não apontou serviços. Escreva abaixo o que será feito.</p>'}
-      ${area('proposta.extras','Outros serviços (um por linha)','prop_extras',3)}</div>
-    <div class="caixa nao-imprime"><h2>Prazo, investimento e consultor</h2><div class="grade">
-      ${inp('proposta.prazo','Prazo de execução','prop_prazo','nome')}${inp('proposta.investimento','Investimento','prop_invest','nome')}
-      ${inp('proposta.condicoes','Condições de pagamento','prop_cond','nome')}${inp('proposta.validade','Validade da proposta','prop_valid','nome')}
+  const topo = topoTela('proposta','O diagnóstico vira proposta de trabalho: o que foi encontrado, cada serviço com o seu valor, o total, prazo e condições. Os valores são seus: a ferramenta não sugere preço.');
+  iniciarProposta();
+  const P = U.proposta, D = U.diag.res;
+  if (!P.calc && P.itens.some(x => num(x.valor) != null)) setTimeout(somarProposta, 0);
+  return topo + (D ? '' : `<ul class="avisos"><li>Sem diagnóstico, a proposta sai sem "O que encontramos". Se quiser, faça o <a href="#diagnostico">Diagnóstico rápido</a> antes.</li></ul>`) + `
+    <div class="caixa nao-imprime"><h2>Serviços e valores ${ajB('prop_servicos')}</h2>
+      <div class="tabela"><table class="servs"><thead><tr><th>Serviço</th><th class="num">Valor (R$) ${ajB('prop_valor')}</th><th></th></tr></thead><tbody>
+      ${P.itens.map((x, i) => `<tr><td><input id="f_proposta_itens_${i}_servico" data-k="proposta.itens.${i}.servico" aria-label="Serviço ${i + 1}"></td>
+        <td class="num"><input id="f_proposta_itens_${i}_valor" data-k="proposta.itens.${i}.valor" inputmode="decimal" aria-label="Valor do serviço ${i + 1}"></td>${rmB('rmServ', i)}</tr>`).join('')}
+      </tbody><tfoot><tr class="tot"><td>Total</td><td class="num" id="propTotal">${totalPropostaTxt()}</td><td></td></tr></tfoot></table></div>
+      <div class="linha-acoes"><button class="btn" type="button" data-acao="addServ">+ Adicionar serviço</button>${D ? `<button class="btn" type="button" data-acao="trazerDiag">Trazer serviços do diagnóstico</button>` : ''}<span class="ajuda" id="propStatus"></span></div></div>
+    <div class="caixa nao-imprime"><h2>Prazo, condições e consultor</h2><div class="grade">
+      ${inp('proposta.prazo','Prazo de execução','prop_prazo','nome')}${inp('proposta.condicoes','Condições de pagamento','prop_cond','nome')}
+      ${inp('proposta.validade','Validade da proposta','prop_valid','nome')}
       ${inp('proposta.consultor','Consultor','prop_consultor','nome')}${inp('proposta.contato','Contato do consultor','prop_contato','nome')}</div>
       ${area('proposta.obs','Observações','prop_obs',2)}
       <div class="linha-acoes"><button class="btn pri" type="button" data-acao="imprimir" data-doc="proposta">Imprimir ou salvar em PDF</button><span class="ajuda">Na janela de impressão, escolha "Salvar como PDF".</span></div></div>
     <div class="doc-area" id="areaProposta">${propostaDoc()}</div>`;
 }
+const totalPropostaTxt = () => { const C = U.proposta.calc; return C ? brl(C.total) : '—'; };
+let tProp = null, seqProp = 0;
+function agendarProposta(){ clearTimeout(tProp); const st = document.getElementById('propStatus'); if (st) st.textContent = 'Somando…'; tProp = setTimeout(somarProposta, 400); }
+async function somarProposta(){
+  if (!sbc) return;
+  const meu = ++seqProp;
+  const itens = U.proposta.itens.map(x => ({ servico: (x.servico || '').trim(), valor: num(x.valor) }));
+  window.__propEnviada = itens;
+  const { data, error } = await sbc.rpc('fn_food_proposta', { p: { segmento: SEGMENTO, itens } });
+  if (meu !== seqProp) return;
+  const st = document.getElementById('propStatus');
+  if (error){ U.proposta.calc = null; if (st) st.textContent = erroAmigavel(error.message); }
+  else { U.proposta.calc = data; if (st) st.textContent = data.sem_valor.length ? 'Sem valor: ' + data.sem_valor.join(', ') + '.' : ''; }
+  const t = document.getElementById('propTotal'); if (t) t.textContent = totalPropostaTxt();
+  agendarSalvar(); atualizarDoc();
+}
 function propostaDoc(){
-  const D = U.diag.res, P = U.proposta, d = dadosEmp(), servs = servicosProposta();
-  const cond = [['Prazo de execução', P.prazo], ['Investimento', P.investimento], ['Condições de pagamento', P.condicoes], ['Validade da proposta', P.validade]].filter(x => String(x[1] || '').trim());
+  const D = U.diag.res, P = U.proposta, d = dadosEmp(), C = P.calc;
+  const itens = P.itens.filter(x => String(x.servico || '').trim() || num(x.valor) != null);
+  const cond = [['Prazo de execução', P.prazo], ['Condições de pagamento', P.condicoes], ['Validade da proposta', P.validade]].filter(x => String(x[1] || '').trim());
   return `<article class="doc" id="docProposta">
     <header class="doc-cab"><div><span class="doc-tipo">Proposta de trabalho</span><h2>${esc(nomeEmp())}</h2><p>${[d.cidade, d.responsavel ? 'A/C ' + d.responsavel : ''].filter(Boolean).map(esc).join(' · ')}</p></div><div class="doc-data">${hojeBR()}</div></header>
-    <section><h3>O que encontramos</h3>
+    ${D ? `<section><h3>O que encontramos</h3>
       ${D.nota != null ? `<p>No diagnóstico rápido, o restaurante ficou com <b>${D.nota} de 100</b> (${esc(D.faixa.rotulo)}). ${esc(D.faixa.leitura)}</p>` : ''}
       ${D.pontos_atencao.length ? `<ul>${D.pontos_atencao.slice(0, 5).map(a => `<li>${esc(a.atencao)}</li>`).join('')}</ul>` : ''}
-      ${D.alertas_numeros.length ? `<p>Nos números do restaurante:</p><ul>${D.alertas_numeros.map(a => `<li>${esc(a.texto)}</li>`).join('')}</ul>` : ''}</section>
-    <section><h3>O que vamos fazer</h3>${servs.length ? `<ol>${servs.map(s => `<li>${esc(s)}</li>`).join('')}</ol>` : '<p class="ajuda">Nenhum serviço marcado.</p>'}</section>
-    <section><h3>Prazo e investimento</h3>${cond.length ? `<dl class="doc-dl">${cond.map(([a,b]) => `<dt>${a}</dt><dd>${esc(b)}</dd>`).join('')}</dl>` : ''}${String(P.investimento || '').trim() ? '' : '<p class="ajuda nao-imprime">Preencha o investimento acima.</p>'}</section>
+      ${D.alertas_numeros.length ? `<p>Nos números do restaurante:</p><ul>${D.alertas_numeros.map(a => `<li>${esc(a.texto)}</li>`).join('')}</ul>` : ''}</section>` : ''}
+    <section><h3>O que vamos fazer e o investimento</h3>${itens.length ? `<div class="tabela"><table class="servs-doc"><thead><tr><th>Serviço</th><th class="num">Investimento</th></tr></thead><tbody>
+      ${itens.map(x => `<tr><td>${esc(x.servico)}</td><td class="num">${num(x.valor) != null ? brl(num(x.valor)) : 'a combinar'}</td></tr>`).join('')}
+      </tbody><tfoot><tr class="tot"><td>Total</td><td class="num">${C ? brl(C.total) : '—'}</td></tr></tfoot></table></div>
+      ${C && C.sem_valor.length ? `<p class="ajuda">Serviços "a combinar" não entram no total.</p>` : ''}` : '<p class="ajuda">Nenhum serviço.</p>'}</section>
+    ${cond.length ? `<section><h3>Prazo e condições</h3><dl class="doc-dl">${cond.map(([a,b]) => `<dt>${a}</dt><dd>${esc(b)}</dd>`).join('')}</dl></section>` : ''}
     ${String(P.obs || '').trim() ? `<section><h3>Observações</h3>${linhasTexto(P.obs).map(l => `<p>${esc(l)}</p>`).join('')}</section>` : ''}
     <footer class="doc-assina">${P.consultor ? `<b>${esc(P.consultor)}</b>` : '<span class="ajuda nao-imprime">Preencha o nome do consultor acima.</span>'}${P.contato ? `<span>${esc(P.contato)}</span>` : ''}</footer></article>`;
 }
@@ -1199,38 +1241,39 @@ function relatorioDoc(){
 }
 
 // ---------- Academia ----------
-const GUIAS = {
-  carteira:['Cadastre o restaurante com nome, cidade e responsável. O que aparece aqui vai para a proposta e o relatório.','A linha "em uso" é o restaurante aberto: todas as telas trabalham nele. "Abrir" troca de restaurante.','Antes de excluir, lembre que vão junto todas as simulações e versões. Não dá para desfazer.'],
-  historico:['Dê um nome claro e clique em Guardar versão: "Outubro, antes do reajuste", "Proposta enviada".','Cada linha mostra a receita e o lucro do cálculo guardado naquela versão; o rascunho é o que está aberto agora.','"Abrir no rascunho" troca o rascunho pela versão. Guarde o rascunho atual antes, se quiser mantê-lo.'],
-  diagnostico:['Faça as perguntas ao dono como conversa, sem formulário na mão. Marque a resposta que ele dá, não a que deveria dar. "Não se aplica" só aparece onde faz sentido (buffet, entrega, aplicativo).','A nota vai de 0 a 100 e cai em três faixas. "Por onde começar" ordena os pontos pelo peso da pergunta e pela distância da resposta para a melhor prática. Os alertas dos números aparecem quando o restaurante já está montado.','A pontuação é um critério de práticas de gestão da Lissun, não uma média de mercado. Use para conversar, não para dar nota ao dono na frente dele.'],
-  proposta:['Desmarque o que não vai fazer, escreva outros serviços, preencha prazo, investimento, condições e o seu nome.','O documento abaixo é o que o dono recebe: o que foi encontrado, o que será feito, prazo e investimento.','Confira o valor e o prazo antes de imprimir. A ferramenta não sugere preço de consultoria: o valor é seu.'],
-  operacao:['Preencha os dias de funcionamento, a participação de cada canal nas vendas, a comissão e as taxas de cada um, e os meios de pagamento com as taxas da maquininha.','Esses números viram o desconto de cada canal sobre o preço (imposto + comissão + taxas) e o custo de embalagem e entrega por item.','A soma das participações dos canais e dos meios de pagamento deve dar 100%. Comissão e taxas saem do contrato e do extrato do aplicativo e da maquininha.'],
-  cardapio:['Cada linha é uma forma de vender: buffet a quilo, buffet livre, à la carte, marmita, executivo, bebidas e sobremesas. Informe a quantidade por mês, o custo (digitado, ficha técnica ou buffet) e o preço de hoje.','"A calcular" recebe o preço ideal; "Preço fixo" entra com o preço que você informar e ajuda a pagar os custos. O peso, em Ajustar, aumenta ou diminui a parte dos custos fixos e do lucro de um item; em Ajustar também se decide se a embalagem do item é cobrada no salão.','Quantidade por mês vem do PDV ou do caderno de vendas. Se o item vende em mais de um canal, confira o mix em Ajustar.'],
-  fichas:['Monte primeiro as preparações do buffet (arroz, feijão, carnes) e os pratos (marmitas, executivo). Em cada ingrediente: quantidade líquida, preço por unidade e fator de correção.','O servidor devolve o custo total, o rendimento e o custo por kg pronto ou por porção. A composição do buffet dá o custo do quilo servido.','Fator de correção = peso bruto ÷ peso limpo (carne com osso, folhas). Índice de cocção = peso pronto ÷ peso cru. Pese uma vez e anote.'],
-  pessoal:['Liste os cargos com quantidade, salário e benefícios; informe encargos, pró-labore e extras. Depois os custos fixos por grupo, com "Adicionar custo" para o que faltar.','A folha com encargos e os custos fixos são o que os itens precisam pagar todo mês antes do lucro.','Salários e encargos vêm da folha da contabilidade; custos fixos, dos boletos dos últimos três meses (use a média). O pró-labore do dono entra mesmo que ele retire "conforme sobra".'],
-  imposto:['Escolha o regime (Simples com o faturamento dos últimos 12 meses, ou alíquota informada), as despesas variáveis, a meta de lucro ou margem, a política de preço e o arredondamento.','A meta é o que o preço precisa garantir no fim do mês. Preço por canal faz cada canal pagar a própria comissão; preço único usa o mesmo preço em todos.','O faturamento de 12 meses está no PGDAS ou com o contador. Se houver bebida com ICMS-ST ou monofásica, a alíquota real do Simples é menor: o cálculo avisa.'],
-  preco:['Clique em Calcular agora. O servidor usa tudo o que foi montado.','A sintetizada mostra o preço de cada item em cada canal e o lucro do mês; a completa abre custo com perda, margem por unidade e margem %.','Confira se o lucro bate com a meta (o arredondamento muda alguns centavos) e leia os avisos do cálculo.'],
-  atual:['Preencha o preço de hoje dos itens "A calcular", no cardápio, e calcule.','Mostra o lucro com o preço de hoje, o lucro com o preço ideal e quais itens estão abaixo do ideal.','A comparação supõe o mesmo volume de vendas: um reajuste grande pode reduzir as vendas. Isso entra na conversa com o dono.'],
-  resultado:['Não tem nada a preencher: usa o último cálculo.','A DRE do mês com o preço ideal, para onde vai cada R$ 100 vendidos, ponto de equilíbrio e margem de segurança.','Ponto de equilíbrio é a venda mínima do mês para não ter prejuízo. Margem de segurança é quanto a venda pode cair antes disso.'],
-  canais:['Usa o último cálculo e o que foi preenchido em Operação e canais.','Quanto cada canal traz de receita e de margem e quanto sobra de cada item em cada canal.','Margem negativa num canal quer dizer prejuízo antes de pagar a folha e os custos fixos. Item barato no delivery próprio costuma cair aqui, porque carrega a mesma parte da entrega que um prato.'],
-  marmitas:['Aparece quando há itens com a forma de vender "Marmita".','Volume, receita, comida e sobra por marmita em cada canal.','Com preço por canal, a sobra por marmita tende a ficar igual nos canais: o preço de cada um já paga a comissão e a entrega.'],
-  simulador:['Escolha de onde partir (preço de hoje ou ideal) e mexa nos controles: preço, vendas, comida, folha, custos fixos e comissão dos aplicativos.','O lucro do cenário, a diferença para a partida, o ponto de equilíbrio e a DRE lado a lado. Com reajuste de preço, mostra quanto as vendas podem cair antes de o lucro piorar.','O volume é decisão sua: teste o reajuste junto com uma queda de vendas realista. A alíquota do Simples fica a mesma; se a receita mudar de faixa, refaça o cálculo.'],
-  riscos:['Abra a tela depois de calcular o Preço ideal; ela mede sozinha.','Quanto o lucro cai com um choque de 10% em vendas, preço, comida, folha e custos fixos e de 2 pontos na comissão dos aplicativos, e quanto cada um aguenta até o lucro zerar.','O choque de 10% serve para comparar as variáveis, não é previsão. Gravidade alta quer dizer que o choque leva ao prejuízo.'],
-  estrategias:['Abra depois de calcular. Para as estratégias de concorrente, preencha o "Preço do concorrente" no cardápio, em Ajustar.','Cada grupo diz por que apareceu, com os números do restaurante, e traz as estratégias. As formas de vender trazem as alavancas de cada uma.','Marque o que faz sentido para este dono: as marcadas vão para o relatório, no Plano de ação.'],
-  relatorio:['Calcule em Preço ideal, faça o diagnóstico se quiser incluí-lo e escreva as suas recomendações.','O documento junta resumo, preço ideal, preço de hoje, resultado, canais, marmitas, diagnóstico e premissas.','Clique em Imprimir ou salvar em PDF e escolha "Salvar como PDF". Se mudou algum número depois do último cálculo, calcule de novo antes.']
-};
+// ---------- Academia (o conteúdo da formação vem do servidor: só quem tem assinatura lê) ----------
+let ACADEMIA = null, ACA_FOCO = null, carregandoAca = false, ACA_FILTRO = '';
+async function carregarAcademia(){
+  if (carregandoAca || ACADEMIA || !sbc) return; carregandoAca = true;
+  const { data, error } = await sbc.rpc('fn_food_academia', { p_segmento: SEGMENTO });
+  carregandoAca = false;
+  if (error) ERRO_F3 = erroAmigavel(error.message); else { ACADEMIA = data || []; ERRO_F3 = null; }
+  if (TELA_ID === 'academia') mostrar(false);
+}
+// texto simples da Academia: "## " vira subtítulo, "- " vira lista, **x** vira negrito (formatação, sem conta)
+function textoAcademia(t){
+  const neg = (x) => esc(x).replace(/\*\*(.+?)\*\*/g, '<b>$1</b>');
+  return String(t || '').split(/\n\s*\n/).map(bl => {
+    const ls = bl.split('\n').map(x => x.trimEnd()).filter(Boolean);
+    let h = '', lista = [];
+    const fecha = () => { if (lista.length){ h += `<ul>${lista.map(li => `<li>${neg(li)}</li>`).join('')}</ul>`; lista = []; } };
+    ls.forEach(x => { if (x.startsWith('## ')){ fecha(); h += `<h4>${neg(x.slice(3))}</h4>`; } else if (x.startsWith('- ')) lista.push(x.slice(2)); else { fecha(); h += `<p>${neg(x)}</p>`; } });
+    fecha(); return h; }).join('');
+}
 function academiaTela(){
-  const ids = ['carteira','historico','diagnostico','proposta','operacao','cardapio','fichas','pessoal','imposto','preco','atual','resultado','canais','marmitas','simulador','riscos','estrategias','relatorio'];
-  return `${topoTela('academia','Passo a passo de cada tela: como preencher, como ler e o que conferir. Os vídeos vêm depois. Cada campo também tem o seu "?" com o que é e onde pegar o número.')}
-    <div class="caixa"><h2>A ordem de um atendimento</h2><ol class="passos-aca">
-      <li><b>Cadastre o restaurante</b> em Carteira de restaurantes.</li>
-      <li><b>Converse com o dono</b> pelo Diagnóstico rápido e monte a Proposta comercial.</li>
-      <li><b>Colete os números</b>: Operação e canais, Cardápio, Fichas técnicas, Pessoal e custos fixos, Imposto e meta.</li>
-      <li><b>Calcule e leia as análises</b>: Preço ideal, Preço atual × ideal, Resultado, Canais e Marmitas.</li>
-      <li><b>Teste e planeje</b>: Simulador "e se", Riscos do restaurante e Plano de estratégias.</li>
-      <li><b>Guarde uma versão</b> no Histórico e <b>entregue o Relatório final</b>.</li></ol></div>
-    <div class="pilha">${ids.map(id => { const g = GUIAS[id]; return `<details class="dobra" id="aca_${id}"><summary>${TITULO[id]}</summary>
-      <p><b>Como preencher.</b> ${esc(g[0])}</p><p><b>Como ler.</b> ${esc(g[1])}</p><p><b>O que conferir.</b> ${esc(g[2])}</p><p><a href="#${id}">Abrir ${esc(nomeLimpo(id))} →</a></p></details>`; }).join('')}</div>`;
+  const topo = topoTela('academia','A formação do consultor Lissun Food: o método, o que pedir ao dono, como medir na cozinha e, tela a tela, como preencher, de onde tirar cada informação, como ler e como apresentar ao dono.');
+  if (!ACADEMIA){ carregarAcademia(); return topo + (ERRO_F3 ? msgF3() : '<div class="vazio"><p>Carregando a Academia…</p></div>'); }
+  const f = ACA_FILTRO.trim().toLowerCase();
+  const itens = ACADEMIA.filter(a => !f || (a.titulo + ' ' + a.resumo + ' ' + a.corpo).toLowerCase().includes(f));
+  const mods = []; itens.forEach(a => { let m = mods.find(x => x.id === a.modulo); if (!m) mods.push(m = { id: a.modulo, nome: a.modulo_nome, itens: [] }); m.itens.push(a); });
+  const foco = ACA_FOCO; ACA_FOCO = null;
+  if (foco) setTimeout(() => { const d = document.getElementById('aca_' + foco); if (d){ d.open = true; d.scrollIntoView({ block: 'start' }); } }, 50);
+  return topo + `<div class="caixa nao-imprime"><div class="campo"><label for="acaBusca">Procurar na Academia</label><input id="acaBusca" type="search" value="${esc(ACA_FILTRO)}"></div>
+      <p class="ajuda">${ACADEMIA.length} lições. Cada tela da ferramenta tem o atalho "Aprenda esta tela na Academia", que abre direto a lição dela.</p></div>
+    ${mods.length ? mods.map(m => `<div class="caixa"><h2>${esc(m.nome)}</h2><div class="pilha">${m.itens.map(a => `<details class="dobra aca-l" id="aca_${esc(a.tela || a.id)}"${a.tela && a.tela === foco ? ' open' : ''}>
+        <summary>${esc(a.titulo)}<span class="aca-res">${esc(a.resumo)}</span></summary>
+        <div class="aca-corpo">${textoAcademia(a.corpo)}${a.tela ? `<p><a href="#${a.tela}">Abrir a tela ${esc(TITULO[a.tela] ? nomeLimpo(a.tela) : a.titulo)} →</a></p>` : ''}</div></details>`).join('')}</div></div>`).join('')
+      : '<div class="vazio"><p>Nada encontrado com esse texto.</p></div>'}`;
 }
 
 // ---------- servidor: restaurantes, versões, diagnóstico, retorno ----------
@@ -1319,6 +1362,10 @@ async function acaoF3(ac, b){
     await carregarSims(); mostrar(false); return true;
   }
   if (ac === 'diagnosticar'){ await diagnosticar(b); return true; }
+  if (ac === 'addServ'){ U.proposta.itens.push({ servico:'', valor:'' }); agendarSalvar(); mostrar(false); return true; }
+  if (ac === 'rmServ'){ U.proposta.itens.splice(Number(b.dataset.i), 1); if (!U.proposta.itens.length) U.proposta.itens.push({ servico:'', valor:'' }); agendarSalvar(); mostrar(false); agendarProposta(); return true; }
+  if (ac === 'trazerDiag'){ const tem = new Set(U.proposta.itens.map(x => (x.servico || '').trim())); U.proposta.itens = U.proposta.itens.filter(x => (x.servico || '').trim() || num(x.valor) != null);
+    servicosDoDiag().forEach(sv => { if (!tem.has(sv)) U.proposta.itens.push({ servico: sv, valor: '' }); }); if (!U.proposta.itens.length) U.proposta.itens.push({ servico:'', valor:'' }); agendarSalvar(); mostrar(false); return true; }
   if (ac === 'zerarCen'){ U.cenario.aj = {}; mostrar(false); agendarCenario(); return true; }
   if (ac === 'medirRiscos'){ U.riscos.res = null; U.riscos.erro = null; mostrar(false); return true; }
   if (ac === 'medirEstrategias'){ U.estrategias.res = null; U.estrategias.erro = null; mostrar(false); return true; }
@@ -1503,7 +1550,7 @@ const TELAS = {
       <div class="passos">
         <div class="passo"><span class="n">1 · Entrada</span><b>Restaurante cadastrado</b><span>Nome, segmento e mês de referência. Tudo o que vier depois fica guardado nele.</span><div class="lk"><a href="#carteira">Carteira de restaurantes →</a></div></div>
         <div class="passo"><span class="n">2 · Diagnóstico</span><b>Onde o restaurante perde dinheiro</b><span>Perguntas curtas para a primeira conversa com o dono.</span><div class="lk"><a href="#diagnostico">Diagnóstico rápido →</a></div></div>
-        <div class="passo"><span class="n">3 · Proposta</span><b>O que o dono vai contratar</b><span>O diagnóstico vira proposta de trabalho, com escopo e investimento.</span><div class="lk"><a href="#proposta">Proposta comercial →</a></div></div>
+        <div class="passo"><span class="n">3 · Proposta</span><b>O que o dono vai contratar</b><span>O diagnóstico vira proposta de trabalho, com o valor de cada serviço e o total.</span><div class="lk"><a href="#proposta">Proposta comercial →</a></div></div>
         <div class="passo"><span class="n">4 · Montagem</span><b>Os números do restaurante</b><span>Canais, cardápio com cada forma de vender, fichas técnicas, pessoal, custos e imposto.</span><div class="lk">${['operacao','cardapio','fichas','pessoal','imposto'].map(i=>`<a href="#${i}">${TITULO[i]} →</a>`).join('')}</div></div>
         <div class="passo"><span class="n">5 · Análises e entrega</span><b>Preço, resultado e relatório</b><span>O preço ideal por canal, o mês em DRE, os canais, as marmitas e o PDF para o dono.</span><div class="lk">${['preco','atual','resultado','canais','marmitas','simulador','riscos','estrategias','relatorio'].map(i=>`<a href="#${i}">${TITULO[i]} →</a>`).join('')}</div></div>
       </div>
@@ -1704,6 +1751,7 @@ tela.addEventListener('input', e => {
     if (ek === 'nome') CTX.empresa.nome = e.target.value; else CTX.empresa.dados = Object.assign({}, CTX.empresa.dados, { [ek]: e.target.value });
     mostrarChip(); agendarSalvarEmpresa(); return;
   }
+  if (e.target.id === 'acaBusca'){ ACA_FILTRO = e.target.value; const pos = e.target.selectionStart; mostrar(false); const n = document.getElementById('acaBusca'); if (n){ n.focus(); try { n.setSelectionRange(pos, pos); } catch(_) {} } return; }
   const sl = e.target.dataset && e.target.dataset.sl;
   if (sl){
     const v = Number(e.target.value); U.cenario.aj[sl] = v;
@@ -1713,6 +1761,7 @@ tela.addEventListener('input', e => {
   }
   const k = e.target.dataset && e.target.dataset.k; if (!k) return;
   setP(U, k, e.target.value); agendarSalvar();
+  if (/^proposta\.itens\./.test(k)) agendarProposta();
   if (/^(proposta|relatorio)\./.test(k)) atualizarDoc();
 });
 function atualizarDoc(){
@@ -1749,6 +1798,7 @@ document.addEventListener('click', e => {
   if (!e.target.closest('.aj-pop') || e.target.closest('.aj-x')) fecharAjuda();
 }, true);
 document.addEventListener('keydown', e => { if (e.key === 'Escape') fecharAjuda(); });
+document.addEventListener('click', e => { const a = e.target.closest('a[data-aca]'); if (a) ACA_FOCO = a.dataset.aca; }, true);
 window.addEventListener('hashchange', fecharAjuda);
 tela.addEventListener('toggle', e => { const d = e.target; if (d.matches && d.matches('details.ficha-d')){ const f = U.fichas[Number(d.dataset.fi)]; if (f) f.aberto = d.open; } }, true);
 
