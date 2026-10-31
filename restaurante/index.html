@@ -1,0 +1,1918 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex"><meta name="description" content="Lissun Food — preço e resultado para restaurantes.">
+</head><body>
+<title>Lissun Food Restaurante</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&display=swap">
+<style>
+/* Layout: o menu Limpo do Mapa da Reforma (barra escura de altura inteira, rótulos de seção, linhas com ícone,
+   ativo com contorno dourado) + barra de topo + área de trabalho; Início no cartão com a jornada em passos.
+   Paleta do Mapa: claro = caixas #f3f4f6 e ocre #8a5a00; escuro = Onyx (carvão-azulado + ouro). */
+:root{
+  --bg:#f7f8f9; --panel:#ffffff; --box:#f3f4f6; --box-2:#e9ecef; --line:#dfe3e8; --line-2:#ced4da;
+  --fg:#1f2937; --muted:#5b6573; --faint:#8a94a3;
+  --accent:#8a5a00; --accent-2:#c69214; --accent-hi:#9c6a00; --accent-soft:#fbe9b5; --accent-wash:#fbf3dc; --accent-line:#d8b863; --accent-ink:#3d2c00; --icon:#a8820f;
+  --btn-fg:#ffffff;
+  --sb-bg:#1e293b; --sb-line:rgba(255,255,255,.06); --sb-fg:rgba(255,255,255,.82); --sb-strong:#ffffff; --sb-muted:rgba(255,255,255,.45); --sb-rot:rgba(255,255,255,.38); --sb-hover:rgba(255,255,255,.05); --sb-gold:#ffcc33; --sb-gold-line:rgba(255,204,51,.75); --sb-gold-wash:rgba(255,204,51,.06); --sb-logo:#0c1628;
+  --top-bg:#ffffff;
+  --ok:#1e7e34; --bad:#c62828; --warn:#8a5a00; --warn-soft:#fbf3dc;
+  --shadow:0 1px 2px rgba(16,24,40,.05);
+  --f-title:"Source Serif 4", Georgia, "Times New Roman", serif;
+  --f-body:"IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-mono:"IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  --sb-w:270px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0e1520; --panel:#162030; --box:#172030; --box-2:#1e2c3e; --line:rgba(184,148,31,.25); --line-2:rgba(255,255,255,.15);
+  --fg:#f0e8d0; --muted:rgba(240,232,208,.68); --faint:rgba(240,232,208,.45);
+  --accent:#d4a82a; --accent-2:#c69214; --accent-hi:#b8941f; --accent-soft:rgba(201,162,39,.18); --accent-wash:rgba(201,162,39,.08); --accent-line:rgba(201,162,39,.45); --accent-ink:#f4cc4a; --icon:#e0b93a;
+  --btn-fg:#1a1300;
+  --sb-bg:#04080f; --sb-line:rgba(255,255,255,.06); --sb-fg:rgba(240,232,208,.84); --sb-strong:#f0e8d0; --sb-muted:rgba(240,232,208,.45); --sb-rot:rgba(240,232,208,.36); --sb-hover:rgba(255,255,255,.04); --sb-gold:#ffcc33; --sb-gold-line:rgba(255,204,51,.7); --sb-gold-wash:rgba(255,204,51,.06); --sb-logo:#0c1628;
+  --top-bg:#0b111a;
+  --ok:#16c47c; --bad:#f84444; --warn:#f4cc4a; --warn-soft:rgba(201,162,39,.12);
+  --shadow:0 4px 20px rgba(0,0,0,.35); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0e1520; --panel:#162030; --box:#172030; --box-2:#1e2c3e; --line:rgba(184,148,31,.25); --line-2:rgba(255,255,255,.15);
+  --fg:#f0e8d0; --muted:rgba(240,232,208,.68); --faint:rgba(240,232,208,.45);
+  --accent:#d4a82a; --accent-2:#c69214; --accent-hi:#b8941f; --accent-soft:rgba(201,162,39,.18); --accent-wash:rgba(201,162,39,.08); --accent-line:rgba(201,162,39,.45); --accent-ink:#f4cc4a; --icon:#e0b93a;
+  --btn-fg:#1a1300;
+  --sb-bg:#04080f; --sb-line:rgba(255,255,255,.06); --sb-fg:rgba(240,232,208,.84); --sb-strong:#f0e8d0; --sb-muted:rgba(240,232,208,.45); --sb-rot:rgba(240,232,208,.36); --sb-hover:rgba(255,255,255,.04); --sb-gold:#ffcc33; --sb-gold-line:rgba(255,204,51,.7); --sb-gold-wash:rgba(255,204,51,.06); --sb-logo:#0c1628;
+  --top-bg:#0b111a;
+  --ok:#16c47c; --bad:#f84444; --warn:#f4cc4a; --warn-soft:rgba(201,162,39,.12);
+  --shadow:0 4px 20px rgba(0,0,0,.35); color-scheme:dark}
+
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:15px;line-height:1.55}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top, 0px);z-index:30;background:var(--top-bg)}
+h1,h2,h3{font-family:var(--f-title);font-weight:600;text-wrap:balance;margin:0;line-height:1.2}
+h2{font-size:1.2rem;color:var(--accent)} h3{font-size:1.02rem;font-family:var(--f-body);font-weight:600}
+p{margin:0;max-width:68ch}
+button,input,select{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent-2);outline-offset:2px}
+svg.ic{width:18px;height:18px;flex:none;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+
+/* ===== casca ===== */
+.casca{display:grid;grid-template-columns:var(--sb-w) minmax(0,1fr);min-height:100%}
+body.rec .casca{--sb-w:68px}
+
+/* ===== menu Limpo (do Mapa) ===== */
+.sidebar{position:sticky;top:0;height:100vh;overflow-y:auto;background:var(--sb-bg);color:var(--sb-fg);padding-bottom:30px;padding-left:env(safe-area-inset-left, 0px);scrollbar-width:thin}
+.sb-topo{display:flex;align-items:center;gap:10px;padding:calc(16px + env(safe-area-inset-top, 0px)) 16px 14px;margin-bottom:6px;border-bottom:1px solid var(--sb-line);position:sticky;top:0;background:var(--sb-bg);z-index:2}
+.sb-logo{width:36px;height:36px;border-radius:9px;background:var(--sb-logo);border:1px solid rgba(255,204,51,.45);display:grid;place-items:center;color:var(--sb-gold);font-family:var(--f-title);font-weight:600;font-size:15px;flex:none;letter-spacing:.02em}
+.sb-nome{line-height:1.2;min-width:0}
+.sb-nome b{display:block;color:var(--sb-strong);font-size:14px;font-weight:600;line-height:1.25}
+.sb-nome small{color:var(--sb-muted);font-size:11.5px}
+.sb-rec{margin-left:auto;width:26px;height:26px;border-radius:50%;border:1px solid rgba(255,204,51,.55);background:transparent;color:var(--sb-gold);font-size:13px;line-height:1;flex:none;display:grid;place-items:center;padding:0;cursor:pointer}
+.sb-rec:hover{background:rgba(255,204,51,.12)}
+.sb-rot{font-size:10.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--sb-rot);padding:16px 22px 6px;white-space:nowrap}
+.linha{display:flex;align-items:center;gap:12px;width:calc(100% - 20px);margin:1px 10px;padding:9px 12px;border:1px solid transparent;border-radius:10px;background:none;color:var(--sb-fg);font-size:14px;font-weight:500;text-align:left;white-space:nowrap;cursor:pointer;text-decoration:none}
+.linha:hover{background:var(--sb-hover);color:var(--sb-strong)}
+.linha .rot{flex:1;overflow:hidden;text-overflow:ellipsis}
+.linha .chev{width:14px;height:14px;opacity:.6;transition:transform .5s ease}
+.cat.aberta > .linha .chev{transform:rotate(180deg)}
+.cat.aberta > .linha,.linha.ativa,.cat.tem-ativa > .linha{border-color:var(--sb-gold-line);color:var(--sb-gold)}
+.linha.ativa{background:var(--sb-gold-wash)}
+.filhos{display:grid;grid-template-rows:0fr;opacity:0;transition:grid-template-rows .5s ease,opacity .5s ease}
+.cat.aberta .filhos{grid-template-rows:1fr;opacity:1}
+.filhos-in{overflow:hidden;min-height:0}
+.cat.aberta .filhos-in{padding:2px 0 6px}
+.filho{display:flex;align-items:center;gap:8px;width:calc(100% - 20px);margin:1px 10px;padding:7px 12px 7px 40px;border:1px solid transparent;border-radius:10px;color:var(--sb-fg);opacity:.9;font-size:13.5px;text-decoration:none}
+.filho::before{content:'›';color:var(--sb-muted);margin-left:-14px;width:8px}
+.filho:hover{color:var(--sb-strong);background:var(--sb-hover)}
+.filho.ativa{border-color:var(--sb-gold-line);color:var(--sb-gold);background:var(--sb-gold-wash);opacity:1}
+body.rec .sb-nome,body.rec .sb-rot,body.rec .linha .rot,body.rec .linha .chev,body.rec .filhos{display:none!important}
+body.rec .linha{justify-content:center;padding:10px 0}
+body.rec .sb-topo{flex-direction:column;padding-inline:0}
+body.rec .sb-rec{margin:0}
+
+/* ===== topo ===== */
+.lado{min-width:0;display:flex;flex-direction:column}
+.topo{position:sticky;top:env(safe-area-inset-top, 0px);z-index:20;background:var(--top-bg);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding-block:10px;padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px))}
+.ham{width:38px;height:38px;border-radius:8px;border:0;background:linear-gradient(135deg,#d4a82a,#c69214);color:#1e293b;display:grid;place-items:center;cursor:pointer;flex:none}
+.lua{width:38px;height:38px;border-radius:8px;border:1px solid transparent;background:transparent;color:var(--accent);display:grid;place-items:center;cursor:pointer;flex:none}
+.lua:hover{background:var(--accent-wash)}
+.chip{height:36px;display:inline-flex;align-items:center;padding:0 14px;border-radius:8px;border:1px solid var(--accent-line);background:var(--accent-wash);color:var(--accent-ink);font-size:.82rem;font-weight:600}
+.seg-sel{height:36px;border-radius:8px;border:1px solid var(--accent-line);background:var(--panel);color:var(--accent);font-weight:600;font-size:.82rem;padding:0 10px}
+.topo .dir{margin-left:auto;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.selo{font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;background:var(--warn-soft);color:var(--warn);border:1px solid var(--accent-line);padding:4px 10px;border-radius:999px;font-weight:600}
+
+/* ===== conteúdo ===== */
+main{min-width:0;padding-block:18px 48px;padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px))}
+.miolo{max-width:1180px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
+.aca{align-self:flex-start;display:inline-flex;gap:6px;align-items:center;font-size:.8rem;font-weight:600;color:var(--accent);text-decoration:none;border:1px solid var(--accent-line);background:var(--panel);border-radius:999px;padding:4px 12px}
+.aca:hover{background:var(--accent-wash)}
+.cab{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.cab h1{font-family:var(--f-body);font-size:15px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--fg)}
+.trilha{font-size:13px;color:var(--muted)} .trilha b{font-weight:500;color:var(--fg)}
+.cartao{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px 24px;display:flex;flex-direction:column;gap:14px}
+.cartao > h2{font-size:1.5rem;color:var(--fg)}
+.frase{font-size:1.02rem;color:var(--fg);line-height:1.5;max-width:760px}
+.rot-sec{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:12px;padding-bottom:6px;border-bottom:1px solid var(--line)}
+.caixa{background:var(--box);border:1px solid var(--line);border-radius:10px;padding:18px 21px;display:flex;flex-direction:column;gap:14px}
+.pilha{display:flex;flex-direction:column;gap:16px}
+.grade{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.campo{display:flex;flex-direction:column;gap:4px}
+.campo label{font-size:.82rem;color:var(--fg);font-weight:600}
+.campo input,.campo select{background:var(--panel);border:1px solid var(--line-2);border-radius:6px;padding:8px 10px;min-width:0}
+.campo input:focus,.campo select:focus{border-color:var(--accent-2);box-shadow:0 0 0 3px var(--accent-soft);outline:none}
+.ajuda{font-size:.8rem;color:var(--muted)}
+.tabela{overflow-x:auto;background:var(--panel);border-radius:8px;border:1px solid var(--line)}
+table{border-collapse:collapse;width:100%;font-size:.86rem;font-variant-numeric:tabular-nums}
+th{font-weight:700;text-align:left;background:var(--box-2);padding:9px 10px;white-space:nowrap;border-bottom:2px solid var(--accent-line)}
+td{padding:6px 10px;border-top:1px solid var(--line);white-space:nowrap}
+td input,td select{width:100%;min-width:90px;background:transparent;border:1px solid transparent;border-radius:4px;padding:4px 6px}
+td input:hover,td input:focus,td select:hover{border-color:var(--line-2);background:var(--panel)}
+td.num,th.num{text-align:right}
+.dre td:first-child{white-space:normal}
+.dre tr.neg td:first-child{color:var(--bad)}
+.dre tr.tot td{font-weight:700;background:var(--accent-wash);color:var(--accent)}
+.btn{border:1px solid var(--accent-line);background:var(--panel);color:var(--accent);border-radius:6px;padding:7px 14px;cursor:pointer;font-size:.88rem;font-weight:600}
+.btn.pri{background:linear-gradient(135deg,var(--accent),var(--accent-hi));color:var(--btn-fg);border-color:transparent;box-shadow:0 2px 6px rgba(176,123,0,.30)}
+.btn[disabled]{opacity:.6;cursor:not-allowed}
+.linha-acoes{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+main a{color:var(--accent);text-underline-offset:2px;font-weight:500}
+
+.abas{display:flex;gap:6px;flex-wrap:wrap;background:var(--box);border:1px solid var(--line);border-radius:10px;padding:8px}
+.abas button{border:1px solid var(--accent-line);background:var(--panel);color:var(--accent);padding:7px 14px;border-radius:6px;cursor:pointer;font-size:.88rem;font-weight:600}
+.abas button[aria-selected="true"]{background:var(--accent-soft);color:var(--accent-ink);border-color:var(--accent)}
+.kpis{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(170px,1fr))}
+.kpi{background:var(--panel);border-radius:8px;padding:14px;display:flex;flex-direction:column;gap:4px;border:1px solid var(--line);border-left:4px solid var(--accent);box-shadow:var(--shadow)}
+.kpi span{font-size:.78rem;color:var(--muted);font-weight:600}
+.kpi b{font-family:var(--f-mono);font-size:1.35rem;font-weight:500;color:var(--faint)}
+.grafico{height:180px;border:1px dashed var(--line-2);border-left:3px solid var(--accent);border-radius:8px;display:grid;place-items:center;color:var(--muted);font-size:.85rem;background:var(--panel)}
+.texto-ph{display:flex;flex-direction:column;gap:6px}
+.texto-ph i{display:block;height:9px;border-radius:4px;background:var(--box-2)}
+details.dobra{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:10px 14px}
+details.dobra summary{cursor:pointer;font-weight:600;font-size:.9rem;color:var(--accent)}
+details.dobra p{margin-top:8px;color:var(--muted);font-size:.88rem}
+.vazio{border:1px dashed var(--accent-line);border-radius:10px;padding:22px;text-align:center;color:var(--muted);background:var(--accent-wash);display:flex;flex-direction:column;gap:10px;align-items:center}
+
+/* Início: passos da jornada e partes da ferramenta (como o Mapa) */
+.passos{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(min(200px,100%),1fr))}
+.passo{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:6px}
+.passo .n{font-weight:700;color:var(--accent);font-size:.74rem;letter-spacing:.1em;text-transform:uppercase}
+.passo b{color:var(--fg);font-size:1rem}
+.passo span{color:var(--muted);font-size:.88rem;line-height:1.5}
+.passo .lk{margin-top:auto;display:flex;flex-direction:column;gap:4px;padding-top:8px}
+.passo .lk a{font-size:.86rem;text-decoration:none;font-weight:500}
+.passo .lk a:hover{text-decoration:underline}
+.partes{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(240px,100%),1fr));gap:12px;align-items:start}
+.pl{border:1px solid var(--line);border-radius:12px;padding:14px 16px;background:var(--panel);min-width:0}
+.pl:hover{border-color:var(--accent-line)}
+.pl-cab{display:flex;align-items:center;gap:10px}
+.pl-cab svg.ic{width:20px;height:20px;color:var(--icon)}
+.pl-cab b{font-size:.98rem;font-weight:600;color:var(--fg);flex:1}
+.pl-n{font-size:.75rem;color:var(--muted)}
+.pl-q{width:22px;height:22px;border-radius:50%;border:1px solid var(--accent-line);background:transparent;color:var(--icon);font-weight:700;font-size:.78rem;padding:0;line-height:20px;flex:none;cursor:pointer}
+.pl-q:hover,.pl.mais .pl-q{background:#ffcc33;color:#1e293b;border-color:#ffcc33}
+.pl-txt{font-size:.9rem;color:var(--muted);margin:8px 0 0;line-height:1.45}
+.pl-mais{margin-top:8px;font-size:.84rem;line-height:1.5;color:var(--fg)}
+.pl-mais p{margin:4px 0 0}
+.pl-mais ul{margin:4px 0 0;padding-left:18px;color:var(--muted)}
+
+.veu{display:none}
+@media (max-width:860px){
+  .casca{grid-template-columns:minmax(0,1fr)}
+  .sidebar{position:fixed;inset:0 auto 0 0;width:min(290px,86vw);z-index:40;transform:translateX(-102%);transition:transform .25s ease}
+  body.menu-aberto .sidebar{transform:none}
+  body.menu-aberto .veu{display:block;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:35}
+  .sb-rec{display:none}
+  body.rec .casca{--sb-w:270px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+
+/* ===== F1: login, estado de salvamento, resultados ===== */
+.entrada{position:fixed;inset:0;z-index:60;background:var(--bg);display:grid;place-items:center;padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px));padding-block:24px}
+.entrada .card{width:min(420px,100%);background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:26px;display:flex;flex-direction:column;gap:14px;box-shadow:var(--shadow)}
+.entrada .marca-e{display:flex;align-items:center;gap:12px}
+.entrada .marca-e .sb-logo{background:#0c1628}
+.entrada h1{font-size:1.35rem}
+.entrada .msg{font-size:.86rem;border-radius:8px;padding:10px 12px}
+.msg.erro{background:color-mix(in srgb, var(--bad) 12%, transparent);color:var(--bad)}
+.msg.ok{background:color-mix(in srgb, var(--ok) 12%, transparent);color:var(--ok)}
+.msg.info{background:var(--accent-wash);color:var(--accent-ink)}
+.usuario{font-size:.8rem;color:var(--muted);max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.salvo{font-size:.78rem;color:var(--muted)}
+.salvo.pend{color:var(--accent)}
+.salvo.erro{color:var(--bad)}
+.calc-barra{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.calc-barra .quando{font-size:.82rem;color:var(--muted)}
+.avisos{display:flex;flex-direction:column;gap:6px;margin:0;padding:0;list-style:none}
+.avisos li{background:var(--warn-soft);color:var(--warn);border-radius:8px;padding:8px 12px;font-size:.86rem}
+.erros li{background:color-mix(in srgb, var(--bad) 12%, transparent);color:var(--bad)}
+.kpi b.v{color:var(--fg)}
+.kpi b.v.neg{color:var(--bad)}
+.kpi small{font-size:.76rem;color:var(--muted)}
+.barras{display:flex;flex-direction:column;gap:12px;background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:8px;padding:16px}
+.barras h3{font-size:.9rem}
+.bar-item{display:grid;grid-template-columns:minmax(110px,180px) minmax(0,1fr);gap:10px;align-items:center;font-size:.84rem}
+.bar-item .nome{color:var(--fg);font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bar-trilhos{display:flex;flex-direction:column;gap:3px}
+.bar-linha{display:flex;align-items:center;gap:8px}
+.bar-linha i{display:block;height:12px;border-radius:3px;min-width:2px}
+.bar-linha span{font-family:var(--f-mono);font-size:.78rem;color:var(--muted);white-space:nowrap}
+.c-salao{background:var(--accent)} .c-ifood{background:var(--bad)} .c-whatsapp{background:var(--ok)}
+.legenda{display:flex;gap:14px;flex-wrap:wrap;font-size:.78rem;color:var(--muted)}
+.legenda span{display:inline-flex;align-items:center;gap:6px}
+.legenda i{width:10px;height:10px;border-radius:2px;display:inline-block}
+.pilha-100{display:flex;height:26px;border-radius:6px;overflow:hidden;border:1px solid var(--line)}
+.pilha-100 i{display:block;height:100%}
+.leg-100{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(210px,100%),1fr));gap:6px 16px;font-size:.84rem}
+.leg-100 div{display:flex;align-items:center;gap:8px}
+.leg-100 b{margin-left:auto;font-family:var(--f-mono);font-weight:500}
+.leg-100 i{width:10px;height:10px;border-radius:2px;flex:none}
+.t1{background:#6b7280}.t2{background:#b45309}.t3{background:#7c3aed}.t4{background:#0e7490}.t5{background:#c69214}.t6{background:#a16207}.t7{background:#475569}.t8{background:#334155}.t9{background:#1e7e34}.t9n{background:#c62828}
+.resumo{display:flex;flex-direction:column;gap:8px;background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:8px;padding:14px 16px;font-size:.92rem}
+.resumo p{max-width:80ch}
+.ind-grade{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(200px,100%),1fr));gap:10px}
+.ind{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:12px}
+.ind span{display:block;font-size:.78rem;color:var(--muted);font-weight:600}
+.ind b{font-family:var(--f-mono);font-weight:500;font-size:1.1rem}
+.ind small{display:block;font-size:.76rem;color:var(--muted);margin-top:2px}
+td .rm{border:0;background:none;color:var(--bad);cursor:pointer;font-size:1rem;padding:2px 6px}
+.lista-prem{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 18px;font-size:.88rem;margin:0}
+.lista-prem dt{color:var(--muted)} .lista-prem dd{margin:0;font-family:var(--f-mono);text-align:right}
+
+/* ===== ajuda "?" de cada campo, fichas, linha de canais ===== */
+.aj{display:inline-grid;place-items:center;width:18px;height:18px;margin-left:4px;border-radius:50%;border:1px solid var(--accent-line);background:var(--panel);color:var(--accent);font-size:.68rem;font-weight:700;line-height:1;cursor:pointer;vertical-align:middle;padding:0}
+.aj:hover,.aj[aria-expanded="true"]{background:#ffcc33;border-color:#ffcc33;color:#1e293b}
+th .aj{margin-left:2px}
+.aj-pop{position:absolute;z-index:70;background:var(--panel);color:var(--fg);border:1px solid var(--accent-line);border-left:4px solid var(--accent-2);border-radius:10px;padding:12px 30px 12px 14px;box-shadow:0 12px 34px rgba(0,0,0,.22);font-size:.86rem;line-height:1.5;display:flex;flex-direction:column;gap:6px}
+.aj-pop b{display:block;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+.aj-x{position:absolute;top:6px;right:8px;border:0;background:none;color:var(--muted);font-size:1.1rem;cursor:pointer}
+.ficha-cab{display:flex;justify-content:space-between;align-items:center}
+.selo-t{font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:var(--accent);background:var(--accent-wash);border:1px solid var(--accent-line);border-radius:999px;padding:3px 10px}
+.ficha-cab .rm{font-size:.82rem;font-weight:600}
+td.cmv{display:flex;gap:4px;align-items:center}
+td.cmv select{min-width:120px}
+td.cmv input{min-width:90px}
+.btn.mini{padding:4px 10px;font-size:.8rem}
+tr.sub td{background:var(--accent-wash)}
+.sub-in{display:flex;gap:14px;flex-wrap:wrap;align-items:center;padding:4px 0}
+.mini-campo{display:inline-flex;gap:6px;align-items:center;font-size:.84rem;color:var(--fg)}
+.mini-campo input{width:80px;background:var(--panel);border:1px solid var(--line-2);border-radius:4px;padding:4px 6px;text-align:right}
+.dre tr.subl td{font-size:.84rem;color:var(--muted)}
+.dre tr.subl td:first-child{padding-left:30px}
+table.cardapio th{white-space:normal;vertical-align:bottom;font-size:.78rem;line-height:1.25;padding:8px 6px}
+table.cardapio td{padding:5px 4px}
+table.cardapio td input{min-width:58px}
+table.cardapio td:first-child input{min-width:140px}
+table.cardapio td select{min-width:104px}
+table.cardapio td.cmv{min-width:0}
+table.cardapio td.cmv select{min-width:96px;max-width:150px}
+table.cardapio td.cmv input{min-width:64px}
+td.num input{text-align:right}
+th{white-space:normal;vertical-align:bottom}
+.mini-campo input{width:80px!important;min-width:0!important}
+details.ficha-d > summary{cursor:pointer;list-style:none;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+details.ficha-d > summary::-webkit-details-marker{display:none}
+details.ficha-d > summary .seta-f{color:var(--accent);transition:transform .2s}
+details.ficha-d[open] > summary .seta-f{transform:rotate(90deg)}
+details.ficha-d > summary b{font-size:1rem}
+details.ficha-d > summary .res-f{margin-left:auto;font-family:var(--f-mono);font-size:.86rem;color:var(--accent)}
+details.ficha-d > .corpo-f{display:flex;flex-direction:column;gap:14px;margin-top:12px}
+.c-hoje{background:#64748b}.c-ideal{background:var(--accent)}
+td.neg,span.neg{color:var(--bad)} td.pos{color:var(--ok)}
+tr.tot td{font-weight:700;background:var(--accent-wash)}
+
+/* ===== F3: carteira, diagnóstico, proposta, relatório, retorno ===== */
+.chip-emp{text-decoration:none;max-width:240px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-block;line-height:34px}
+.linha-base{align-items:flex-end}
+td.acoes{white-space:nowrap;text-align:right}
+.btn.perigo{border-color:var(--bad);color:var(--bad)}
+fieldset.perg{border:0;border-top:1px solid var(--line);margin:0;padding:12px 0 2px;display:flex;flex-direction:column;gap:6px}
+fieldset.perg:first-of-type{border-top:0;padding-top:0}
+fieldset.perg legend{font-weight:600;padding:0;margin-bottom:4px;max-width:80ch}
+.opcoes,.servicos{display:flex;flex-wrap:wrap;gap:8px}
+.servicos{flex-direction:column}
+label.op{display:inline-flex;align-items:flex-start;gap:8px;background:var(--panel);border:1px solid var(--line-2);border-radius:8px;padding:7px 12px;cursor:pointer;font-size:.9rem;max-width:100%}
+label.op:has(input:checked){border-color:var(--accent);background:var(--accent-soft);color:var(--accent-ink)}
+label.op input{margin:3px 0 0;accent-color:var(--accent)}
+label.op.op-na{border-style:dashed;color:var(--muted)}
+ol.pontos{margin:0;padding-left:22px;display:flex;flex-direction:column;gap:10px}
+ol.pontos li{padding-left:4px}
+ol.pontos b{display:block;font-weight:600}
+ol.pontos small{display:block;color:var(--muted);font-size:.8rem;margin-top:2px}
+.selo-g{display:inline-block;font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;font-weight:700;border-radius:999px;padding:1px 8px;margin-bottom:3px;background:var(--warn-soft);color:var(--warn);border:1px solid var(--accent-line)}
+.g-alta .selo-g{background:color-mix(in srgb, var(--bad) 12%, transparent);color:var(--bad);border-color:color-mix(in srgb, var(--bad) 40%, transparent)}
+.avisos li.alto{background:color-mix(in srgb, var(--bad) 12%, transparent);color:var(--bad)}
+.campo textarea{background:var(--panel);border:1px solid var(--line-2);border-radius:6px;padding:8px 10px;min-width:0;font:inherit;color:inherit;resize:vertical}
+.campo textarea:focus{border-color:var(--accent-2);box-shadow:0 0 0 3px var(--accent-soft);outline:none}
+.doc-area{display:block}
+.doc{background:#fff;color:#1f2937;border:1px solid var(--line);border-radius:12px;padding:32px 36px;display:flex;flex-direction:column;gap:22px;box-shadow:var(--shadow);
+  --fg:#1f2937;--muted:#5b6573;--faint:#8a94a3;--panel:#fff;--box:#f3f4f6;--box-2:#e9ecef;--line:#dfe3e8;--line-2:#ced4da;--accent:#8a5a00;--accent-hi:#9c6a00;--accent-soft:#fbe9b5;--accent-wash:#fbf3dc;--accent-line:#d8b863;--accent-ink:#3d2c00;--ok:#1e7e34;--bad:#c62828;--warn:#8a5a00;--warn-soft:#fbf3dc;--shadow:none}
+.doc h2{color:#1f2937;font-size:1.6rem}
+.doc h3{font-family:var(--f-title);font-size:1.15rem;color:#8a5a00;border-bottom:1px solid #dfe3e8;padding-bottom:6px;margin-bottom:10px}
+.doc section{display:flex;flex-direction:column;gap:10px}
+.doc section > ul,.doc section > ol{margin:0;padding-left:22px;display:flex;flex-direction:column;gap:4px}
+.doc .caixa{background:#f7f8f9}
+.doc details.dobra{display:none}
+.doc .caixa h2{font-size:1rem;color:#8a5a00}
+.doc .dre tr.subl td{font-size:.8rem}
+.doc-cab{display:flex;justify-content:space-between;gap:20px;align-items:flex-start;border-bottom:3px solid #c69214;padding-bottom:16px;flex-wrap:wrap}
+.doc-tipo{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:#8a5a00}
+.doc-cab p{color:#5b6573;margin-top:4px}
+.doc-data{color:#5b6573;font-size:.9rem;text-align:right}
+.doc-dl{display:grid;grid-template-columns:max-content minmax(0,1fr);gap:6px 18px;margin:0}
+.doc-dl dt{color:#5b6573} .doc-dl dd{margin:0;font-weight:600}
+.doc-assina{border-top:1px solid #dfe3e8;padding-top:14px;display:flex;flex-direction:column;gap:2px}
+.doc-rodape{border-top:1px solid #dfe3e8;padding-top:10px;color:#5b6573;font-size:.78rem}
+ol.passos-aca{margin:0;padding-left:22px;display:flex;flex-direction:column;gap:6px}
+.fb{position:fixed;inset:0;z-index:65;background:rgba(0,0,0,.45);display:grid;place-items:center;padding:16px}
+.fb .card{width:min(480px,100%);background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px;display:flex;flex-direction:column;gap:12px;box-shadow:var(--shadow)}
+.fb .msg{font-size:.86rem;border-radius:8px;padding:10px 12px}
+@media (max-width:640px){ .doc{padding:20px 16px} .doc-data{text-align:left} }
+@media print{
+  html:root,html:root[data-theme],html:root:not([data-theme="light"]){--bg:#fff;--panel:#fff;--box:#f3f4f6;--box-2:#e9ecef;--line:#dfe3e8;--line-2:#ced4da;--fg:#1f2937;--muted:#5b6573;--faint:#8a94a3;--accent:#8a5a00;--accent-soft:#fbe9b5;--accent-wash:#fbf3dc;--accent-line:#d8b863;--accent-ink:#3d2c00;--ok:#1e7e34;--bad:#c62828;--warn:#8a5a00;--warn-soft:#fbf3dc;--shadow:none;color-scheme:light}
+  @page{size:A4;margin:14mm 12mm}
+  body{background:#fff;font-size:10.5pt}
+  body::before,.sidebar,.topo,.veu,.entrada,.fb,.aj-pop,.nao-imprime,.aj,.aca,.cab,.frase,.abas{display:none!important}
+  .casca{display:block} main{padding:0!important} .miolo{max-width:none;gap:0}
+  .miolo > *:not(.doc-area){display:none!important}
+  .doc{border:0;border-radius:0;padding:0;box-shadow:none;gap:16px}
+  .doc section{break-inside:auto} .doc h3{break-after:avoid}
+  .tabela{overflow:visible;border:0} table{font-size:8pt} td,th{white-space:normal;padding:3px 5px}
+  .kpis{grid-template-columns:repeat(4,1fr)} .kpi{padding:8px} .kpi b{font-size:1rem}
+  tr{break-inside:avoid}
+  .doc .dre tr.subl td,.doc td small{font-size:7.5pt} .doc .caixa{padding:10px 12px;gap:8px}
+}
+
+/* ===== F3.5: simulador, riscos, estratégias ===== */
+.sliders{display:grid;gap:16px 24px;grid-template-columns:repeat(auto-fill,minmax(min(260px,100%),1fr))}
+.sl{display:grid;grid-template-columns:1fr auto;gap:6px 10px;align-items:center}
+.sl label{font-size:.86rem;font-weight:600;grid-column:1 / -1}
+.sl input[type=range]{width:100%;accent-color:var(--accent)}
+.sl output{font-family:var(--f-mono);font-size:.86rem;min-width:92px;text-align:right;color:var(--muted)}
+.sl output.pos{color:var(--ok)} .sl output.neg{color:var(--bad)}
+.ge-cab{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.grupo-estr.g-alta{border-left:4px solid var(--bad)} .grupo-estr.g-media{border-left:4px solid var(--accent-2)} .grupo-estr.g-forma{border-left:4px solid var(--line-2)}
+.motivo{color:var(--fg);max-width:90ch}
+.estr-lista{display:grid;gap:8px;grid-template-columns:repeat(auto-fill,minmax(min(320px,100%),1fr))}
+label.estr{display:flex;gap:10px;align-items:flex-start;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:10px 12px;font-size:.88rem;cursor:pointer;line-height:1.45}
+label.estr:has(input:checked){border-color:var(--accent);background:var(--accent-wash)}
+label.estr input{margin-top:3px;accent-color:var(--accent)}
+.tipo-e{font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.selo-g.g-baixa{background:var(--box-2);color:var(--muted);border-color:var(--line-2)}
+.selo-g.g-media{background:var(--warn-soft);color:var(--warn)}
+</style>
+
+<div class="fb" id="fb" hidden>
+  <form class="card" id="fbForm" role="dialog" aria-modal="true" aria-labelledby="fbT" novalidate>
+    <h2 id="fbT">Reportar para a Lissun</h2>
+    <p class="ajuda">Vai direto para a equipe da Lissun, junto com a tela em que você está e o restaurante em uso.</p>
+    <div class="campo"><label for="fbTipo">Tipo</label><select id="fbTipo"><option value="problema">Problema</option><option value="sugestao">Sugestão</option><option value="duvida">Dúvida</option></select></div>
+    <div class="campo"><label for="fbTexto">O que aconteceu ou o que você sugere</label><textarea id="fbTexto" rows="6"></textarea></div>
+    <div class="linha-acoes"><button class="btn pri" type="submit">Enviar</button><button class="btn" type="button" id="fbFechar">Fechar</button></div>
+    <div class="msg" id="fbMsg" hidden></div>
+  </form>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+
+<div class="entrada" id="entrada">
+  <form class="card" id="formEntrada" novalidate>
+    <div class="marca-e"><div class="sb-logo" aria-hidden="true">LF</div><div><h1>Lissun Food</h1><span class="ajuda">Simulador de food service · Restaurante</span></div></div>
+    <div class="campo"><label for="eEmail">E-mail</label><input id="eEmail" type="email" autocomplete="username" required></div>
+    <div class="campo"><label for="eSenha">Senha</label><input id="eSenha" type="password" autocomplete="current-password" minlength="6" required></div>
+    <div class="linha-acoes"><button class="btn pri" id="bEntrar" type="submit">Entrar</button><button class="btn" id="bCriar" type="button">Criar conta</button></div>
+    <div class="msg" id="eMsg" hidden></div>
+  </form>
+</div>
+
+<div class="casca">
+  <aside class="sidebar" id="menu" aria-label="Menu principal">
+    <div class="sb-topo">
+      <div class="sb-logo" aria-hidden="true">LF</div>
+      <div class="sb-nome"><b>Lissun Food Restaurante</b><small>Lissun</small></div>
+      <button class="sb-rec" id="btnRec" type="button" title="Encolher o menu" aria-label="Encolher o menu">‹</button>
+    </div>
+    <div id="sbItens"></div>
+  </aside>
+  <div class="veu" id="veu"></div>
+  <div class="lado">
+    <header class="topo">
+      <button class="ham" id="btnHam" type="button" aria-label="Abrir ou fechar o menu" aria-controls="menu"><svg class="ic" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+      <button class="lua" id="btnTema" type="button" aria-label="Trocar tema claro ou escuro" title="Tema claro / escuro"><svg class="ic" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></svg></button>
+      <select class="seg-sel" id="segSel" aria-label="Segmento">
+        <option>Restaurante</option><option disabled>Pizzaria · em breve</option><option disabled>Churrascaria · em breve</option><option disabled>Lanchonete · em breve</option>
+      </select>
+      <a class="chip chip-emp" id="chipEmp" href="#carteira" hidden></a>
+      <div class="dir"><span class="salvo" id="salvo"></span><button class="btn" id="bRetorno" type="button" title="Reportar problema, sugestão ou dúvida para a Lissun">Reportar</button><span class="usuario" id="usuario"></span><button class="btn" id="bSair" type="button">Sair</button></div>
+    </header>
+    <main id="tela" tabindex="-1"></main>
+  </div>
+</div>
+
+<script>
+(() => {
+'use strict';
+// ================= conexão (chave publicável: pode ficar na tela) =================
+const SB_URL = 'https://hbulkifctnzxsctgnzgx.supabase.co';
+const SB_KEY = 'sb_publishable_V-l3TnnJMIlL-VyG-NhU9w_bhpRG6He';
+const SEGMENTO = 'restaurante';
+const LF_VERSAO = 'v101';   // selo da versão publicada: o pipeline não deixa o site voltar para um número menor
+{ const sm = document.querySelector('.sb-nome small'); if (sm) sm.textContent = 'Lissun · ' + LF_VERSAO; }
+const sbc = (window.supabase && window.supabase.createClient) ? window.supabase.createClient(SB_URL, SB_KEY) : null;
+
+// ================= ícones =================
+const IC = {
+  casa:'<path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/>',
+  pasta:'<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>',
+  chapeu:'<path d="M2 9l10-5 10 5-10 5-10-5z"/><path d="M6 11v5c3 2 9 2 12 0v-5"/>',
+  alvo:'<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/>',
+  cifrao:'<path d="M12 2v20"/><path d="M17 6H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>',
+  loja:'<path d="M3 9l2-5h14l2 5"/><path d="M4 9v11h16V9"/><path d="M3 9a3 3 0 0 0 6 0 3 3 0 0 0 6 0 3 3 0 0 0 6 0"/>',
+  lista:'<path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1"/><circle cx="4.5" cy="12" r="1"/><circle cx="4.5" cy="18" r="1"/>',
+  balanca:'<path d="M12 3v18M6 21h12M5 7h14"/><path d="M5 7l-3 6a3 3 0 0 0 6 0L5 7zM19 7l-3 6a3 3 0 0 0 6 0l-3-6z"/>',
+  pessoas:'<circle cx="9" cy="8" r="3"/><path d="M3 20a6 6 0 0 1 12 0"/><circle cx="17" cy="9" r="2.5"/><path d="M15.5 14.5A5 5 0 0 1 21 19"/>',
+  pct:'<path d="M19 5L5 19"/><circle cx="7" cy="7" r="2.5"/><circle cx="17" cy="17" r="2.5"/>',
+  etiqueta:'<path d="M3 12V4h8l10 10-8 8L3 12z"/><circle cx="7.5" cy="7.5" r="1.5"/>',
+  comparar:'<path d="M7 4v16M17 4v16"/><path d="M3 8l4-4 4 4M13 16l4 4 4-4"/>',
+  grafico:'<path d="M4 20V4M4 20h16"/><path d="M8 16v-5M12 16V8M16 16v-3"/>',
+  moto:'<circle cx="6" cy="17" r="3"/><circle cx="18" cy="17" r="3"/><path d="M9 17h6l-3-7h4l2 4M12 10H9"/>',
+  caixa:'<path d="M3 8l9-5 9 5v8l-9 5-9-5V8z"/><path d="M3 8l9 5 9-5M12 13v8"/>',
+  doc:'<path d="M6 3h8l4 4v14H6V3z"/><path d="M14 3v4h4M9 12h6M9 16h6"/>',
+  chev:'<path d="M6 9l6 6 6-6"/>',
+  sliders:'<path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12M20 18h0"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/>',
+  escudo:'<path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3z"/><path d="M12 8v5M12 16h0"/>',
+  bussola:'<circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5 5-2z"/>'
+};
+const svg = (k, cls='ic') => `<svg class="${cls}" viewBox="0 0 24 24" aria-hidden="true">${IC[k]}</svg>`;
+
+// ================= menu =================
+const SECOES = [
+  {rot:null, itens:[{id:'inicio', t:'Início', ic:'casa'}]},
+  {rot:'Base', itens:[{k:'clientes', t:'Clientes', ic:'pasta', filhos:[['carteira','Carteira de restaurantes'],['historico','Histórico de simulações']]}, {id:'academia', t:'Academia', ic:'chapeu'}]},
+  {rot:'Diagnóstico', itens:[{id:'diagnostico', t:'Diagnóstico rápido', ic:'alvo'}, {id:'proposta', t:'Proposta comercial', ic:'cifrao'}]},
+  {rot:'Montar o restaurante', itens:[{id:'operacao', t:'Operação e canais', ic:'loja'}, {id:'cardapio', t:'Cardápio e formas de venda', ic:'lista'}, {id:'fichas', t:'Fichas técnicas', ic:'balanca'}, {id:'pessoal', t:'Pessoal e custos fixos', ic:'pessoas'}, {id:'imposto', t:'Imposto e meta', ic:'pct'}]},
+  {rot:'Análises', itens:[{id:'preco', t:'1 · Preço ideal', ic:'etiqueta'}, {id:'atual', t:'2 · Preço atual × ideal', ic:'comparar'}, {id:'resultado', t:'3 · Resultado', ic:'grafico'}, {id:'canais', t:'4 · Canais', ic:'moto'}, {id:'marmitas', t:'5 · Marmitas', ic:'caixa'}]},
+  {rot:'Estratégias', itens:[{id:'simulador', t:'Simulador "e se"', ic:'sliders'}, {id:'riscos', t:'Riscos do restaurante', ic:'escudo'}, {id:'estrategias', t:'Plano de estratégias', ic:'bussola'}]},
+  {rot:'Entrega', itens:[{id:'relatorio', t:'Relatório final', ic:'doc'}]}
+];
+const TITULO = {}, SECAO = {};
+SECOES.forEach(s => s.itens.forEach(it => {
+  if (it.filhos) it.filhos.forEach(([id,t]) => { TITULO[id] = t; SECAO[id] = s.rot || ''; });
+  else { TITULO[it.id] = it.t; SECAO[it.id] = s.rot || ''; }
+}));
+
+// ================= estado da tela (o que o usuário digitou) =================
+const CANAIS = [['salao','Salão'],['ifood','iFood'],['whatsapp','WhatsApp / entrega própria']];
+const MEIOS = [['credito','Crédito'],['debito','Débito'],['pix','PIX'],['dinheiro','Dinheiro']];
+const GRUPOS = [
+  ['ocupacao','Ocupação', ['Aluguel','Condomínio','IPTU']],
+  ['utilidades','Utilidades', ['Energia','Gás','Água']],
+  ['administrativo','Administrativo', ['Contabilidade','Sistema e PDV','Internet e telefone','Aluguel da maquininha','Seguro','Limpeza e dedetização','Manutenção']],
+  ['marketing','Marketing fixo', ['Redes sociais e anúncios']],
+  ['reserva','Reserva de equipamentos', ['Reposição de equipamentos']]
+];
+const FORMAS = {
+  kg:{rot:'Buffet a quilo', modo:'quilo', un:'kg por mês'},
+  livre:{rot:'Buffet livre', modo:'pessoa', un:'pessoas por mês'},
+  carte:{rot:'À la carte', modo:'item', un:'pratos por mês'},
+  marmita:{rot:'Marmita', modo:'item', un:'marmitas por mês'},
+  exec:{rot:'Prato executivo', modo:'combo', un:'pratos por mês'},
+  bebida:{rot:'Bebidas', modo:'item', un:'unidades por mês'},
+  sobremesa:{rot:'Sobremesas', modo:'item', un:'unidades por mês'}
+};
+const novoItem = () => ({nome:'',forma:'',tipo:'calcular',qtd:'',cmvOrig:'digitar',fichaId:'',custo:'',consumo:'',perda:'',emb:'',preco:'',mix_salao:'',mix_ifood:'',mix_whatsapp:'',peso:'',conc:'',embSalao:'',aberto:false});
+const novoIng = () => ({nome:'',qtd:'',un:'kg',preco:'',fc:''});
+let SEQ = 1;
+const novaFicha = (tipo='prato') => ({id:'f' + Date.now().toString(36) + (SEQ++), nome:'', tipo, ic:'', porcoes:'', rend:'', ingr:[novoIng(), novoIng(), novoIng()], res:null});
+const vazioU = () => ({
+  dias:'', canais:Object.fromEntries(CANAIS.map(([k]) => [k,{part:'',com:'',tp:'',emb:'',pedido:'',ipp:''}])),
+  meios:Object.fromEntries(MEIOS.map(([k]) => [k,{part:'',taxa:''}])),
+  itens:[novoItem(), novoItem(), novoItem()],
+  cargos:[1,2,3,4].map(() => ({cargo:'',qtd:'',sal:'',benef:''})), encargos:'', prolabore:'',
+  extras:[{desc:'',diarias:'',valor:''}],
+  fixos:Object.fromEntries(GRUPOS.map(([g,,nomes]) => [g, nomes.map(n => ({nome:n, valor:''}))])),
+  regime:'', rbt12:'', aliqMan:'', dv:[{nome:'',pct:''},{nome:'',pct:''}],
+  metaTipo:'', metaValor:'', politica:'', arred:'', base:'',
+  fichas:[], buffet:[{fichaId:'',part:''}],
+  diag:{resp:{}, res:null, quando:null, erro:null},
+  proposta:{prazo:'',investimento:'',condicoes:'',validade:'',consultor:'',contato:'',extras:'',obs:'',fora:[]},
+  relatorio:{obs:''},
+  cenario:{base:'', aj:{}, res:null, erro:null},
+  riscos:{res:null, erro:null, quando:null},
+  estrategias:{res:null, erro:null, quando:null, escolhidas:[]}
+});
+// rascunhos salvos na versão anterior da tela continuam abrindo
+function normalizarU(t){
+  const u = vazioU(); if (!t) return u;
+  Object.keys(u).forEach(k => { if (t[k] !== undefined) u[k] = t[k]; });
+  CANAIS.forEach(([k]) => { u.canais[k] = Object.assign({part:'',com:'',tp:'',emb:'',pedido:'',ipp:''}, (t.canais || {})[k] || {}); });
+  u.itens = (Array.isArray(t.itens) && t.itens.length ? t.itens : u.itens).map(i => Object.assign(novoItem(), i));
+  u.cargos = (Array.isArray(t.cargos) && t.cargos.length ? t.cargos : u.cargos).map(c => Object.assign({cargo:'',qtd:'',sal:'',benef:''}, c));
+  if (!Array.isArray(u.extras) || !u.extras.length) u.extras = [{desc:'',diarias:'',valor:''}];
+  if (!Array.isArray(u.dv) || !u.dv.length) u.dv = [{nome:'',pct:''}];
+  if (!Array.isArray(u.fichas)) u.fichas = [];
+  u.fichas = u.fichas.map(f => Object.assign(novaFicha(f.tipo), f, { ingr:(f.ingr || []).map(i => Object.assign(novoIng(), i)) }));
+  if (!Array.isArray(u.buffet) || !u.buffet.length) u.buffet = [{fichaId:'',part:''}];
+  const v0 = vazioU();
+  u.diag = Object.assign(v0.diag, t.diag || {}); if (!u.diag.resp || typeof u.diag.resp !== 'object') u.diag.resp = {};
+  u.proposta = Object.assign(v0.proposta, t.proposta || {}); if (!Array.isArray(u.proposta.fora)) u.proposta.fora = [];
+  u.relatorio = Object.assign(v0.relatorio, t.relatorio || {});
+  u.cenario = Object.assign(v0.cenario, t.cenario || {}); if (!u.cenario.aj || typeof u.cenario.aj !== 'object') u.cenario.aj = {};
+  u.riscos = Object.assign(v0.riscos, t.riscos || {});
+  u.estrategias = Object.assign(v0.estrategias, t.estrategias || {}); if (!Array.isArray(u.estrategias.escolhidas)) u.estrategias.escolhidas = [];
+  const fx = t.fixos;
+  if (fx && !Array.isArray(fx.ocupacao)){   // formato antigo: lista fixa de 8 custos
+    const novo = vazioU().fixos, put = (g, nome, v) => { const r = novo[g].find(x => x.nome === nome); if (r) r.valor = v || ''; else if (v) novo[g].push({nome, valor:v}); };
+    put('ocupacao','Aluguel',fx.aluguel); put('utilidades','Energia',fx.energia); put('utilidades','Gás',fx.gas); put('utilidades','Água',fx.agua);
+    put('administrativo','Contabilidade',fx.contabilidade); put('administrativo','Sistema e PDV',fx.sistema); put('administrativo','Outros',fx.outros);
+    if (fx.prolabore && !u.prolabore) u.prolabore = fx.prolabore;
+    u.fixos = novo;
+  } else {
+    GRUPOS.forEach(([g]) => { if (!Array.isArray(u.fixos[g])) u.fixos[g] = vazioU().fixos[g]; });
+  }
+  return u;
+}
+let U = vazioU();
+let RES = null, RES_QUANDO = null, ERRO_CALC = null;
+let CTX = {user:null, empresa:null, sim:null};
+
+const getP = (o, p) => p.split('.').reduce((a,k) => (a == null ? undefined : a[k]), o);
+const setP = (o, p, v) => { const ks = p.split('.'); const last = ks.pop(); const t = ks.reduce((a,k) => a[k], o); t[last] = v; };
+
+// ================= leitura de número digitado (aceita 1.234,56 e 0,48) =================
+function num(s){
+  if (s == null) return null;
+  s = String(s).trim().replace(/\s|R\$|%/g,'');
+  if (s === '') return null;
+  if (s.includes(',')) s = s.replace(/\./g,'').replace(',', '.');
+  else if (/^\d{1,3}(\.\d{3})+$/.test(s)) s = s.replace(/\./g,'');
+  const n = Number(s);
+  return Number.isFinite(n) ? n : null;
+}
+const fr = (s) => { const n = num(s); return n == null ? null : n / 100; };   // campo em % → fração que o motor espera
+
+// ================= ficha técnica no formato do motor (sem conta nenhuma) =================
+function fichaPayload(f){
+  const p = { nome: f.nome || 'Ficha sem nome',
+    ingredientes: f.ingr.filter(i => i.nome || num(i.qtd) != null).map(i => ({ nome: i.nome || 'Ingrediente', quantidade_liquida: num(i.qtd), unidade: i.un || 'kg', preco_unit: num(i.preco), fator_correcao: num(i.fc) ?? 1 })) };
+  if (num(f.ic) != null) p.indice_coccao = num(f.ic);
+  if (f.tipo === 'prato' && num(f.porcoes) != null) p.porcoes = num(f.porcoes);
+  if (num(f.rend) != null) p.rendimento_kg = num(f.rend);
+  return p;
+}
+const fichaPorId = (id) => U.fichas.find(f => f.id === id);
+
+// ================= monta o que vai para o motor (sem conta nenhuma) =================
+function montarEntrada(){
+  const e = { segmento: SEGMENTO, operacao: { dias_mes: num(U.dias) } };
+  if (U.regime === 'simples') e.regime = { tipo:'simples', rbt12: num(U.rbt12) };
+  else if (U.regime === 'manual') e.regime = { tipo:'manual', aliquota_efetiva: fr(U.aliqMan) };
+  else e.regime = {};
+  e.pagamento = { meios: MEIOS.filter(([k]) => num(U.meios[k].part) != null)
+    .map(([k,n]) => ({ nome:n, participacao: fr(U.meios[k].part), taxa: fr(U.meios[k].taxa) ?? 0 })) };
+  e.despesas_variaveis = U.dv.filter(d => num(d.pct) != null).map(d => ({ nome: d.nome || 'Despesa variável', pct: fr(d.pct) }));
+  e.pessoal = { encargos_pct: fr(U.encargos) ?? 0 };
+  if (num(U.prolabore) != null) e.pessoal.prolabore = num(U.prolabore);
+  e.pessoal.cargos = U.cargos.filter(c => num(c.sal) != null).map(c => {
+    const o = { cargo: c.cargo || 'Cargo', quantidade: num(c.qtd) ?? 1, salario: num(c.sal) };
+    if (num(c.benef) != null) o.beneficios = num(c.benef);
+    return o; });
+  const ex = U.extras.filter(x => num(x.diarias) != null && num(x.valor) != null).map(x => ({ descricao: x.desc || 'Extra', diarias_mes: num(x.diarias), valor_diaria: num(x.valor) }));
+  if (ex.length) e.pessoal.extras = ex;
+  e.custos_fixos = [];
+  GRUPOS.forEach(([g]) => U.fixos[g].forEach(c => { if (num(c.valor) != null) e.custos_fixos.push({ nome: c.nome || 'Custo', valor: num(c.valor), grupo: g }); }));
+  e.canais = CANAIS.map(([k,n]) => {
+    const c = U.canais[k], o = { id:k, nome:n, participacao: fr(c.part) ?? 0, comissao: fr(c.com) ?? 0 };
+    if (num(c.tp) != null) o.taxa_pagamento = fr(c.tp);
+    if (num(c.emb) != null) o.embalagem_unit = num(c.emb);
+    if (num(c.pedido) != null) o.custo_pedido = num(c.pedido);
+    if (num(c.ipp) != null) o.itens_por_pedido = num(c.ipp);
+    return o;
+  });
+  e.meta = U.metaTipo === 'margem' ? { tipo:'margem', valor: fr(U.metaValor) } : { tipo:'lucro', valor: num(U.metaValor) };
+  e.politica_preco = U.politica || 'por_canal';
+  e.base_rateio = U.base || 'cmv';
+  e.arredondamento = { tipo: U.arred || 'centavos' };
+  e.linhas = [];
+  U.itens.forEach((it, i) => {
+    if (!it.nome && !it.forma && num(it.qtd) == null) return;
+    const f = FORMAS[it.forma];
+    const l = { id:'i'+i, nome: it.nome || ('Item ' + (i+1)), modo: f ? f.modo : '', categoria: f ? f.rot : '', quantidade_mes: num(it.qtd) };
+    if (it.cmvOrig === 'ficha'){ const fi = fichaPorId(it.fichaId); if (fi) l.ficha = fichaPayload(fi); }
+    else if (it.cmvOrig === 'buffet'){
+      if (f && f.modo === 'pessoa') l.consumo_kg_pessoa = num(it.consumo);
+      l.buffet = U.buffet.filter(b => b.fichaId && fichaPorId(b.fichaId)).map(b => ({ participacao: fr(b.part) ?? 0, ficha: fichaPayload(fichaPorId(b.fichaId)) }));
+    }
+    else l.cmv_unit = num(it.custo);
+    l.perda_pct = fr(it.perda) ?? 0; l.embalagem_unit = num(it.emb) ?? 0;
+    l.tipo_preco = it.tipo === 'fixo' ? 'fixo' : 'calcular';
+    if (it.tipo === 'fixo') l.preco = num(it.preco);
+    else if (num(it.preco) != null) l.preco_praticado = num(it.preco);
+    const mix = {};
+    CANAIS.forEach(([k]) => { const v = fr(it['mix_' + k]); if (v != null && v > 0) mix[k] = v; });
+    if (Object.keys(mix).length) l.mix_canais = mix;
+    if (num(it.peso) != null) l.peso = num(it.peso);
+    if (num(it.conc) != null) l.preco_concorrente = num(it.conc);
+    if (it.embSalao === 'nao') l.embalagem_so_entrega = true;   // motor 1.3.0: embalagem do item não entra no salão   // pesquisa do consultor; o motor de preço não usa
+    e.linhas.push(l);
+  });
+  return e;
+}
+// conferências de preenchimento antes de chamar o servidor (nenhuma conta)
+function conferirAntes(){
+  for (let i = 0; i < U.itens.length; i++){
+    const it = U.itens[i];
+    if (!it.nome && !it.forma && num(it.qtd) == null) continue;
+    if (!it.nome) return `O item da linha ${i+1} do cardápio está sem nome.`;
+    if (it.cmvOrig === 'ficha' && !fichaPorId(it.fichaId)) return `Escolha a ficha técnica do item "${it.nome}", no cardápio.`;
+    if (it.cmvOrig === 'buffet' && !U.buffet.some(b => b.fichaId && fichaPorId(b.fichaId))) return `O item "${it.nome}" usa a composição do buffet, mas ela está vazia. Monte a composição em Fichas técnicas.`;
+  }
+  return null;
+}
+
+// ================= erros do motor em português de gente =================
+const ERROS = {
+  'FOOD-E01':'Preencha os dias de funcionamento por mês, em Operação e canais.',
+  'FOOD-E02':'A alíquota efetiva informada precisa estar entre 0% e 100%, em Imposto e meta.',
+  'FOOD-E03':'Escolha o regime de imposto, em Imposto e meta.',
+  'FOOD-E04':'Informe ao menos um canal de venda, em Operação e canais.',
+  'FOOD-E06':'Num dos canais, imposto + comissão + taxas passam de 100% do preço. Confira Operação e canais e Imposto e meta.',
+  'FOOD-E07':'Informe o valor da meta, em Imposto e meta.',
+  'FOOD-E12':'Cadastre ao menos um item no cardápio.',
+  'FOOD-E13':'Escolha a forma de vender do item "{x}", no cardápio.',
+  'FOOD-E14':'Informe a quantidade por mês do item "{x}", no cardápio.',
+  'FOOD-E15':'Informe o custo unitário do item "{x}", no cardápio.',
+  'FOOD-E17':'O item "{x}" não tem canal: preencha a participação dos canais em Operação e canais ou o mix do item no cardápio.',
+  'FOOD-E18':'Informe o preço do item de preço fixo "{x}", no cardápio.',
+  'FOOD-E19':'Os itens a calcular estão com custo zero. Informe o custo unitário deles no cardápio.',
+  'FOOD-E20':'Informe o faturamento dos últimos 12 meses para achar a faixa do Simples, em Imposto e meta.',
+  'FOOD-E21':'Com faturamento acima de R$ 4,8 milhões a empresa sai do Simples: escolha "Alíquota informada", em Imposto e meta.',
+  'FOOD-E22':'A margem pedida não é possível com as deduções informadas. Baixe a meta de margem, em Imposto e meta.',
+  'FOOD-E23':'Itens por pedido do canal "{x}" precisa ser maior que zero, em Operação e canais.',
+  'FOOD-E24':'A ficha do item "{x}" está sem número de porções. Abra a ficha em Fichas técnicas e preencha Porções.',
+  'FOOD-E25':'A ficha "{x}" não tem rendimento em kg. Confira as quantidades em kg ou preencha o rendimento pronto, em Fichas técnicas.',
+  'FOOD-E26':'Informe o consumo por pessoa (kg) do item "{x}", no cardápio.',
+  'FOOD-E27':'A composição do buffet só serve para buffet a quilo ou buffet livre (item "{x}").',
+  'FOOD-E28':'A composição do buffet está sem participação das preparações, em Fichas técnicas.',
+  'FOOD-E30':'Uma das fichas está sem ingredientes, em Fichas técnicas.',
+  'FOOD-E32':'Falta a quantidade de um ingrediente ("{x}"), em Fichas técnicas.',
+  'FOOD-E33':'Falta o preço de um ingrediente ("{x}"), em Fichas técnicas.',
+  'FOOD-D01':'Uma resposta do diagnóstico não foi reconhecida. Marque de novo a pergunta e calcule outra vez.',
+  'FOOD-D02':'Uma pergunta do diagnóstico não aceita "não se aplica". Escolha uma das respostas.',
+  'FOOD-A01':'Sua sessão expirou. Saia e entre de novo.',
+  'FOOD-A02':'Sua conta ainda não tem acesso ao Restaurante.'
+};
+function erroAmigavel(msg){
+  const m = String(msg || '').match(/(FOOD-[AED]\d+)/);
+  if (!m || !ERROS[m[1]]) return String(msg || 'Não foi possível calcular.');
+  const nome = (String(msg).match(/"([^"]+)"/) || String(msg).match(/(?:em|canal) ([^ ,]+(?: [^ ,]+)?)$/) || [])[1] || '';
+  return ERROS[m[1]].replace('{x}', nome);
+}
+
+// ================= formatação =================
+const brl = (v) => v == null ? '—' : Number(v).toLocaleString('pt-BR', { style:'currency', currency:'BRL' });
+const brl0 = (v) => v == null ? '—' : Number(v).toLocaleString('pt-BR', { style:'currency', currency:'BRL', maximumFractionDigits:0 });
+const pctf = (v, d=1) => v == null ? '—' : (Number(v) * 100).toLocaleString('pt-BR', { minimumFractionDigits:d, maximumFractionDigits:d }) + '%';
+const nf = (v, d=0) => v == null ? '—' : Number(v).toLocaleString('pt-BR', { minimumFractionDigits:d, maximumFractionDigits:d });
+const esc = (s) => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+// ================= pedaços de tela =================
+const el = (h) => { const t = document.createElement('template'); t.innerHTML = h.trim(); return t.content; };
+// ================= ajuda de cada campo: o que é · onde pegar · como chegar no número =================
+const AJUDA = {
+  dias:['Quantos dias o restaurante abre no mês.','Calendário de funcionamento do restaurante.','Conte os dias de portas abertas num mês normal, sem feriado fora do comum.'],
+  canal_part:['Quanto das vendas passa por este canal, em % do total.','Relatório de vendas do PDV e painel do iFood (ou do app de delivery).','Some as vendas de cada canal nos últimos 3 meses e divida pelo total vendido. Os canais somam 100%.'],
+  canal_com:['Comissão que o aplicativo cobra sobre cada venda.','Contrato e extrato de repasses do iFood (ou do app), que mostram o plano contratado.','No extrato, divida a comissão cobrada pelo total vendido no período. No salão, deixe em branco.'],
+  canal_tp:['Taxa de pagamento cobrada pelo próprio canal, quando o cliente paga dentro do app.','Extrato de repasses do aplicativo, na linha de taxa de pagamento online.','Divida a taxa cobrada pelo valor pago online. Em branco, vale a média dos meios de pagamento da tabela de baixo.'],
+  canal_emb:['Custo de embalagem por item vendido neste canal, além da embalagem que já está no próprio item.','Notas de compra de embalagens, sacolas, talheres e guardanapos de delivery.','Divida o gasto do mês com esse material pelo número de itens vendidos no canal.'],
+  canal_pedido:['Custo de cada entrega própria: motoboy, taxa por corrida ou combustível.','Pagamentos aos entregadores e notas de combustível do mês.','Divida o gasto do mês com entrega pelo número de pedidos entregues. Deixe em branco se o app faz a entrega.'],
+  canal_ipp:['Média de itens em cada pedido do canal.','Relatório de pedidos do PDV ou do app.','Divida o número de itens vendidos pelo número de pedidos. O custo da entrega é dividido por esse número.'],
+  meio_part:['Quanto das vendas é pago em cada meio, em % do total.','Fechamento de caixa e extrato da maquininha.','Some o recebido em cada meio nos últimos 3 meses e divida pelo total. Os meios somam 100%.'],
+  meio_taxa:['Taxa que a maquininha ou o banco cobra em cada meio.','Contrato ou extrato da maquininha, separado por crédito e débito.','Divida a taxa cobrada no mês pelo valor recebido naquele meio.'],
+  item_nome:['Nome do item como aparece no cardápio.','Cardápio do restaurante.','Use um nome que o dono reconheça. O nome é obrigatório.'],
+  item_forma:['Como o item é vendido: por quilo, por pessoa, por unidade ou como combo.','Cardápio e sistema de vendas.','Buffet a quilo é por kg; buffet livre é por pessoa; marmita, à la carte, bebida e sobremesa são por unidade; prato executivo é combo.'],
+  item_tipo:['"A calcular": a ferramenta define o preço. "Fixo": o restaurante já decidiu o preço.','Decisão do dono.','Bebidas e sobremesas costumam ter preço fixo: a margem delas ajuda a pagar a meta e os outros itens precisam render menos.'],
+  item_qtd:['Quanto se vende por mês: kg no buffet a quilo, pessoas no buffet livre, unidades nos demais.','Relatório de vendas do PDV ou da balança.','Use a média dos últimos 3 meses. No buffet a quilo, some os quilos vendidos (não o produzido).'],
+  item_cmv:['CMV unitário: o custo da comida de uma unidade vendida (por kg, por pessoa ou por prato).','Ficha técnica, ou as notas de compra dos ingredientes.','O jeito confiável é a ficha técnica (tela Fichas técnicas). Escolha "Ficha técnica" ou "Composição do buffet" e o servidor calcula. Digite só se já tiver o número confiável.'],
+  item_consumo:['Quanto cada cliente come, em média, no buffet livre.','Pesagem do que sai do balcão.','Pese o que foi servido num dia e divida pelo número de clientes do buffet livre.'],
+  item_perda:['Sobra e desperdício sobre o custo da comida, em %.','Controle de sobras da cozinha e do balcão.','Pese as sobras jogadas fora durante uma semana e divida pelo total produzido no período.'],
+  item_emb:['Embalagem do próprio item, quando ele sempre sai embalado (marmita, por exemplo).','Notas de compra de marmitex, tampas e etiquetas.','Some o custo das embalagens de uma unidade.'],
+  item_preco:['No item "Fixo": o preço decidido. No item "A calcular": o preço praticado hoje, para comparar com o ideal.','Cardápio atual do salão.','Se o preço muda por canal, use o do salão.'],
+  item_mix:['Como este item se divide entre os canais, em %.','Relatório de vendas por item e por canal.','Preencha só se o item foge da divisão geral (marmita vende mais no delivery, por exemplo). Em branco, vale a divisão de Operação e canais.'],
+  cargo:['Função na equipe.','Folha de pagamento.','Uma linha por função.'],
+  cargo_qtd:['Quantas pessoas nessa função.','Folha de pagamento.','Conte quem trabalha com carteira assinada nessa função.'],
+  cargo_sal:['Salário bruto mensal de uma pessoa nessa função.','Folha de pagamento ou holerite.','Use o salário da carteira, sem descontos.'],
+  cargo_benef:['Benefícios mensais por pessoa: vale-transporte, vale-refeição, refeição na casa, plano de saúde.','Folha de pagamento e notas de compra dos benefícios.','Some o que o restaurante paga por pessoa no mês, já tirando o que é descontado do funcionário.'],
+  encargos:['Encargos e provisões sobre os salários, em %: FGTS, férias, 13º e o que mais incidir.','Contador ou relatório de encargos da folha.','Peça ao contador o percentual total que o restaurante paga sobre os salários. No Simples, parte da contribuição previdenciária já está dentro do imposto.'],
+  prolabore:['Retirada mensal dos sócios que trabalham no restaurante.','Contador ou extrato de retiradas.','Use o valor que os sócios precisam tirar por mês para viver, mesmo que hoje não tirem. Lucro é o que sobra depois disso.'],
+  extras_diarias:['Quantas diárias de extras e freelancers por mês.','Controle de pagamentos de diaristas.','Some as diárias pagas no mês: fins de semana, eventos, cobertura de folgas.'],
+  extras_valor:['Valor de uma diária.','Recibos de pagamento aos extras.','Inclua transporte e alimentação se forem pagos à parte.'],
+  grupo_ocupacao:['Custo de ocupar o imóvel.','Contrato de aluguel, boleto de condomínio e carnê do IPTU.','Use o valor mensal; o IPTU anual divide por 12.'],
+  grupo_utilidades:['Energia, gás e água.','Contas dos últimos meses.','Use a média de 3 a 6 contas: elas mudam com o movimento e com a estação.'],
+  grupo_administrativo:['Custos de funcionamento que não dependem do movimento.','Boletos e contratos mensais.','Uma linha por custo. Parcela de empréstimo NÃO entra aqui: é dívida, não custo do mês, e vai para o fluxo de caixa.'],
+  grupo_marketing:['Marketing com valor fixo por mês (agência, anúncios, redes sociais).','Contrato com a agência e faturas dos anúncios.','Marketing cobrado em % da venda entra em Despesas variáveis, na tela Imposto e meta.'],
+  grupo_reserva:['Reserva mensal para trocar equipamentos quando quebrarem ou ficarem velhos.','Lista dos equipamentos da cozinha e valor de reposição.','Para cada equipamento, valor de um novo dividido pelos meses de vida útil; some tudo.'],
+  regime:['Regime de imposto do restaurante.','Contador ou cartão do CNPJ.','No Simples, a ferramenta acha a alíquota pelo faturamento. Em outro regime, informe a alíquota efetiva.'],
+  rbt12:['Faturamento bruto dos últimos 12 meses.','Extrato do Simples (PGDAS), com o contador.','Some o faturamento dos 12 meses anteriores ao mês da simulação.'],
+  aliqMan:['Percentual de imposto sobre a venda, para quem não está no Simples.','Contador.','Peça ao contador o total de impostos sobre faturamento dividido pelo faturamento do último ano.'],
+  dv_nome:['Despesa que sobe e desce junto com a venda.','Contratos de franquia, agência ou parceria.','Exemplos: royalties da franquia, marketing cobrado em % da venda, comissão de garçom paga pelo restaurante.'],
+  dv_pct:['Percentual sobre o preço de venda.','Mesmo contrato da despesa.','Se o contrato cobra sobre o faturamento, use o percentual direto.'],
+  metaTipo:['Como o dono quer medir o resultado: lucro em reais por mês ou margem sobre a venda.','Conversa com o dono.','Lucro em R$ é mais fácil de explicar; margem serve para comparar com outros restaurantes.'],
+  metaValor:['Quanto o restaurante precisa sobrar por mês, depois de pagar tudo, inclusive o pró-labore.','Conversa com o dono.','Em R$ para lucro; em % para margem.'],
+  politica:['Um preço diferente em cada canal, ou o mesmo preço em todos.','Decisão do dono.','Com um preço por canal, o iFood fica mais caro e paga a própria comissão. Com preço único, o salão ajuda a pagar o delivery.'],
+  arred:['Como os preços são arredondados.','Decisão do dono.','Final ,90 é o mais usado em cardápio. A DRE é sempre refeita com o preço arredondado.'],
+  ficha_tipo:['"Prato ou porção": o custo sai por porção (marmita, executivo, à la carte). "Preparação do buffet": o custo sai por kg pronto.','Cardápio e rotina da cozinha.','Arroz, feijão, carnes e saladas do buffet são preparações; a marmita e o executivo são pratos.'],
+  ficha_ic:['Índice de cocção: peso pronto ÷ peso cru limpo.','Pesagem na cozinha, antes e depois do preparo.','Pese o cru limpo, prepare e pese o pronto. Arroz e feijão crescem (acima de 1); carnes encolhem (abaixo de 1). Em branco, vale 1.'],
+  ficha_porcoes:['Quantas porções a receita rende.','Ficha da cozinha.','Para uma marmita montada, use 1 e coloque as quantidades de uma marmita.'],
+  ficha_rend:['Rendimento pronto em kg, quando você já pesou.','Pesagem do preparo pronto.','Se preencher, vale este peso em vez do cálculo pelo índice de cocção.'],
+  ing_qtd:['Quantidade limpa usada na receita (depois de descascar, limpar e desossar).','Ficha da cozinha ou pesagem.','Em kg, litro ou unidade, conforme a coluna Unidade.'],
+  ing_un:['Unidade da quantidade e do preço.','Nota de compra.','O preço tem de estar na mesma unidade da quantidade.'],
+  ing_preco:['Preço de compra por unidade (por kg, litro ou unidade), como vem na nota.','Notas de compra mais recentes.','Use o último preço pago, sem frete separado.'],
+  ing_fc:['Fator de correção: peso comprado ÷ peso limpo.','Pesagem antes e depois da limpeza.','Pese como veio do fornecedor, limpe e pese de novo. Carne com osso e folhas têm fator alto. Em branco, vale 1.'],
+  item_peso:['Quanto este item carrega da folha, dos custos fixos e do lucro, em relação aos outros. 1 é o normal.','Avaliação do consultor com a cozinha.','Use mais de 1 para itens que dão mais trabalho ou que o mercado aceita pagar mais (o executivo, um prato especial); menos de 1 para itens de giro. Em branco, vale 1.'],
+  base:['Como a folha, os custos fixos e o lucro se dividem entre os itens.','Decisão do consultor.','"Proporcional ao custo variável": cada item carrega folha, custos fixos e lucro na proporção do custo de comida, embalagem e entrega por unidade, na média dos canais em que é vendido. Item de delivery carrega mais que o mesmo item no salão; prato de custo baixo pode sair barato demais. "Igual por unidade vendida": cada unidade carrega o mesmo valor; um quilo de buffet conta como uma unidade. Ajuste com o peso de cada item no cardápio.'],
+  emp_nome:['O nome com que o restaurante é conhecido.','Fachada, cardápio ou cartão.','É o nome que aparece na proposta e no relatório.'],
+  emp_cidade:['Cidade onde fica o restaurante.','Endereço do restaurante.','Escreva a cidade e, se quiser, o bairro.'],
+  emp_resp:['Quem decide no restaurante e vai receber a proposta e o relatório.','Conversa com o dono.','Nome de quem assina pela empresa.'],
+  emp_contato:['Como falar com o responsável.','Conversa com o dono.','Telefone com DDD ou e-mail.'],
+  versao:['Um nome para lembrar o momento desta versão.','Escolha do consultor.','Use a data e o motivo: "Outubro, antes do reajuste", "Proposta enviada".'],
+  prop_extras:['Serviços que você vai fazer e que o diagnóstico não listou.','O seu escopo de trabalho.','Um serviço por linha, do jeito que o dono vai ler.'],
+  prop_prazo:['Quanto tempo o trabalho vai levar.','O seu planejamento.','Ex.: em semanas ou meses, a partir da assinatura.'],
+  prop_invest:['O valor do seu trabalho.','A sua tabela de honorários.','A ferramenta não sugere valor: escreva o total como vai aparecer na proposta.'],
+  prop_cond:['Como o dono vai pagar.','A sua política de cobrança.','À vista, entrada mais parcelas, mensal…'],
+  prop_valid:['Até quando a proposta vale.','A sua política comercial.','Uma data ou um prazo em dias.'],
+  prop_consultor:['Quem assina a proposta.','O seu nome ou o da sua empresa.','Aparece no fim da proposta e na capa do relatório.'],
+  prop_contato:['Como o dono fala com você.','O seu telefone ou e-mail.','Aparece abaixo da assinatura.'],
+  prop_obs:['Qualquer combinado que precise estar escrito.','A conversa com o dono.','Um parágrafo por linha.'],
+  sim_preco:['Quanto o preço de todos os itens muda, em todos os canais.','Decisão que você quer testar com o dono.','+8% é um reajuste de 8%; −10% é uma promoção ou uma guerra de preço.'],
+  sim_volume:['Quanto a quantidade vendida muda, em todos os itens.','A sua expectativa ou a do dono.','Use junto com o preço: quanto você acha que as vendas caem com o reajuste? A ferramenta não supõe isso por você.'],
+  sim_comida:['Quanto o custo da comida muda.','Cotação de fornecedores, inflação dos alimentos, nova ficha técnica.','+10% é a carne subindo; −5% é uma negociação com fornecedor.'],
+  sim_folha:['Quanto a folha com encargos muda.','Dissídio da categoria, contratação ou corte de pessoal.','+6% é um dissídio de 6%.'],
+  sim_fixos:['Quanto os custos fixos mudam no total.','Contratos de aluguel, energia e serviços.','−10% é renegociar aluguel e serviços; +10% é um reajuste de aluguel.'],
+  sim_comissao:['Quantos pontos a comissão dos aplicativos sobe ou desce.','Contrato com o aplicativo.','+2 quer dizer que uma comissão de 23% passa a 25%. Vale só para canais que cobram comissão.'],
+  item_emb_salao:['Se a embalagem do item também é cobrada quando ele é consumido no salão.','Como o restaurante serve: marmita no salão vai na embalagem ou no prato?','"Não cobra": a embalagem do item entra só no iFood e na entrega própria. A embalagem e a entrega do canal continuam valendo.'],
+  item_conc:['O preço que o concorrente cobra por um item comparável.','A sua pesquisa: cardápio, aplicativo ou visita.','Compare item parecido (mesma porção e acompanhamentos). Não muda o preço ideal: serve para o Plano de estratégias.'],
+  rel_obs:['As suas recomendações ao dono, com as suas palavras.','A sua leitura das análises.','Um parágrafo por linha. Comece pelo que muda o resultado: preço, canal, cardápio.'],
+  buffet_part:['Quanto cada preparação pesa no total servido no balcão, em %.','Pesagem das cubas ou produção do dia.','Pese o que foi servido de cada preparação num dia e divida pelo total. As preparações somam 100%.']
+};
+const ajB = (k) => AJUDA[k] ? `<button class="aj" type="button" data-aj="${k}" aria-label="Ajuda: o que é e onde pegar">?</button>` : '';
+const inp = (k, rot, aj='', tipo='num') => `<div class="campo"><label for="f_${k.replace(/\./g,'_')}">${rot} ${ajB(aj)}</label><input id="f_${k.replace(/\./g,'_')}" data-k="${k}" type="text" inputmode="${tipo==='nome'?'text':'decimal'}"></div>`;
+const sel = (k, rot, ops, aj='') => `<div class="campo"><label for="f_${k.replace(/\./g,'_')}">${rot} ${ajB(aj)}</label><select id="f_${k.replace(/\./g,'_')}" data-k="${k}"><option value="">Escolha</option>${ops.map(([v,t])=>`<option value="${v}">${t}</option>`).join('')}</select></div>`;
+const cel = (k, rot) => `<td class="num"><input id="f_${k.replace(/\./g,'_')}" data-k="${k}" inputmode="decimal" aria-label="${esc(rot)}"></td>`;
+const celT = (k, rot) => `<td><input id="f_${k.replace(/\./g,'_')}" data-k="${k}" aria-label="${esc(rot)}"></td>`;
+const selT = (k, rot, ops, vazio=true) => `<td><select id="f_${k.replace(/\./g,'_')}" data-k="${k}" aria-label="${esc(rot)}">${vazio?'<option value="">Escolha</option>':''}${ops.map(([v,t])=>`<option value="${v}">${esc(t)}</option>`).join('')}</select></td>`;
+const th = (rot, aj='', num=true) => `<th${num?' class="num"':''}>${rot} ${ajB(aj)}</th>`;
+const rmB = (acao, i, extra='') => `<td><button class="rm" type="button" data-acao="${acao}" data-i="${i}" ${extra} aria-label="Remover linha">×</button></td>`;
+const nomeLimpo = (id) => TITULO[id].replace(/^\d · /,'');
+const topoTela = (id, lead) => `
+  ${id !== 'academia' ? `<a class="aca" href="#academia">${svg('chapeu')} Aprenda esta tela na Academia →</a>` : ''}
+  <div class="cab"><h1>${nomeLimpo(id)}</h1><span class="trilha"><b>Restaurante</b>${SECAO[id] ? ' › ' + SECAO[id] : ''} › ${nomeLimpo(id)}</span></div>
+  ${lead ? `<p class="frase" style="color:var(--muted)">${lead}</p>` : ''}`;
+const linkTela = (id) => `<a href="#${id}">${TITULO[id]}</a>`;
+
+const PARTES = [
+  {t:'Clientes', ic:'pasta', n:'2 telas', serve:'Cadastra cada restaurante uma vez e guarda todas as simulações feitas para ele.', quem:'Todo consultor, antes da primeira análise.', perg:['Onde cadastro o restaurante?','Como volto numa simulação do mês passado?']},
+  {t:'Diagnóstico', ic:'alvo', n:'2 telas', serve:'O primeiro atendimento: descobrir onde o restaurante perde dinheiro e transformar isso em proposta.', quem:'Quem vai apresentar o trabalho ao dono.', perg:['Por onde começo a conversa com o dono?','O que vale cobrar por este trabalho?']},
+  {t:'Montar o restaurante', ic:'loja', n:'5 telas', serve:'A coleta, feita uma vez: canais, cardápio com cada forma de vender, fichas técnicas, pessoal, custos e imposto. Todas as análises leem daqui.', quem:'Quem tem os números do restaurante em mãos.', perg:['Quanto custa o quilo do meu buffet?','Como entra a marmita vendida no iFood?']},
+  {t:'Análises', ic:'grafico', n:'5 telas', serve:'As respostas: preço ideal por canal, quanto o preço de hoje deixa na mesa, o resultado do mês, o peso de cada canal e a conta das marmitas.', quem:'Quem precisa decidir preço e mostrar o porquê.', perg:['Quanto devo cobrar no quilo?','O iFood está dando lucro?','Qual marmita compensa vender?']},
+  {t:'Estratégias', ic:'bussola', n:'3 telas', serve:'O que acontece se o preço, as vendas ou os custos mudarem, o que mais ameaça o lucro e o que fazer, com estratégias acionadas pelos números de cada restaurante.', quem:'Quem vai sentar com o dono para decidir o próximo passo.', perg:['E se eu subir o preço 8% e perder 5% das vendas?','O que mais derruba o meu lucro?','O que faço com o item que dá prejuízo no iFood?']},
+  {t:'Relatório final', ic:'doc', n:'1 tela', serve:'Junta preço, resultado, canais e plano em um PDF para entregar ao dono.', quem:'No fechamento do atendimento.', perg:['O que eu entrego ao cliente?']}
+];
+
+
+// ================= abas das análises =================
+const abas = (id, conteudos) => `
+  <div class="abas" role="tablist">${['Dados','Análise sintetizada','Análise completa','Premissas'].map((t,i)=>`<button role="tab" id="aba_${id}_${i}" aria-selected="${i===ABA_ATUAL(id)}" aria-controls="pn_${id}_${i}">${t}</button>`).join('')}</div>
+  ${conteudos.map((c,i)=>`<section id="pn_${id}_${i}" role="tabpanel" class="pilha" ${i===ABA_ATUAL(id)?'':'hidden'}>${c}</section>`).join('')}`;
+const ABAS_MEM = {};
+const ABA_ATUAL = (id) => ABAS_MEM[id] ?? (RES ? 1 : 0);
+
+const barraCalc = () => `<div class="caixa"><h2>Calcular</h2>
+  <p class="ajuda">O cálculo é feito no servidor, com o que está preenchido em Montar o restaurante. Cada mudança fica salva na sua conta.</p>
+  <div class="calc-barra"><button class="btn pri" type="button" data-acao="calcular">Calcular agora</button>
+  <span class="quando">${RES_QUANDO ? 'Último cálculo: ' + RES_QUANDO.toLocaleString('pt-BR') + ' · ' + esc(RES.versao_motor) : 'Ainda não calculado.'}</span></div>
+  ${ERRO_CALC ? `<ul class="avisos erros"><li>${esc(ERRO_CALC)}</li></ul>` : ''}</div>`;
+const avisosF1 = () => (RES && RES.avisos ? RES.avisos.map(a => a.replace(/^Cenário atual: linhas sem preço praticado usam o preço calculado/, 'Preço atual × ideal: itens sem preço de hoje entram com o preço ideal')) : []);
+const avisosHtml = () => !SEM_AVISOS && avisosF1().length ? `<div class="caixa"><h2>Avisos do cálculo</h2><ul class="avisos">${avisosF1().map(a=>`<li>${esc(a)}</li>`).join('')}</ul></div>` : '';
+const semCalculo = '<div class="vazio"><p>Ainda não há resultado. Abra a aba Dados e clique em Calcular agora.</p></div>';
+const kpi = (rot, val, sub='', neg=false) => `<div class="kpi"><span>${rot}</span><b class="v${neg?' neg':''}">${val}</b>${sub?`<small>${sub}</small>`:''}</div>`;
+const ordemCanais = (o) => CANAIS.map(c => c[0]).filter(k => o && o[k] != null);
+const nomeCanal = (k) => (CANAIS.find(c => c[0] === k) || [k,k])[1].split(' /')[0];
+
+function dadosTab(usa){
+  return barraCalc() + `<div class="caixa"><h2>De onde vêm os números</h2><p class="ajuda">Esta análise lê o que foi preenchido em:</p><ul>${usa.map(u=>`<li>${linkTela(u)}</li>`).join('')}</ul></div>`;
+}
+function premissasTab(){
+  if (!RES) return semCalculo;
+  const p = RES.premissas, s = p.simples;
+  const regime = s ? `Simples Nacional, Anexo I, faixa ${s.faixa}` : 'Alíquota informada';
+  return `<div class="caixa"><h2>Premissas usadas</h2><dl class="lista-prem">
+    <dt>Regime</dt><dd>${regime}</dd>
+    <dt>Alíquota efetiva sobre a venda</dt><dd>${pctf(p.aliquota_imposto, 2)}</dd>
+    <dt>Taxa média dos meios de pagamento</dt><dd>${pctf(p.taxa_pagamento_media, 2)}</dd>
+    <dt>Despesas variáveis</dt><dd>${pctf(p.despesas_variaveis_pct, 2)}</dd>
+    <dt>Folha com encargos (mês)</dt><dd>${brl(p.folha_mensal)}</dd>
+    <dt>Custos fixos (mês)</dt><dd>${brl(p.custos_fixos_mensais)}</dd>
+    <dt>Meta</dt><dd>${p.meta.tipo === 'margem' ? pctf(p.meta.valor) + ' de margem' : brl(p.meta.valor) + ' de lucro'}</dd>
+    <dt>Preço</dt><dd>${p.politica_preco === 'unico' ? 'Único em todos os canais' : 'Um preço por canal'}</dd>
+    <dt>Arredondamento</dt><dd>${({nenhum:'Sem arredondar',centavos:'Centavos',inteiro:'Real inteiro','50':'Final ,50','90':'Final ,90'})[p.arredondamento] || p.arredondamento}</dd>
+    <dt>Divisão dos custos fixos e do lucro</dt><dd>${p.base_rateio === 'unidade' ? 'Igual por unidade vendida' : 'Proporcional ao custo variável (comida, embalagem e entrega)'}${RES.resultado.linhas.some(l => l.peso != null && Number(l.peso) !== 1) ? ', com peso por item' : ''}</dd>
+    <dt>Versão do cálculo</dt><dd>${esc(RES.versao_motor)}</dd></dl>
+    ${s ? `<p class="ajuda">Fonte da tabela do Simples: ${esc(s.fonte)}.</p>` : ''}</div>${avisosHtml()}
+    <details class="dobra"><summary>Como ler</summary><p>O preço de cada item cobre o custo da comida com a perda, a embalagem, a parte dos custos fixos e da folha que cabe a ele e a parte da meta de lucro, e já leva em conta o imposto, a comissão do canal e a taxa do cartão. Itens de preço fixo (bebidas, sobremesas) entram com o preço que você informou e reduzem o quanto os outros precisam render.</p></details>`;
+}
+
+// --- Preço ideal ---
+function precoSint(){
+  if (!RES) return semCalculo;
+  const r = RES.resultado, d = r.dre, ind = r.indicadores;
+  const calc = r.linhas.filter(l => l.tipo_preco === 'calcular');
+  const canaisUsados = ordemCanais(RES.canais);
+  const maxP = Math.max(1, ...r.linhas.flatMap(l => Object.values(l.precos || {}).map(Number)));
+  const frases = calc.slice(0, 6).map(l => {
+    const un = l.modo === 'quilo' ? ' o quilo' : l.modo === 'pessoa' ? ' por pessoa' : '';
+    return `<p><b>${esc(l.nome)}</b>${un}: ${ordemCanais(l.precos).map(c => `${brl(l.precos[c])} no ${nomeCanal(c)}`).join(', ')}.</p>`;
+  }).join('');
+  return `<div class="kpis">
+      ${kpi('Lucro do mês', brl0(d.lucro), RES.premissas.meta.tipo === 'lucro' ? 'Meta: ' + brl0(RES.premissas.meta.valor) : 'Margem: ' + pctf(d.margem_liquida_pct), d.lucro < 0)}
+      ${kpi('Receita do mês', brl0(d.receita_bruta))}
+      ${kpi('Markup médio', nf(ind.markup_medio, 2) + '×', 'Receita ÷ custo da comida')}
+      ${kpi('Custo da comida sobre a receita', pctf(ind.cmv_pct))}
+    </div>
+    <div class="barras"><h3>Preço por item e canal</h3>
+      <div class="legenda">${canaisUsados.map(c=>`<span><i class="c-${c}"></i>${nomeCanal(c)}</span>`).join('')}</div>
+      ${r.linhas.map(l => `<div class="bar-item"><span class="nome" title="${esc(l.nome)}">${esc(l.nome)}</span><div class="bar-trilhos">
+        ${ordemCanais(l.precos).map(c => `<div class="bar-linha"><i class="c-${c}" style="width:${(Number(l.precos[c])/maxP*100).toFixed(1)}%"></i><span>${brl(l.precos[c])}</span></div>`).join('')}</div></div>`).join('')}
+    </div>
+    <div class="resumo"><p>Para fechar o mês com ${RES.premissas.meta.tipo === 'lucro' ? brl0(RES.premissas.meta.valor) + ' de lucro' : pctf(RES.premissas.meta.valor) + ' de margem'}, os preços ficam assim:</p>${frases}
+      ${Math.abs(RES.diferenca_meta) > 0.5 && RES.premissas.meta.tipo === 'lucro' ? `<p class="ajuda">Com o arredondamento, o lucro fica ${brl(RES.diferenca_meta)} ${RES.diferenca_meta > 0 ? 'acima' : 'abaixo'} da meta.</p>` : ''}</div>
+    ${avisosHtml()}`;
+}
+function precoComp(){
+  if (!RES) return semCalculo;
+  const r = RES.resultado, cs = ordemCanais(RES.canais);
+  return `<div class="tabela"><table><thead><tr><th>Item</th><th>Forma</th><th>Preço</th><th class="num">Qtd./mês</th><th>CMV vem de</th><th class="num">CMV com perda</th>${cs.map(c=>`<th class="num">${nomeCanal(c)}</th>`).join('')}<th class="num">Margem por unidade</th><th class="num">Margem %</th></tr></thead><tbody>
+    ${r.linhas.map(l => `<tr><td>${esc(l.nome)}</td><td>${esc(l.categoria)}</td><td>${l.tipo_preco === 'fixo' ? 'Fixo' : 'Calculado'}</td><td class="num">${nf(l.quantidade_mes, l.modo==='quilo'?1:0)}</td><td>${({ficha:'Ficha técnica',buffet:'Composição do buffet',composicao:'Composição',digitado:'Digitado'})[l.origem_cmv] || '—'}</td><td class="num">${brl(l.cmv_unit_efetivo)}</td>
+      ${cs.map(c=>`<td class="num">${l.precos[c] != null ? brl(l.precos[c]) : '—'}</td>`).join('')}<td class="num">${brl(l.mc_unitaria)}</td><td class="num">${pctf(l.mc_pct)}</td></tr>`).join('')}
+    </tbody></table></div><p class="ajuda">Margem = o que sobra do item depois de imposto, comissão, taxa de pagamento, despesas variáveis, comida e embalagem. É dela que saem a folha, os custos fixos e o lucro.</p>${avisosHtml()}`;
+}
+
+// --- Resultado ---
+const DRE_LINHAS = [['receita_bruta','Receita bruta',''],['impostos','(−) Impostos','neg'],['comissoes_canais','(−) Comissões dos canais','neg'],['taxas_pagamento','(−) Taxas de cartão e PIX','neg'],['despesas_variaveis','(−) Despesas variáveis','neg'],['receita_liquida','(=) Receita líquida','tot'],['cmv','(−) Custo da comida (CMV)','neg'],['embalagens','(−) Embalagens e entrega','neg'],['margem_contribuicao','(=) Margem de contribuição','tot'],['folha','(−) Folha','neg'],['custos_fixos','(−) Custos fixos','neg'],['lucro','(=) Lucro','tot']];
+const DESTINO = [['impostos','Impostos','t1'],['comissoes_canais','Comissões','t2'],['taxas_pagamento','Cartão e PIX','t3'],['despesas_variaveis','Despesas variáveis','t4'],['cmv','Comida','t5'],['embalagens','Embalagens','t6'],['folha','Folha','t7'],['custos_fixos','Custos fixos','t8'],['lucro','Lucro','t9']];
+function resSint(){
+  if (!RES) return semCalculo;
+  const r = RES.resultado, d = r.dre, p = r.dre_pct, ind = r.indicadores;
+  const lucroNeg = d.lucro < 0;
+  return `<div class="kpis">
+      ${kpi('Receita do mês', brl0(d.receita_bruta))}
+      ${kpi('Margem de contribuição', brl0(d.margem_contribuicao), pctf(ind.mc_pct) + ' da receita')}
+      ${kpi('Lucro do mês', brl0(d.lucro), pctf(d.margem_liquida_pct) + ' da receita', lucroNeg)}
+      ${kpi('Ponto de equilíbrio', brl0(ind.ponto_equilibrio_receita), 'Receita mínima para não ter prejuízo')}
+    </div>
+    <div class="barras"><h3>Para onde vai cada R$ 100 vendidos</h3>
+      <div class="pilha-100">${DESTINO.map(([k,,c]) => p[k] > 0 ? `<i class="${c}" style="width:${(p[k]*100).toFixed(2)}%" title="${k}"></i>` : '').join('')}</div>
+      <div class="leg-100">${DESTINO.map(([k,t,c]) => `<div><i class="${k==='lucro'&&lucroNeg?'t9n':c}"></i>${t}<b>${brl(p[k]*100)}</b></div>`).join('')}</div>
+    </div>
+    <div class="resumo"><p>O restaurante vende ${brl0(d.receita_bruta)} por mês. A comida custa ${pctf(ind.cmv_pct)} da receita e, somada à folha, chega a ${pctf(ind.prime_cost_pct)}.</p>
+      <p>${lucroNeg ? `Com esses preços o mês fecha com prejuízo de ${brl0(-d.lucro)}.` : `Sobram ${brl0(d.lucro)} de lucro, ${pctf(d.margem_liquida_pct)} da receita.`} Abaixo de ${brl0(ind.ponto_equilibrio_receita)} de venda no mês, o restaurante tem prejuízo.</p></div>
+    ${avisosHtml()}`;
+}
+const SUB_FOLHA = [['salarios','Salários'],['encargos','Encargos e provisões'],['beneficios','Benefícios'],['extras','Extras e diaristas'],['prolabore','Pró-labore']];
+const NOME_GRUPO = Object.fromEntries(GRUPOS.map(([g,r]) => [g,r]).concat([['outros','Outros']]));
+function dreLinhas(r){
+  const d = r.dre, p = r.dre_pct;
+  return DRE_LINHAS.map(([k,t,c]) => {
+    let h = `<tr class="${c}"><td>${t}</td><td class="num">${brl(d[k])}</td><td class="num">${pctf(p[k])}</td></tr>`;
+    if (k === 'folha' && r.pessoal) h += SUB_FOLHA.filter(([s]) => Number(r.pessoal[s]) > 0).map(([s,n]) => `<tr class="subl"><td>${n}</td><td class="num">${brl(r.pessoal[s])}</td><td class="num"></td></tr>`).join('');
+    if (k === 'custos_fixos' && r.custos_fixos_grupos) h += Object.keys(NOME_GRUPO).filter(g => r.custos_fixos_grupos[g] != null).map(g => `<tr class="subl"><td>${NOME_GRUPO[g]}</td><td class="num">${brl(r.custos_fixos_grupos[g])}</td><td class="num"></td></tr>`).join('');
+    return h; }).join('');
+}
+function resComp(){
+  if (!RES) return semCalculo;
+  const r = RES.resultado, d = r.dre, p = r.dre_pct, ind = r.indicadores;
+  return `<div class="tabela"><table class="dre"><thead><tr><th>Conta</th><th class="num">R$ por mês</th><th class="num">% da receita</th></tr></thead><tbody>
+    ${dreLinhas(r)}</tbody></table></div>
+    <div class="caixa"><h2>Indicadores</h2><div class="ind-grade">
+      <div class="ind"><span>Custo da comida (CMV)</span><b>${pctf(ind.cmv_pct)}</b><small>da receita</small></div>
+      <div class="ind"><span>Comida + folha</span><b>${pctf(ind.prime_cost_pct)}</b><small>da receita</small></div>
+      <div class="ind"><span>Margem de contribuição</span><b>${pctf(ind.mc_pct)}</b><small>da receita</small></div>
+      <div class="ind"><span>Ponto de equilíbrio</span><b>${brl0(ind.ponto_equilibrio_receita)}</b><small>de receita por mês</small></div>
+      <div class="ind"><span>Margem de segurança</span><b>${pctf(ind.margem_seguranca_pct)}</b><small>quanto a venda pode cair antes do prejuízo</small></div>
+      <div class="ind"><span>Markup médio</span><b>${nf(ind.markup_medio, 2)}×</b><small>receita ÷ custo da comida</small></div>
+    </div></div>
+    <div class="tabela"><table><thead><tr><th>Item</th><th class="num">Receita</th><th class="num">Custo da comida</th><th class="num">Margem</th><th class="num">Margem %</th></tr></thead><tbody>
+    ${r.linhas.map(l => `<tr><td>${esc(l.nome)}</td><td class="num">${brl(l.receita)}</td><td class="num">${brl(l.cmv)}</td><td class="num">${brl(l.margem_contribuicao)}</td><td class="num">${pctf(l.mc_pct)}</td></tr>`).join('')}
+    </tbody></table></div>${avisosHtml()}`;
+}
+
+// --- Preço atual × ideal ---
+const semComparativo = '<div class="vazio"><p>Nenhum item "A calcular" tem preço de hoje. Preencha a coluna "Preço fixo ou de hoje" desses itens no cardápio e calcule de novo.</p></div>';
+function atualSint(){
+  if (!RES) return semCalculo;
+  const cp = RES.comparativo; if (!cp) return semComparativo;
+  const itens = cp.itens.filter(i => i.tem_preco_hoje);
+  const dif = cp.diferenca_lucro, maxP = Math.max(1, ...itens.flatMap(i => [Number(i.preco_medio_hoje), Number(i.preco_medio_ideal)]));
+  const piores = itens.filter(i => i.diferenca_margem < -0.5).sort((a,b) => a.diferenca_margem - b.diferenca_margem).slice(0,3);
+  return `<div class="kpis">
+      ${kpi('Lucro com o preço de hoje', brl0(cp.lucro_hoje), pctf(cp.margem_liquida_hoje_pct) + ' da receita', cp.lucro_hoje < 0)}
+      ${kpi('Lucro com o preço ideal', brl0(cp.lucro_ideal), pctf(cp.margem_liquida_ideal_pct) + ' da receita')}
+      ${kpi('Diferença por mês', (dif >= 0 ? '+' : '') + brl0(dif), dif >= 0 ? 'o preço de hoje rende mais que a meta' : 'o preço de hoje deixa dinheiro na mesa', dif < 0)}
+      ${kpi('Itens abaixo do ideal', cp.itens_abaixo_do_ideal + ' de ' + cp.itens_com_preco_hoje, 'itens com preço de hoje informado')}
+    </div>
+    <div class="barras"><h3>Preço médio de hoje × preço médio ideal</h3>
+      <div class="legenda"><span><i class="c-hoje"></i>Hoje</span><span><i class="c-ideal"></i>Ideal</span></div>
+      ${itens.map(i => `<div class="bar-item"><span class="nome" title="${esc(i.nome)}">${esc(i.nome)}</span><div class="bar-trilhos">
+        <div class="bar-linha"><i class="c-hoje" style="width:${(Number(i.preco_medio_hoje)/maxP*100).toFixed(1)}%"></i><span>${brl(i.preco_medio_hoje)}</span></div>
+        <div class="bar-linha"><i class="c-ideal" style="width:${(Number(i.preco_medio_ideal)/maxP*100).toFixed(1)}%"></i><span>${brl(i.preco_medio_ideal)}</span></div></div></div>`).join('')}
+    </div>
+    <div class="resumo">
+      <p>${dif < 0 ? `Com os preços de hoje, o restaurante fica <b>${brl0(-dif)} por mês abaixo</b> do lucro que precisa.` : `Com os preços de hoje, o lucro fica <b>${brl0(dif)} por mês acima</b> da meta.`}</p>
+      ${piores.length ? `<p>Onde está a maior perda: ${piores.map(i => `<b>${esc(i.nome)}</b> (${brl0(-i.diferenca_margem)} por mês)`).join(', ')}.</p>` : ''}
+      <p class="ajuda">A comparação supõe o mesmo volume de vendas com os dois preços. Se o preço subir, parte dos clientes pode comprar menos; isso entra na conversa com o dono.</p>
+    </div>${avisosHtml()}`;
+}
+function atualComp(){
+  if (!RES) return semCalculo;
+  const cp = RES.comparativo; if (!cp) return semComparativo;
+  return `<div class="tabela"><table><thead><tr><th>Item</th><th class="num">Qtd./mês</th><th class="num">Preço de hoje</th><th class="num">Preço ideal (médio)</th><th class="num">Diferença</th><th class="num">Diferença %</th><th class="num">Margem/mês hoje</th><th class="num">Margem/mês ideal</th><th class="num">Diferença de margem</th></tr></thead><tbody>
+    ${cp.itens.map(i => i.tem_preco_hoje ? `<tr><td>${esc(i.nome)}</td><td class="num">${nf(i.quantidade_mes, i.modo==='quilo'?1:0)}</td><td class="num">${brl(i.preco_medio_hoje)}</td><td class="num">${brl(i.preco_medio_ideal)}</td>
+      <td class="num ${i.diferenca_preco < 0 ? 'neg' : 'pos'}">${brl(i.diferenca_preco)}</td><td class="num ${i.diferenca_preco < 0 ? 'neg' : 'pos'}">${pctf(i.diferenca_preco_pct)}</td>
+      <td class="num">${brl(i.margem_hoje)}</td><td class="num">${brl(i.margem_ideal)}</td><td class="num ${i.diferenca_margem < 0 ? 'neg' : 'pos'}">${brl(i.diferenca_margem)}</td></tr>`
+      : `<tr><td>${esc(i.nome)}</td><td class="num">${nf(i.quantidade_mes, i.modo==='quilo'?1:0)}</td><td class="num">—</td><td class="num">${brl(i.preco_medio_ideal)}</td><td colspan="5" class="ajuda">Sem preço de hoje: entra com o preço ideal.</td></tr>`).join('')}
+    <tr class="tot"><td>Lucro do mês</td><td></td><td></td><td></td><td></td><td></td><td class="num">${brl(cp.lucro_hoje)}</td><td class="num">${brl(cp.lucro_ideal)}</td><td class="num ${cp.diferenca_lucro < 0 ? 'neg' : 'pos'}">${brl(cp.diferenca_lucro)}</td></tr>
+    </tbody></table></div>
+    <p class="ajuda">Preço ideal médio = média dos preços ideais de cada canal, pesada pelo que o item vende em cada um. A diferença de lucro é a soma das diferenças de margem dos itens.</p>${avisosHtml()}`;
+}
+
+// --- Canais ---
+function canaisSint(){
+  if (!RES) return semCalculo;
+  const cs = RES.resultado.canais, ks = ordemCanais(cs);
+  const melhor = ks.slice().sort((a,b) => cs[b].margem_pct - cs[a].margem_pct)[0];
+  return `<div class="kpis">
+      ${ks.map(k => kpi(nomeCanal(k), brl0(cs[k].receita), pctf(cs[k].participacao_receita) + ' da receita · margem ' + pctf(cs[k].margem_pct))).join('')}
+      ${kpi('Canal com melhor margem', nomeCanal(melhor), 'sobram ' + pctf(cs[melhor].margem_pct) + ' de cada venda')}
+    </div>
+    <div class="barras"><h3>Quanto cada canal traz de receita e de margem</h3>
+      <div class="legenda"><span><i class="c-hoje"></i>% da receita</span><span><i class="c-ideal"></i>% da margem de contribuição</span></div>
+      ${ks.map(k => `<div class="bar-item"><span class="nome">${nomeCanal(k)}</span><div class="bar-trilhos">
+        <div class="bar-linha"><i class="c-hoje" style="width:${Math.max(0, cs[k].participacao_receita*100).toFixed(1)}%"></i><span>${pctf(cs[k].participacao_receita)}</span></div>
+        <div class="bar-linha"><i class="c-ideal" style="width:${Math.max(0, cs[k].participacao_margem*100).toFixed(1)}%"></i><span>${pctf(cs[k].participacao_margem)}</span></div></div></div>`).join('')}
+    </div>
+    <div class="resumo">${ks.map(k => `<p><b>${nomeCanal(k)}</b>: ${pctf(cs[k].participacao_receita)} da receita e ${pctf(cs[k].participacao_margem)} da margem. De cada R$ 100 vendidos, sobram ${brl(cs[k].margem_pct*100)} depois de imposto, comissão, taxas, comida e embalagem.</p>`).join('')}</div>
+    ${avisosHtml()}`;
+}
+function canaisComp(){
+  if (!RES) return semCalculo;
+  const cs = RES.resultado.canais, ks = ordemCanais(cs), ls = RES.resultado.linhas;
+  return `<div class="tabela"><table><thead><tr><th>Canal</th><th class="num">Receita</th><th class="num">Impostos</th><th class="num">Comissão</th><th class="num">Cartão e PIX</th><th class="num">Despesas variáveis</th><th class="num">Comida</th><th class="num">Embalagem e entrega</th><th class="num">Margem</th><th class="num">Margem %</th></tr></thead><tbody>
+    ${ks.map(k => { const c = cs[k]; return `<tr><td>${nomeCanal(k)}</td><td class="num">${brl(c.receita)}</td><td class="num">${brl(c.impostos)}</td><td class="num">${brl(c.comissoes)}</td><td class="num">${brl(c.taxas_pagamento)}</td><td class="num">${brl(c.despesas_variaveis)}</td><td class="num">${brl(c.cmv)}</td><td class="num">${brl(c.embalagens)}</td><td class="num">${brl(c.margem_contribuicao)}</td><td class="num">${pctf(c.margem_pct)}</td></tr>`; }).join('')}
+    </tbody></table></div>
+    <div class="caixa"><h2>Margem por unidade de cada item em cada canal</h2>
+      <div class="tabela"><table><thead><tr><th>Item</th>${ks.map(k => `<th class="num">${nomeCanal(k)}</th>`).join('')}</tr></thead><tbody>
+      ${ls.map(l => `<tr><td>${esc(l.nome)}</td>${ks.map(k => { const pc = l.por_canal && l.por_canal[k]; return `<td class="num ${pc && pc.margem_unit < 0 ? 'neg' : ''}">${pc ? brl(pc.margem_unit) + ' <small>(' + pctf(pc.margem_pct) + ')</small>' : '—'}</td>`; }).join('')}</tr>`).join('')}
+      </tbody></table></div>
+      <p class="ajuda">Quanto sobra de cada unidade vendida, depois de imposto, comissão, taxas, despesas variáveis, comida e embalagem/entrega. Margem negativa (em vermelho) quer dizer que o item dá prejuízo naquele canal antes mesmo de pagar a folha e os custos fixos.</p></div>
+    ${avisosHtml()}`;
+}
+function canaisPrem(){
+  if (!RES) return semCalculo;
+  const cs = RES.canais, ks = ordemCanais(cs);
+  return `<div class="caixa"><h2>Como cada canal foi considerado</h2>
+    <div class="tabela"><table><thead><tr><th>Canal</th><th class="num">Comissão</th><th class="num">Taxa de pagamento</th><th class="num">Embalagem por item</th><th class="num">Entrega por pedido</th><th class="num">Itens por pedido</th><th class="num">Custo por item no canal</th><th class="num">Total descontado do preço</th></tr></thead><tbody>
+    ${ks.map(k => { const c = cs[k]; return `<tr><td>${nomeCanal(k)}</td><td class="num">${pctf(c.comissao)}</td><td class="num">${pctf(c.taxa_pagamento, 2)}</td><td class="num">${brl(c.embalagem_item)}</td><td class="num">${brl(c.custo_pedido)}</td><td class="num">${nf(c.itens_por_pedido, 1)}</td><td class="num">${brl(c.embalagem_unit)}</td><td class="num">${pctf(c.deducao_pct, 2)}</td></tr>`; }).join('')}
+    </tbody></table></div>
+    <p class="ajuda">Total descontado do preço = imposto + comissão + taxa de pagamento + despesas variáveis. Custo por item no canal = embalagem por item + entrega por pedido ÷ itens por pedido.</p></div>${premissasTab()}`;
+}
+
+// --- Marmitas ---
+const ehMarmita = (l) => l.categoria === 'Marmita';
+const semMarmita = '<div class="vazio"><p>Nenhum item do cardápio está com a forma de vender "Marmita".</p></div>';
+function marmSint(){
+  if (!RES) return semCalculo;
+  const ms = RES.resultado.linhas.filter(ehMarmita), cat = RES.resultado.categorias && RES.resultado.categorias['Marmita'];
+  if (!ms.length || !cat) return semMarmita;
+  const ks = CANAIS.map(c => c[0]).filter(k => ms.some(l => l.por_canal && l.por_canal[k]));
+  const maxM = Math.max(0.01, ...ms.flatMap(l => Object.values(l.por_canal || {}).map(p => Math.abs(Number(p.margem_unit)))));
+  return `<div class="kpis">
+      ${kpi('Marmitas por mês', nf(cat.quantidade), cat.itens + (cat.itens === 1 ? ' tamanho' : ' tamanhos'))}
+      ${kpi('Receita das marmitas', brl0(cat.receita), 'preço médio ' + brl(cat.preco_medio))}
+      ${kpi('Margem média por marmita', brl(cat.margem_unit), pctf(cat.margem_pct) + ' do preço')}
+      ${kpi('Comida sobre o preço', pctf(cat.cmv_pct))}
+    </div>
+    <div class="barras"><h3>Quanto sobra de cada marmita em cada canal</h3>
+      <div class="legenda">${ks.map(k => `<span><i class="c-${k}"></i>${nomeCanal(k)}</span>`).join('')}</div>
+      ${ms.map(l => `<div class="bar-item"><span class="nome">${esc(l.nome)}</span><div class="bar-trilhos">
+        ${ks.filter(k => l.por_canal[k]).map(k => { const v = Number(l.por_canal[k].margem_unit); return `<div class="bar-linha"><i class="c-${k}" style="width:${(Math.abs(v)/maxM*100).toFixed(1)}%;${v < 0 ? 'opacity:.45' : ''}"></i><span class="${v < 0 ? 'neg' : ''}">${brl(v)}</span></div>`; }).join('')}</div></div>`).join('')}
+    </div>
+    <div class="resumo">${ms.map(l => { const cs2 = ks.filter(k => l.por_canal[k]), mg = cs2.map(k => Number(l.por_canal[k].margem_unit));
+      const igual = Math.max(...mg) - Math.min(...mg) < 0.05;
+      const melhor = cs2.slice().sort((a,b) => l.por_canal[b].margem_unit - l.por_canal[a].margem_unit)[0];
+      return `<p><b>${esc(l.nome)}</b>: comida ${brl(l.cmv_unit_efetivo)} e embalagem ${brl(l.embalagem_unit)} por unidade. ` +
+        (igual ? `Sobra praticamente o mesmo em todos os canais (${brl(l.por_canal[melhor].margem_unit)} por marmita): o preço de cada canal já paga a comissão, as taxas e a entrega daquele canal.`
+               : `Rende mais no <b>${nomeCanal(melhor)}</b> (sobram ${brl(l.por_canal[melhor].margem_unit)} por marmita).`) + `</p>`; }).join('')}</div>
+    ${avisosHtml()}`;
+}
+function marmComp(){
+  if (!RES) return semCalculo;
+  const ms = RES.resultado.linhas.filter(ehMarmita); if (!ms.length) return semMarmita;
+  return ms.map(l => `<div class="caixa"><h2>${esc(l.nome)}</h2>
+    <div class="tabela"><table><thead><tr><th>Canal</th><th class="num">Vendas/mês</th><th class="num">Preço</th><th class="num">Imposto, comissão e taxas</th><th class="num">Comida</th><th class="num">Embalagem e entrega</th><th class="num">Sobra por marmita</th><th class="num">Sobra %</th></tr></thead><tbody>
+    ${ordemCanais(l.por_canal).map(k => { const p = l.por_canal[k]; return `<tr><td>${nomeCanal(k)}</td><td class="num">${nf(p.quantidade)}</td><td class="num">${brl(p.preco)}</td><td class="num">${brl(p.deducoes_unit)}</td><td class="num">${brl(p.comida_unit)}</td><td class="num">${brl(p.embalagem_entrega_unit)}</td><td class="num ${p.margem_unit < 0 ? 'neg' : ''}">${brl(p.margem_unit)}</td><td class="num">${pctf(p.margem_pct)}</td></tr>`; }).join('')}
+    </tbody></table></div></div>`).join('') + `<p class="ajuda">Sobra por marmita = preço − imposto, comissão, taxas e despesas variáveis − comida − embalagem do item − embalagem e entrega do canal. É dela que saem a folha, os custos fixos e o lucro.</p>${avisosHtml()}`;
+}
+
+// ================= F3: carteira, histórico, diagnóstico, proposta, relatório, Academia =================
+let EMPRESAS = [], SIMS = [], PERGUNTAS = null, ERRO_F3 = null, CONFIRMA = null, SEM_AVISOS = false;
+const dataHoraBR = (s) => s ? new Date(s).toLocaleString('pt-BR', { dateStyle:'short', timeStyle:'short' }) : '—';
+const hojeBR = () => new Date().toLocaleDateString('pt-BR', { day:'2-digit', month:'long', year:'numeric' });
+const dadosEmp = () => (CTX.empresa && CTX.empresa.dados) || {};
+const nomeEmp = () => CTX.empresa ? CTX.empresa.nome : '';
+const msgF3 = () => ERRO_F3 ? `<ul class="avisos erros"><li>${esc(ERRO_F3)}</li></ul>` : '';
+const linhasTexto = (s) => String(s || '').split('\n').map(x => x.trim()).filter(Boolean);
+// botão que pede um segundo clique antes de apagar ou substituir (sem janela do navegador)
+const botaoConf = (acao, id, rot, rotConf) => CONFIRMA === acao + ':' + id
+  ? `<button class="btn mini perigo" type="button" data-acao="${acao}" data-id="${id}" data-conf="1">${rotConf}</button> <button class="btn mini" type="button" data-acao="cancelarConf">Cancelar</button>`
+  : `<button class="btn mini" type="button" data-acao="${acao}" data-id="${id}">${rot}</button>`;
+const area = (k, rot, aj='', linhas=3) => `<div class="campo campo-largo"><label for="f_${k.replace(/\./g,'_')}">${rot} ${ajB(aj)}</label><textarea id="f_${k.replace(/\./g,'_')}" data-k="${k}" rows="${linhas}"></textarea></div>`;
+const abasN = (id, nomes, conteudos, padrao=0) => { const at = ABAS_MEM[id] ?? padrao; return `
+  <div class="abas" role="tablist">${nomes.map((t,i)=>`<button role="tab" id="aba_${id}_${i}" aria-selected="${i===at}" aria-controls="pn_${id}_${i}">${t}</button>`).join('')}</div>
+  ${conteudos.map((c,i)=>`<section id="pn_${id}_${i}" role="tabpanel" class="pilha" ${i===at?'':'hidden'}>${c}</section>`).join('')}`; };
+
+// ---------- Carteira ----------
+const CAD = [['nome','Nome do restaurante','emp_nome'],['cidade','Cidade','emp_cidade'],['responsavel','Dono ou responsável','emp_resp'],['contato','Telefone ou e-mail do dono','emp_contato']];
+function carteiraTela(){
+  const d = dadosEmp();
+  return `${topoTela('carteira','Cada restaurante é cadastrado uma vez. Cardápio, fichas, custos, cálculos, diagnóstico, proposta e versões ficam guardados nele.')}
+  <div class="caixa"><h2>Restaurante em uso</h2>
+    <div class="grade">${CAD.map(([k,rot,aj]) => `<div class="campo"><label for="emp_${k}">${rot} ${ajB(aj)}</label><input id="emp_${k}" data-e="${k}" type="text" value="${esc(k === 'nome' ? nomeEmp() : (d[k] || ''))}"></div>`).join('')}</div>
+    <p class="ajuda">Esses dados aparecem na proposta e no relatório e ficam salvos sozinhos.</p></div>
+  <div class="caixa"><h2>Seus restaurantes</h2>
+    <div class="tabela"><table><thead><tr><th>Restaurante</th><th>Cidade</th><th>Responsável</th><th>Última alteração</th><th></th></tr></thead><tbody>
+    ${EMPRESAS.map(e => { const em = CTX.empresa && e.id === CTX.empresa.id, de = e.dados || {};
+      return `<tr${em ? ' class="tot"' : ''}><td>${esc(e.nome)}${em ? ' <span class="selo-t">em uso</span>' : ''}</td><td>${esc(de.cidade || '')}</td><td>${esc(de.responsavel || '')}</td><td>${dataHoraBR(e.updated_at || e.created_at)}</td>
+      <td class="acoes">${em ? '' : `<button class="btn mini" type="button" data-acao="abrirEmp" data-id="${e.id}">Abrir</button> `}${EMPRESAS.length > 1 ? botaoConf('excluirEmp', e.id, 'Excluir', 'Confirmar: apagar o restaurante e tudo dele') : ''}</td></tr>`; }).join('')}
+    </tbody></table></div>
+    <div class="linha-acoes linha-base"><div class="campo" style="flex:1;min-width:200px"><label for="novoEmp">Cadastrar outro restaurante</label><input id="novoEmp" type="text" aria-describedby="novoEmpAj"></div><button class="btn pri" type="button" data-acao="novoEmp">Cadastrar</button></div>
+    <p class="ajuda" id="novoEmpAj">O restaurante novo começa em branco e passa a ser o restaurante em uso.</p>
+    ${msgF3()}
+    <p class="ajuda">Excluir apaga o restaurante com todas as simulações e versões guardadas. Não dá para desfazer.</p></div>`;
+}
+
+// ---------- Histórico ----------
+function resumoSim(r){
+  if (!r || !r.resultado) return {};
+  return { lucro: r.resultado.dre.lucro, receita: r.resultado.dre.receita_bruta, hoje: r.comparativo ? r.comparativo.lucro_hoje : null, versao: r.versao_motor };
+}
+function historicoTela(){
+  const lin = [{ rasc:true, s:CTX.sim, z:resumoSim(RES) }].concat(SIMS.map(s => ({ rasc:false, s, z:resumoSim(s.resultado) }))).filter(x => x.s);
+  return `${topoTela('historico','O rascunho é a simulação em uso e fica salvo a cada mudança. Guarde uma versão quando quiser marcar um momento: antes do reajuste, o mês de referência, a proposta enviada.')}
+  <div class="caixa"><h2>Guardar uma versão de ${esc(nomeEmp())}</h2>
+    <div class="linha-acoes linha-base"><div class="campo" style="flex:1;min-width:220px"><label for="nomeVersao">Nome da versão ${ajB('versao')}</label><input id="nomeVersao" type="text"></div><button class="btn pri" type="button" data-acao="guardarVersao">Guardar versão</button></div>
+    <p class="ajuda">A versão leva tudo o que está no rascunho agora: cardápio, fichas, custos, último cálculo, diagnóstico e proposta.${RES ? '' : ' O rascunho ainda não foi calculado, então a versão vai sem resultado.'}</p>${msgF3()}</div>
+  <div class="tabela"><table><thead><tr><th>Versão</th><th>Data</th><th class="num">Receita</th><th class="num">Lucro com o preço ideal</th><th class="num">Lucro com o preço de hoje</th><th>Cálculo</th><th></th></tr></thead><tbody>
+  ${lin.map(({rasc, s, z}) => `<tr${rasc ? ' class="tot"' : ''}><td>${rasc ? 'Rascunho <span class="selo-t">em uso</span>' : esc(s.nome)}</td><td>${dataHoraBR(rasc ? (s.updated_at || s.created_at) : s.created_at)}</td>
+    <td class="num">${brl0(z.receita)}</td><td class="num">${brl0(z.lucro)}</td><td class="num">${brl0(z.hoje)}</td><td>${z.versao ? esc(z.versao) : 'sem cálculo'}</td>
+    <td class="acoes">${rasc ? '' : botaoConf('abrirVersao', s.id, 'Abrir no rascunho', 'Confirmar: trocar o rascunho por esta versão') + ' ' + botaoConf('excluirVersao', s.id, 'Excluir', 'Confirmar exclusão')}</td></tr>`).join('')}
+  </tbody></table></div>
+  ${SIMS.length ? '' : '<p class="ajuda">Nenhuma versão guardada ainda.</p>'}
+  <p class="ajuda">Os valores de cada linha são os do cálculo guardado nela. Abrir uma versão no rascunho troca o rascunho atual por ela: se quiser manter o atual, guarde-o como versão antes.</p>`;
+}
+
+// ---------- Diagnóstico rápido ----------
+function blocosDiag(){
+  const bs = [];
+  (PERGUNTAS || []).forEach(q => { let b = bs.find(x => x.id === q.bloco); if (!b) bs.push(b = { id:q.bloco, nome:q.bloco_nome, qs:[] }); b.qs.push(q); });
+  return bs;
+}
+function diagTela(){
+  const topo = topoTela('diagnostico','Quinze perguntas curtas para a primeira conversa com o dono. A nota é calculada no servidor e aponta por onde começar o trabalho.');
+  if (!PERGUNTAS) { carregarPerguntas(); return topo + (ERRO_F3 ? msgF3() : '<div class="vazio"><p>Carregando as perguntas…</p></div>'); }
+  const R = U.diag.resp, n = PERGUNTAS.filter(q => R[q.id]).length;
+  const perguntas = blocosDiag().map(b => `<div class="caixa"><h2>${esc(b.nome)}</h2>${b.qs.map(q => `<fieldset class="perg"><legend>${esc(q.texto)}</legend>${q.ajuda ? `<p class="ajuda">${esc(q.ajuda)}</p>` : ''}<div class="opcoes">
+      ${q.opcoes.concat(q.na_rot ? [{ v:'na', rot:q.na_rot }] : []).map(o => `<label class="op${o.v === 'na' ? ' op-na' : ''}"><input type="radio" name="dq_${q.id}" data-dq="${q.id}" value="${esc(o.v)}"${R[q.id] === o.v ? ' checked' : ''}><span>${esc(o.rot)}</span></label>`).join('')}</div></fieldset>`).join('')}</div>`).join('');
+  const barra = `<div class="caixa"><h2>Nota</h2><div class="calc-barra"><button class="btn pri" type="button" data-acao="diagnosticar">Calcular a nota</button>
+    <span class="quando">${n} de ${PERGUNTAS.length} respondidas${U.diag.quando ? ' · última nota em ' + dataHoraBR(U.diag.quando) : ''}</span></div>
+    <p class="ajuda">Se o restaurante já estiver montado (cardápio, custos, imposto e meta), a nota vem com alertas tirados dos números dele.</p>${U.diag.erro ? `<ul class="avisos erros"><li>${esc(U.diag.erro)}</li></ul>` : ''}</div>`;
+  return topo + abasN('diagnostico', ['Perguntas','Resultado'], [perguntas + barra, barra + diagRes()], U.diag.res ? 1 : 0);
+}
+function diagRes(){
+  const D = U.diag.res; if (!D) return '<div class="vazio"><p>Responda as perguntas e clique em Calcular a nota.</p></div>';
+  const altas = D.pontos_atencao.filter(a => a.gravidade === 'alta').length;
+  const ordem = blocosDiag().map(b => b.id).filter(k => D.blocos[k]);
+  return `<div class="kpis">
+      ${kpi('Nota geral', D.nota == null ? '—' : D.nota + ' de 100', D.faixa ? D.faixa.rotulo : 'nenhuma pergunta respondida', D.nota != null && D.nota < 40)}
+      ${kpi('Respondidas', D.respondidas + ' de ' + D.total, D.nao_se_aplica ? D.nao_se_aplica + ' não se aplica' : '')}
+      ${kpi('Pontos de atenção', String(D.pontos_atencao.length), altas + ' de gravidade alta', altas > 0)}
+      ${kpi('Alertas dos números', D.numeros_avaliados ? String(D.alertas_numeros.length) : '—', D.numeros_avaliados ? 'tirados do cálculo do restaurante' : 'restaurante ainda não montado', D.alertas_numeros.some(a => a.gravidade === 'alta'))}
+    </div>
+    ${D.faixa ? `<div class="resumo"><p><b>${esc(D.faixa.rotulo)}</b> (${D.faixa.de} a ${D.faixa.ate} pontos). ${esc(D.faixa.leitura)}</p>${D.completo ? '' : `<p class="ajuda">Faltam ${D.faltam.length} perguntas: a nota vale só para as respondidas.</p>`}</div>` : ''}
+    <div class="barras"><h3>Nota por área</h3>${ordem.map(k => { const b = D.blocos[k]; return `<div class="bar-item"><span class="nome">${esc(b.nome)}</span><div class="bar-trilhos"><div class="bar-linha"><i class="${b.nota != null && b.nota < 40 ? 'c-ifood' : 'c-ideal'}" style="width:${b.nota ?? 0}%"></i><span>${b.nota == null ? 'sem resposta' : b.nota + ' de 100'}</span></div></div></div>`; }).join('')}</div>
+    <div class="caixa"><h2>Por onde começar</h2>${D.pontos_atencao.length ? `<ol class="pontos">${D.pontos_atencao.map(a => `<li class="g-${a.gravidade}"><span class="selo-g">${a.gravidade === 'alta' ? 'Prioridade alta' : 'Prioridade média'}</span><b>${esc(a.atencao)}</b><small>${esc(a.bloco)} · ${esc(a.pergunta)} Resposta: ${esc(a.resposta)}.</small></li>`).join('')}</ol>` : '<p>Nenhum ponto de atenção nas perguntas respondidas.</p>'}
+      <p class="ajuda">A ordem segue o peso de cada pergunta e o quanto a resposta ficou longe da melhor prática.</p></div>
+    <div class="caixa"><h2>Alertas dos números</h2>${D.numeros_avaliados
+      ? (D.alertas_numeros.length ? `<ul class="avisos">${D.alertas_numeros.map(a => `<li class="${a.gravidade === 'alta' ? 'alto' : ''}">${esc(a.texto)}</li>`).join('')}</ul>` : '<p>Os números do restaurante não acenderam nenhum alerta: preço de hoje no ideal ou acima, e nenhum item com margem negativa num canal.</p>')
+      : `<p class="ajuda">${D.erro_numeros ? 'Os números ainda não puderam ser avaliados: ' + esc(erroAmigavel(D.erro_numeros)) : 'Monte o restaurante (cardápio, pessoal e custos, imposto e meta) e calcule a nota de novo para ver os alertas dos números.'}</p>`}</div>
+    <p class="ajuda">${esc(D.criterio)}</p>
+    <div class="linha-acoes"><a class="btn" href="#proposta">Montar a proposta com este diagnóstico →</a></div>`;
+}
+
+// ---------- Proposta comercial ----------
+function servicosProposta(){
+  const D = U.diag.res, P = U.proposta, vistos = new Set(), out = [];
+  (D ? D.pontos_atencao : []).filter(a => !P.fora.includes(a.id)).forEach(a => { if (!vistos.has(a.servico)) { vistos.add(a.servico); out.push(a.servico); } });
+  return out.concat(linhasTexto(P.extras));
+}
+function propostaTela(){
+  const topo = topoTela('proposta','O diagnóstico vira proposta de trabalho: o que foi encontrado, o que será feito, prazo e investimento. O valor é você quem define.');
+  const D = U.diag.res;
+  if (!D) return topo + `<div class="vazio"><p>A proposta nasce do diagnóstico. Faça o Diagnóstico rápido primeiro.</p><a class="btn pri" href="#diagnostico">Ir para o Diagnóstico rápido</a></div>`;
+  const P = U.proposta;
+  return topo + `<div class="caixa nao-imprime"><h2>O que entra na proposta</h2>
+      ${D.pontos_atencao.length ? `<div class="servicos">${D.pontos_atencao.map(a => `<label class="op"><input type="checkbox" data-sv="${a.id}"${P.fora.includes(a.id) ? '' : ' checked'}><span>${esc(a.servico)}</span></label>`).join('')}</div>` : '<p class="ajuda">O diagnóstico não apontou serviços. Escreva abaixo o que será feito.</p>'}
+      ${area('proposta.extras','Outros serviços (um por linha)','prop_extras',3)}</div>
+    <div class="caixa nao-imprime"><h2>Prazo, investimento e consultor</h2><div class="grade">
+      ${inp('proposta.prazo','Prazo de execução','prop_prazo','nome')}${inp('proposta.investimento','Investimento','prop_invest','nome')}
+      ${inp('proposta.condicoes','Condições de pagamento','prop_cond','nome')}${inp('proposta.validade','Validade da proposta','prop_valid','nome')}
+      ${inp('proposta.consultor','Consultor','prop_consultor','nome')}${inp('proposta.contato','Contato do consultor','prop_contato','nome')}</div>
+      ${area('proposta.obs','Observações','prop_obs',2)}
+      <div class="linha-acoes"><button class="btn pri" type="button" data-acao="imprimir" data-doc="proposta">Imprimir ou salvar em PDF</button><span class="ajuda">Na janela de impressão, escolha "Salvar como PDF".</span></div></div>
+    <div class="doc-area" id="areaProposta">${propostaDoc()}</div>`;
+}
+function propostaDoc(){
+  const D = U.diag.res, P = U.proposta, d = dadosEmp(), servs = servicosProposta();
+  const cond = [['Prazo de execução', P.prazo], ['Investimento', P.investimento], ['Condições de pagamento', P.condicoes], ['Validade da proposta', P.validade]].filter(x => String(x[1] || '').trim());
+  return `<article class="doc" id="docProposta">
+    <header class="doc-cab"><div><span class="doc-tipo">Proposta de trabalho</span><h2>${esc(nomeEmp())}</h2><p>${[d.cidade, d.responsavel ? 'A/C ' + d.responsavel : ''].filter(Boolean).map(esc).join(' · ')}</p></div><div class="doc-data">${hojeBR()}</div></header>
+    <section><h3>O que encontramos</h3>
+      ${D.nota != null ? `<p>No diagnóstico rápido, o restaurante ficou com <b>${D.nota} de 100</b> (${esc(D.faixa.rotulo)}). ${esc(D.faixa.leitura)}</p>` : ''}
+      ${D.pontos_atencao.length ? `<ul>${D.pontos_atencao.slice(0, 5).map(a => `<li>${esc(a.atencao)}</li>`).join('')}</ul>` : ''}
+      ${D.alertas_numeros.length ? `<p>Nos números do restaurante:</p><ul>${D.alertas_numeros.map(a => `<li>${esc(a.texto)}</li>`).join('')}</ul>` : ''}</section>
+    <section><h3>O que vamos fazer</h3>${servs.length ? `<ol>${servs.map(s => `<li>${esc(s)}</li>`).join('')}</ol>` : '<p class="ajuda">Nenhum serviço marcado.</p>'}</section>
+    <section><h3>Prazo e investimento</h3>${cond.length ? `<dl class="doc-dl">${cond.map(([a,b]) => `<dt>${a}</dt><dd>${esc(b)}</dd>`).join('')}</dl>` : ''}${String(P.investimento || '').trim() ? '' : '<p class="ajuda nao-imprime">Preencha o investimento acima.</p>'}</section>
+    ${String(P.obs || '').trim() ? `<section><h3>Observações</h3>${linhasTexto(P.obs).map(l => `<p>${esc(l)}</p>`).join('')}</section>` : ''}
+    <footer class="doc-assina">${P.consultor ? `<b>${esc(P.consultor)}</b>` : '<span class="ajuda nao-imprime">Preencha o nome do consultor acima.</span>'}${P.contato ? `<span>${esc(P.contato)}</span>` : ''}</footer></article>`;
+}
+
+// ---------- Relatório final ----------
+function relatorioTela(){
+  const topo = topoTela('relatorio','O documento que o consultor entrega ao dono no fechamento: preço ideal, preço de hoje, resultado do mês, canais, marmitas, diagnóstico e premissas.');
+  if (!RES) return topo + `<div class="vazio"><p>O relatório usa o último cálculo do restaurante. Calcule em Preço ideal primeiro.</p><a class="btn pri" href="#preco">Ir para Preço ideal</a></div>`;
+  return topo + `<div class="caixa nao-imprime"><h2>Antes de imprimir</h2>
+      ${area('relatorio.obs','Recomendações do consultor (um parágrafo por linha)','rel_obs',4)}
+      <div class="linha-acoes"><button class="btn pri" type="button" data-acao="imprimir" data-doc="relatorio">Imprimir ou salvar em PDF</button><span class="ajuda">Usa o cálculo de ${RES_QUANDO ? RES_QUANDO.toLocaleString('pt-BR') : 'antes'}. Se mudou algum número, calcule de novo antes de imprimir.</span></div></div>
+    <div class="doc-area" id="areaRelatorio">${relatorioDoc()}</div>`;
+}
+function relatorioDoc(){
+  const r = RES.resultado, d = r.dre, ind = r.indicadores, p = RES.premissas, de = dadosEmp(), D = U.diag.res, cp = RES.comparativo;
+  const temMarm = r.linhas.some(ehMarmita);
+  let n = 0; const sec = (t, h) => `<section><h3>${++n}. ${t}</h3>${h}</section>`;
+  SEM_AVISOS = true;
+  try {
+    return `<article class="doc" id="docRelatorio">
+      <header class="doc-cab"><div><span class="doc-tipo">Relatório de preço e resultado</span><h2>${esc(nomeEmp())}</h2><p>${[de.cidade, de.responsavel ? 'Responsável: ' + de.responsavel : ''].filter(Boolean).map(esc).join(' · ')}</p></div>
+        <div class="doc-data">${hojeBR()}${U.proposta.consultor ? `<br>${esc(U.proposta.consultor)}` : ''}</div></header>
+      ${sec('Resumo', `<div class="kpis">
+          ${kpi('Lucro do mês com o preço ideal', brl0(d.lucro), p.meta.tipo === 'lucro' ? 'meta de ' + brl0(p.meta.valor) : 'meta de ' + pctf(p.meta.valor) + ' de margem', d.lucro < 0)}
+          ${kpi('Receita do mês', brl0(d.receita_bruta))}
+          ${kpi('Ponto de equilíbrio', brl0(ind.ponto_equilibrio_receita), 'receita mínima para não ter prejuízo')}
+          ${cp ? kpi('Lucro com o preço de hoje', brl0(cp.lucro_hoje), cp.itens_abaixo_do_ideal + ' de ' + cp.itens_com_preco_hoje + ' itens abaixo do ideal', cp.lucro_hoje < 0) : kpi('Margem de segurança', pctf(ind.margem_seguranca_pct), 'quanto a venda pode cair antes do prejuízo')}</div>
+        <div class="resumo"><p>Com os preços ideais, o restaurante vende ${brl0(d.receita_bruta)} por mês e fecha com ${brl0(d.lucro)} de lucro (${pctf(d.margem_liquida_pct)} da receita). A comida custa ${pctf(ind.cmv_pct)} da receita; somada à folha, ${pctf(ind.prime_cost_pct)}.</p>
+          ${cp ? `<p>Com os preços de hoje, o lucro do mês é ${brl0(cp.lucro_hoje)}: ${cp.diferenca_lucro >= 0 ? brl0(cp.diferenca_lucro) + ' acima' : brl0(-cp.diferenca_lucro) + ' abaixo'} do lucro com o preço ideal.</p>` : ''}</div>`)}
+      ${sec('Preço ideal por item e canal', precoComp())}
+      ${cp ? sec('Preço de hoje × preço ideal', atualComp() + '<p class="ajuda">A comparação supõe o mesmo volume de vendas com os dois preços.</p>') : ''}
+      ${sec('Resultado do mês', resComp())}
+      ${sec('Canais de venda', canaisComp())}
+      ${temMarm ? sec('Marmitas', marmComp()) : ''}
+      ${D ? sec('Diagnóstico de gestão', `<p>Nota <b>${D.nota ?? '—'} de 100</b>${D.faixa ? ' (' + esc(D.faixa.rotulo) + '). ' + esc(D.faixa.leitura) : '.'}</p>
+          ${D.pontos_atencao.length ? `<ol>${D.pontos_atencao.map(a => `<li>${esc(a.atencao)}</li>`).join('')}</ol>` : ''}
+          ${D.alertas_numeros.length ? `<p>Alertas dos números:</p><ul>${D.alertas_numeros.map(a => `<li>${esc(a.texto)}</li>`).join('')}</ul>` : ''}`) : ''}
+      ${U.riscos.res ? sec('Riscos do restaurante', `<p>Quanto o lucro do mês cai com um choque em cada variável (base: preço ${U.riscos.res.base === 'hoje' ? 'de hoje' : 'ideal'}).</p>
+          <div class="tabela"><table><thead><tr><th>Choque</th><th class="num">Perda por mês</th><th class="num">% do lucro</th><th>Gravidade</th></tr></thead><tbody>${U.riscos.res.choques.map(c => `<tr><td>${esc(c.nome)}</td><td class="num">${brl(c.perda_lucro)}</td><td class="num">${pctf(c.perda_pct_lucro)}</td><td>${({alta:'Alta',media:'Média',baixa:'Baixa'})[c.gravidade]}</td></tr>`).join('')}</tbody></table></div>
+          <p class="ajuda">${esc(U.riscos.res.criterio)}</p>`) : ''}
+      ${estrategiasEscolhidas().length ? sec('Plano de ação', estrategiasEscolhidas().map(({g, itens}) => `<p><b>${esc(g.titulo)}.</b> ${esc(g.motivo)}</p><ul>${itens.map(s => `<li><b>${esc(s.titulo)}:</b> ${esc(s.texto)}</li>`).join('')}</ul>`).join('')) : ''}
+      ${linhasTexto(U.relatorio.obs).length ? sec('Recomendações do consultor', linhasTexto(U.relatorio.obs).map(l => `<p>${esc(l)}</p>`).join('')) : ''}
+      ${sec('Premissas', premissasTab() + (avisosF1().length ? `<ul class="avisos">${avisosF1().map(a => `<li>${esc(a)}</li>`).join('')}</ul>` : ''))}
+      <footer class="doc-rodape">Calculado no servidor pelo motor ${esc(RES.versao_motor)}${RES_QUANDO ? ' em ' + RES_QUANDO.toLocaleString('pt-BR') : ''}. Os resultados dependem dos números informados pelo restaurante.</footer>
+    </article>`;
+  } finally { SEM_AVISOS = false; }
+}
+
+// ---------- Academia ----------
+const GUIAS = {
+  carteira:['Cadastre o restaurante com nome, cidade e responsável. O que aparece aqui vai para a proposta e o relatório.','A linha "em uso" é o restaurante aberto: todas as telas trabalham nele. "Abrir" troca de restaurante.','Antes de excluir, lembre que vão junto todas as simulações e versões. Não dá para desfazer.'],
+  historico:['Dê um nome claro e clique em Guardar versão: "Outubro, antes do reajuste", "Proposta enviada".','Cada linha mostra a receita e o lucro do cálculo guardado naquela versão; o rascunho é o que está aberto agora.','"Abrir no rascunho" troca o rascunho pela versão. Guarde o rascunho atual antes, se quiser mantê-lo.'],
+  diagnostico:['Faça as perguntas ao dono como conversa, sem formulário na mão. Marque a resposta que ele dá, não a que deveria dar. "Não se aplica" só aparece onde faz sentido (buffet, entrega, aplicativo).','A nota vai de 0 a 100 e cai em três faixas. "Por onde começar" ordena os pontos pelo peso da pergunta e pela distância da resposta para a melhor prática. Os alertas dos números aparecem quando o restaurante já está montado.','A pontuação é um critério de práticas de gestão da Lissun, não uma média de mercado. Use para conversar, não para dar nota ao dono na frente dele.'],
+  proposta:['Desmarque o que não vai fazer, escreva outros serviços, preencha prazo, investimento, condições e o seu nome.','O documento abaixo é o que o dono recebe: o que foi encontrado, o que será feito, prazo e investimento.','Confira o valor e o prazo antes de imprimir. A ferramenta não sugere preço de consultoria: o valor é seu.'],
+  operacao:['Preencha os dias de funcionamento, a participação de cada canal nas vendas, a comissão e as taxas de cada um, e os meios de pagamento com as taxas da maquininha.','Esses números viram o desconto de cada canal sobre o preço (imposto + comissão + taxas) e o custo de embalagem e entrega por item.','A soma das participações dos canais e dos meios de pagamento deve dar 100%. Comissão e taxas saem do contrato e do extrato do aplicativo e da maquininha.'],
+  cardapio:['Cada linha é uma forma de vender: buffet a quilo, buffet livre, à la carte, marmita, executivo, bebidas e sobremesas. Informe a quantidade por mês, o custo (digitado, ficha técnica ou buffet) e o preço de hoje.','"A calcular" recebe o preço ideal; "Preço fixo" entra com o preço que você informar e ajuda a pagar os custos. O peso, em Ajustar, aumenta ou diminui a parte dos custos fixos e do lucro de um item; em Ajustar também se decide se a embalagem do item é cobrada no salão.','Quantidade por mês vem do PDV ou do caderno de vendas. Se o item vende em mais de um canal, confira o mix em Ajustar.'],
+  fichas:['Monte primeiro as preparações do buffet (arroz, feijão, carnes) e os pratos (marmitas, executivo). Em cada ingrediente: quantidade líquida, preço por unidade e fator de correção.','O servidor devolve o custo total, o rendimento e o custo por kg pronto ou por porção. A composição do buffet dá o custo do quilo servido.','Fator de correção = peso bruto ÷ peso limpo (carne com osso, folhas). Índice de cocção = peso pronto ÷ peso cru. Pese uma vez e anote.'],
+  pessoal:['Liste os cargos com quantidade, salário e benefícios; informe encargos, pró-labore e extras. Depois os custos fixos por grupo, com "Adicionar custo" para o que faltar.','A folha com encargos e os custos fixos são o que os itens precisam pagar todo mês antes do lucro.','Salários e encargos vêm da folha da contabilidade; custos fixos, dos boletos dos últimos três meses (use a média). O pró-labore do dono entra mesmo que ele retire "conforme sobra".'],
+  imposto:['Escolha o regime (Simples com o faturamento dos últimos 12 meses, ou alíquota informada), as despesas variáveis, a meta de lucro ou margem, a política de preço e o arredondamento.','A meta é o que o preço precisa garantir no fim do mês. Preço por canal faz cada canal pagar a própria comissão; preço único usa o mesmo preço em todos.','O faturamento de 12 meses está no PGDAS ou com o contador. Se houver bebida com ICMS-ST ou monofásica, a alíquota real do Simples é menor: o cálculo avisa.'],
+  preco:['Clique em Calcular agora. O servidor usa tudo o que foi montado.','A sintetizada mostra o preço de cada item em cada canal e o lucro do mês; a completa abre custo com perda, margem por unidade e margem %.','Confira se o lucro bate com a meta (o arredondamento muda alguns centavos) e leia os avisos do cálculo.'],
+  atual:['Preencha o preço de hoje dos itens "A calcular", no cardápio, e calcule.','Mostra o lucro com o preço de hoje, o lucro com o preço ideal e quais itens estão abaixo do ideal.','A comparação supõe o mesmo volume de vendas: um reajuste grande pode reduzir as vendas. Isso entra na conversa com o dono.'],
+  resultado:['Não tem nada a preencher: usa o último cálculo.','A DRE do mês com o preço ideal, para onde vai cada R$ 100 vendidos, ponto de equilíbrio e margem de segurança.','Ponto de equilíbrio é a venda mínima do mês para não ter prejuízo. Margem de segurança é quanto a venda pode cair antes disso.'],
+  canais:['Usa o último cálculo e o que foi preenchido em Operação e canais.','Quanto cada canal traz de receita e de margem e quanto sobra de cada item em cada canal.','Margem negativa num canal quer dizer prejuízo antes de pagar a folha e os custos fixos. Item barato no delivery próprio costuma cair aqui, porque carrega a mesma parte da entrega que um prato.'],
+  marmitas:['Aparece quando há itens com a forma de vender "Marmita".','Volume, receita, comida e sobra por marmita em cada canal.','Com preço por canal, a sobra por marmita tende a ficar igual nos canais: o preço de cada um já paga a comissão e a entrega.'],
+  simulador:['Escolha de onde partir (preço de hoje ou ideal) e mexa nos controles: preço, vendas, comida, folha, custos fixos e comissão dos aplicativos.','O lucro do cenário, a diferença para a partida, o ponto de equilíbrio e a DRE lado a lado. Com reajuste de preço, mostra quanto as vendas podem cair antes de o lucro piorar.','O volume é decisão sua: teste o reajuste junto com uma queda de vendas realista. A alíquota do Simples fica a mesma; se a receita mudar de faixa, refaça o cálculo.'],
+  riscos:['Abra a tela depois de calcular o Preço ideal; ela mede sozinha.','Quanto o lucro cai com um choque de 10% em vendas, preço, comida, folha e custos fixos e de 2 pontos na comissão dos aplicativos, e quanto cada um aguenta até o lucro zerar.','O choque de 10% serve para comparar as variáveis, não é previsão. Gravidade alta quer dizer que o choque leva ao prejuízo.'],
+  estrategias:['Abra depois de calcular. Para as estratégias de concorrente, preencha o "Preço do concorrente" no cardápio, em Ajustar.','Cada grupo diz por que apareceu, com os números do restaurante, e traz as estratégias. As formas de vender trazem as alavancas de cada uma.','Marque o que faz sentido para este dono: as marcadas vão para o relatório, no Plano de ação.'],
+  relatorio:['Calcule em Preço ideal, faça o diagnóstico se quiser incluí-lo e escreva as suas recomendações.','O documento junta resumo, preço ideal, preço de hoje, resultado, canais, marmitas, diagnóstico e premissas.','Clique em Imprimir ou salvar em PDF e escolha "Salvar como PDF". Se mudou algum número depois do último cálculo, calcule de novo antes.']
+};
+function academiaTela(){
+  const ids = ['carteira','historico','diagnostico','proposta','operacao','cardapio','fichas','pessoal','imposto','preco','atual','resultado','canais','marmitas','simulador','riscos','estrategias','relatorio'];
+  return `${topoTela('academia','Passo a passo de cada tela: como preencher, como ler e o que conferir. Os vídeos vêm depois. Cada campo também tem o seu "?" com o que é e onde pegar o número.')}
+    <div class="caixa"><h2>A ordem de um atendimento</h2><ol class="passos-aca">
+      <li><b>Cadastre o restaurante</b> em Carteira de restaurantes.</li>
+      <li><b>Converse com o dono</b> pelo Diagnóstico rápido e monte a Proposta comercial.</li>
+      <li><b>Colete os números</b>: Operação e canais, Cardápio, Fichas técnicas, Pessoal e custos fixos, Imposto e meta.</li>
+      <li><b>Calcule e leia as análises</b>: Preço ideal, Preço atual × ideal, Resultado, Canais e Marmitas.</li>
+      <li><b>Teste e planeje</b>: Simulador "e se", Riscos do restaurante e Plano de estratégias.</li>
+      <li><b>Guarde uma versão</b> no Histórico e <b>entregue o Relatório final</b>.</li></ol></div>
+    <div class="pilha">${ids.map(id => { const g = GUIAS[id]; return `<details class="dobra" id="aca_${id}"><summary>${TITULO[id]}</summary>
+      <p><b>Como preencher.</b> ${esc(g[0])}</p><p><b>Como ler.</b> ${esc(g[1])}</p><p><b>O que conferir.</b> ${esc(g[2])}</p><p><a href="#${id}">Abrir ${esc(nomeLimpo(id))} →</a></p></details>`; }).join('')}</div>`;
+}
+
+// ---------- servidor: restaurantes, versões, diagnóstico, retorno ----------
+const LS_EMP = 'lf_empresa';
+async function carregarEmpresas(){
+  const { data, error } = await sbc.from('empresas').select('*').eq('segmento', SEGMENTO).order('nome');
+  if (error) { ERRO_F3 = 'Não foi possível ler os restaurantes: ' + error.message; return []; }
+  EMPRESAS = data || []; return EMPRESAS;
+}
+async function carregarSims(){
+  if (!CTX.empresa) { SIMS = []; return; }
+  const { data, error } = await sbc.from('simulacoes').select('id,nome,resultado,versao_motor,created_at,updated_at').eq('empresa_id', CTX.empresa.id).neq('nome', 'Rascunho').order('created_at', { ascending:false });
+  SIMS = error ? [] : (data || []);
+}
+async function abrirEmpresa(emp){
+  clearTimeout(tSalvar); if (CTX.sim && tSalvar) await salvar();
+  CTX.empresa = emp; try { localStorage.setItem(LS_EMP, emp.id); } catch(e) {}
+  let { data: sims } = await sbc.from('simulacoes').select('*').eq('empresa_id', emp.id).eq('nome', 'Rascunho').order('created_at', { ascending:false }).limit(1);
+  CTX.sim = sims && sims[0];
+  if (!CTX.sim){
+    const r = await sbc.from('simulacoes').insert({ empresa_id: emp.id, nome: 'Rascunho', entrada: { _tela: vazioU() } }).select().single();
+    CTX.sim = r.data;
+  }
+  const t = CTX.sim && CTX.sim.entrada && CTX.sim.entrada._tela;
+  U = normalizarU(t); RES = null; RES_QUANDO = null; ERRO_CALC = null;
+  if (CTX.sim && CTX.sim.resultado){ RES = CTX.sim.resultado; RES_QUANDO = CTX.sim.entrada._calc_em ? new Date(CTX.sim.entrada._calc_em) : null; }
+  Object.keys(ABAS_MEM).forEach(k => delete ABAS_MEM[k]);
+  await carregarSims();
+  mostrarChip();
+}
+function mostrarChip(){
+  const c = document.getElementById('chipEmp');
+  if (!CTX.empresa) { c.hidden = true; return; }
+  c.hidden = false; c.textContent = CTX.empresa.nome || 'Restaurante sem nome'; c.title = 'Restaurante em uso: ' + c.textContent + ' (trocar na Carteira)';
+}
+let tEmp = null;
+function agendarSalvarEmpresa(){
+  status('Salvando…','pend'); clearTimeout(tEmp);
+  tEmp = setTimeout(async () => {
+    const e = CTX.empresa; if (!e) return;
+    const { error } = await sbc.from('empresas').update({ nome: e.nome || 'Restaurante sem nome', dados: e.dados || {} }).eq('id', e.id);
+    if (error) status('Não salvou: ' + error.message, 'erro'); else { status('Salvo'); const x = EMPRESAS.find(y => y.id === e.id); if (x) Object.assign(x, { nome: e.nome, dados: e.dados, updated_at: new Date().toISOString() }); }
+  }, 900);
+}
+async function acaoF3(ac, b){
+  const id = b.dataset.id;
+  const pedeConfirmacao = ['excluirEmp','excluirVersao','abrirVersao'].includes(ac);
+  if (pedeConfirmacao && !b.dataset.conf){ CONFIRMA = ac + ':' + id; mostrar(false); return true; }
+  if (ac === 'cancelarConf'){ CONFIRMA = null; mostrar(false); return true; }
+  CONFIRMA = null; ERRO_F3 = null;
+  if (ac === 'novoEmp'){
+    const nome = (document.getElementById('novoEmp').value || '').trim();
+    if (!nome){ ERRO_F3 = 'Escreva o nome do restaurante novo.'; mostrar(false); return true; }
+    b.disabled = true;
+    const r = await sbc.from('empresas').insert({ segmento: SEGMENTO, nome, dados: {} }).select().single();
+    if (r.error){ ERRO_F3 = 'Não foi possível cadastrar: ' + r.error.message; mostrar(false); return true; }
+    await carregarEmpresas(); await abrirEmpresa(r.data); status('Salvo'); mostrar(false); return true;
+  }
+  if (ac === 'abrirEmp'){ const e = EMPRESAS.find(x => x.id === id); if (e){ status('Abrindo…','pend'); await abrirEmpresa(e); status('Salvo'); } mostrar(false); return true; }
+  if (ac === 'excluirEmp'){
+    const { error } = await sbc.from('empresas').delete().eq('id', id);
+    if (error) ERRO_F3 = 'Não foi possível excluir: ' + error.message;
+    await carregarEmpresas();
+    if (CTX.empresa && CTX.empresa.id === id && EMPRESAS[0]) await abrirEmpresa(EMPRESAS[0]);
+    mostrar(false); return true;
+  }
+  if (ac === 'guardarVersao'){
+    const nome = (document.getElementById('nomeVersao').value || '').trim();
+    if (!nome || /^rascunho$/i.test(nome)){ ERRO_F3 = 'Dê um nome à versão (não pode ser "Rascunho").'; mostrar(false); return true; }
+    b.disabled = true;
+    const entrada = Object.assign(montarEntrada(), { _tela: U, _calc_em: RES_QUANDO ? RES_QUANDO.toISOString() : null });
+    const { error } = await sbc.from('simulacoes').insert({ empresa_id: CTX.empresa.id, nome, entrada, resultado: RES, versao_motor: RES ? RES.versao_motor : null });
+    if (error) ERRO_F3 = 'Não foi possível guardar: ' + error.message;
+    await carregarSims(); mostrar(false); return true;
+  }
+  if (ac === 'abrirVersao'){
+    const { data, error } = await sbc.from('simulacoes').select('*').eq('id', id).single();
+    if (error || !data){ ERRO_F3 = 'Não foi possível abrir a versão' + (error ? ': ' + error.message : '.'); mostrar(false); return true; }
+    U = normalizarU(data.entrada && data.entrada._tela);
+    RES = data.resultado || null; RES_QUANDO = RES && data.entrada && data.entrada._calc_em ? new Date(data.entrada._calc_em) : null; ERRO_CALC = null;
+    await salvar(); status('Versão aberta no rascunho'); mostrar(false); return true;
+  }
+  if (ac === 'excluirVersao'){
+    const { error } = await sbc.from('simulacoes').delete().eq('id', id).neq('nome', 'Rascunho');
+    if (error) ERRO_F3 = 'Não foi possível excluir: ' + error.message;
+    await carregarSims(); mostrar(false); return true;
+  }
+  if (ac === 'diagnosticar'){ await diagnosticar(b); return true; }
+  if (ac === 'zerarCen'){ U.cenario.aj = {}; mostrar(false); agendarCenario(); return true; }
+  if (ac === 'medirRiscos'){ U.riscos.res = null; U.riscos.erro = null; mostrar(false); return true; }
+  if (ac === 'medirEstrategias'){ U.estrategias.res = null; U.estrategias.erro = null; mostrar(false); return true; }
+  if (ac === 'imprimir'){
+    document.body.dataset.imprimir = b.dataset.doc;
+    window.print();
+    return true;
+  }
+  return false;
+}
+let carregandoPerg = false;
+async function carregarPerguntas(){
+  if (carregandoPerg || PERGUNTAS || !sbc) return; carregandoPerg = true;
+  const { data, error } = await sbc.rpc('fn_food_diag_perguntas', { p_segmento: SEGMENTO });
+  carregandoPerg = false;
+  if (error){ ERRO_F3 = erroAmigavel(error.message); } else { PERGUNTAS = data || []; ERRO_F3 = null; }
+  if (TELA_ID === 'diagnostico') mostrar(false);
+}
+async function diagnosticar(btn){
+  if (!sbc){ U.diag.erro = 'Sem conexão com o servidor.'; mostrar(false); return; }
+  btn.disabled = true; btn.textContent = 'Calculando…';
+  const p = { segmento: SEGMENTO, respostas: Object.assign({}, U.diag.resp) };
+  if (!conferirAntes() && U.itens.some(i => i.nome)) p.entrada = montarEntrada();
+  window.__diagEnviado = p;   // para a conferência de ponta a ponta
+  const { data, error } = await sbc.rpc('fn_food_diagnostico', { p });
+  if (error){ U.diag.erro = erroAmigavel(error.message); }
+  else { U.diag.erro = null; U.diag.res = data; U.diag.quando = new Date().toISOString(); ABAS_MEM.diagnostico = 1; }
+  agendarSalvar(); mostrar(false);
+}
+
+// ================= F3.5: simulador "e se", riscos e plano de estratégias (tudo calculado no servidor) =================
+const AJUSTES = [
+  ['preco_pct','Preço de venda','%',-20,20,1,'sim_preco'],
+  ['volume_pct','Volume de vendas','%',-30,30,1,'sim_volume'],
+  ['comida_pct','Custo da comida','%',-20,20,1,'sim_comida'],
+  ['folha_pct','Folha','%',-20,20,1,'sim_folha'],
+  ['fixos_pct','Custos fixos','%',-30,30,1,'sim_fixos'],
+  ['comissao_pp','Comissão dos aplicativos','pontos',-5,5,0.5,'sim_comissao']
+];
+const temApp = () => !!(RES && Object.values(RES.canais || {}).some(c => Number(c.comissao) > 0));
+const sinal = (v, suf) => (v > 0 ? '+' : '') + nf(v, Number.isInteger(v) ? 0 : 1) + (suf === '%' ? '%' : ' ' + suf);
+const semBaseEstr = (id) => topoTela(id, '') + `<div class="vazio"><p>Esta tela usa os números do restaurante já calculados. Calcule primeiro em Preço ideal.</p><a class="btn pri" href="#preco">Ir para Preço ideal</a></div>`;
+const dPct = (v) => v == null ? '—' : (v > 0 ? '+' : '') + pctf(v);
+
+// ---------- Simulador "e se" ----------
+function simuladorTela(){
+  if (!RES) return semBaseEstr('simulador');
+  const S = U.cenario, temHoje = !!RES.comparativo;
+  if (!S.res && !S.erro) setTimeout(simular, 0);
+  const aj = AJUSTES.filter(a => a[0] !== 'comissao_pp' || temApp());
+  return topoTela('simulador','Mexa no preço, nas vendas e nos custos e veja na hora o lucro do mês. Tudo numa conta só no servidor: as mudanças conversam entre si.') + `
+    <div class="caixa"><h2>Partir de</h2><div class="opcoes">
+      <label class="op"><input type="radio" name="cenBase" data-cb="hoje"${S.base !== 'ideal' && temHoje ? ' checked' : ''}${temHoje ? '' : ' disabled'}><span>Preço de hoje${temHoje ? '' : ' (sem preço de hoje no cardápio)'}</span></label>
+      <label class="op"><input type="radio" name="cenBase" data-cb="ideal"${S.base === 'ideal' || !temHoje ? ' checked' : ''}><span>Preço ideal</span></label></div>
+      <p class="ajuda">"Preço de hoje" mostra o restaurante como ele está; "Preço ideal" parte do preço que fecha a meta.</p></div>
+    <div class="caixa"><h2>E se…</h2><div class="sliders">
+      ${aj.map(([k, rot, suf, mn, mx, st, a]) => { const v = Number(S.aj[k] || 0); return `<div class="sl"><label for="sl_${k}">${rot} ${ajB(a)}</label>
+        <input type="range" id="sl_${k}" data-sl="${k}" min="${mn}" max="${mx}" step="${st}" value="${v}" aria-describedby="slv_${k}">
+        <output id="slv_${k}" class="${v > 0 ? 'pos' : v < 0 ? 'neg' : ''}">${v ? sinal(v, suf) : 'sem mudança'}</output></div>`; }).join('')}</div>
+      <div class="linha-acoes"><button class="btn" type="button" data-acao="zerarCen">Voltar tudo para zero</button><span class="ajuda" id="cenStatus"></span></div></div>
+    <div id="cenRes">${cenarioRes()}</div>`;
+}
+function cenarioRes(){
+  const C = U.cenario.res;
+  if (U.cenario.erro) return `<ul class="avisos erros"><li>${esc(U.cenario.erro)}</li></ul>`;
+  if (!C) return '<div class="vazio"><p>Calculando o cenário…</p></div>';
+  const P = C.partida.dre, N = C.cenario.dre, d = C.diferenca, mexeu = Object.values(C.ajustes).some(v => Number(v) !== 0);
+  const linhas = [['receita_bruta','Receita'],['impostos','(−) Impostos'],['comissoes_canais','(−) Comissões'],['taxas_pagamento','(−) Cartão e PIX'],['despesas_variaveis','(−) Despesas variáveis'],['cmv','(−) Comida'],['embalagens','(−) Embalagens e entrega'],['margem_contribuicao','(=) Margem de contribuição'],['folha','(−) Folha'],['custos_fixos','(−) Custos fixos'],['lucro','(=) Lucro']];
+  const veq = C.volume_para_manter_lucro_pct, vm = C.volume_para_meta_pct, ajp = Number(C.ajustes.preco_pct);
+  const frases = [];
+  if (mexeu) frases.push(`Com essas mudanças, o lucro do mês ${d.lucro >= 0 ? 'sobe' : 'cai'} <b>${brl0(Math.abs(d.lucro))}</b>, de ${brl0(P.lucro)} para ${brl0(N.lucro)}.`);
+  if (veq != null && ajp > 0) frases.push(`Com o preço ${pctf(ajp, 0)} maior, as vendas podem cair até <b>${pctf(-veq)}</b> e o lucro ainda fica igual ao de partida (já contando as outras mudanças, menos o volume).`);
+  else if (veq != null && mexeu && Math.abs(veq) > 0.0005) frases.push(veq > 0 ? `Para manter o lucro de partida com as outras mudanças, as vendas precisam crescer <b>${pctf(veq)}</b>.` : `Com as outras mudanças, as vendas ainda poderiam cair <b>${pctf(-veq)}</b> mantendo o lucro de partida.`);
+  if (vm != null && C.meta && C.meta.tipo === 'lucro') frases.push(vm > 0 ? `Para chegar à meta de ${brl0(C.meta.valor)}, as vendas precisariam crescer ${pctf(vm)}.` : `A meta de ${brl0(C.meta.valor)} fecha mesmo com ${pctf(-vm)} a menos de vendas.`);
+  return `<div class="kpis">
+      ${kpi('Lucro de partida', brl0(P.lucro), C.base === 'hoje' ? 'com o preço de hoje' : 'com o preço ideal', P.lucro < 0)}
+      ${kpi('Lucro no cenário', brl0(N.lucro), (d.lucro >= 0 ? '+' : '') + brl0(d.lucro) + ' por mês', N.lucro < 0)}
+      ${kpi('Receita no cenário', brl0(N.receita_bruta), (d.receita >= 0 ? '+' : '') + brl0(d.receita))}
+      ${kpi('Ponto de equilíbrio', brl0(C.cenario.indicadores.ponto_equilibrio_receita), 'antes: ' + brl0(C.partida.indicadores.ponto_equilibrio_receita))}
+    </div>
+    ${frases.length ? `<div class="resumo">${frases.map(f => `<p>${f}</p>`).join('')}</div>` : '<p class="ajuda">Mexa nos controles acima para ver o efeito no mês.</p>'}
+    <div class="tabela"><table class="dre"><thead><tr><th>Conta</th><th class="num">Partida</th><th class="num">Cenário</th><th class="num">Diferença</th></tr></thead><tbody>
+      ${linhas.map(([k,t]) => { const df = Number(N[k]) - Number(P[k]); return `<tr class="${t.startsWith('(=)') ? 'tot' : t.startsWith('(−)') ? 'neg' : ''}"><td>${t}</td><td class="num">${brl(P[k])}</td><td class="num">${brl(N[k])}</td><td class="num ${Math.abs(df) < 0.005 ? '' : (k === 'lucro' || k === 'margem_contribuicao' || k === 'receita_bruta') ? (df > 0 ? 'pos' : 'neg') : ''}">${Math.abs(df) < 0.005 ? '—' : (df > 0 ? '+' : '') + brl(df)}</td></tr>`; }).join('')}
+    </tbody></table></div>
+    ${C.avisos && C.avisos.length ? `<ul class="avisos">${C.avisos.map(a => `<li>${esc(a)}</li>`).join('')}</ul>` : ''}
+    <p class="ajuda">Preço e volume mudam igual em todos os itens e canais. A comissão muda só nos canais que cobram comissão. Volume é decisão sua: a ferramenta não supõe quanto o cliente deixa de comprar quando o preço sobe.</p>`;
+}
+let tCen = null, seqCen = 0;
+function agendarCenario(){ clearTimeout(tCen); const st = document.getElementById('cenStatus'); if (st) st.textContent = 'Calculando…'; tCen = setTimeout(simular, 350); }
+async function simular(){
+  if (!sbc || !RES) return;
+  const meu = ++seqCen;
+  // % e pontos de comissão viram fração
+  const aj = {}; AJUSTES.forEach(([k]) => { const v = Number(U.cenario.aj[k] || 0); if (v) aj[k] = v / 100; });
+  const p = { entrada: montarEntrada(), base: U.cenario.base === 'ideal' || !RES.comparativo ? 'ideal' : 'hoje', ajustes: aj };
+  window.__cenEnviado = p;
+  const { data, error } = await sbc.rpc('fn_food_cenario', { p });
+  if (meu !== seqCen) return;   // chegou resposta de um pedido mais novo
+  if (error){ U.cenario.erro = erroAmigavel(error.message); U.cenario.res = null; } else { U.cenario.erro = null; U.cenario.res = data; }
+  agendarSalvar();
+  const box = document.getElementById('cenRes'); if (box) box.innerHTML = cenarioRes();
+  const st = document.getElementById('cenStatus'); if (st) st.textContent = '';
+}
+
+// ---------- Riscos ----------
+function riscosTela(){
+  if (!RES) return semBaseEstr('riscos');
+  const R = U.riscos.res;
+  if (!R && !U.riscos.erro) setTimeout(() => medir('riscos'), 0);
+  return topoTela('riscos','O que derruba este restaurante: quanto o lucro cai com um choque em cada variável e quanto cada uma aguenta até o lucro chegar a zero. Medido nos números dele, não em média de mercado.') + `
+    <div class="linha-acoes"><button class="btn" type="button" data-acao="medirRiscos">Medir de novo</button><span class="ajuda">Use depois de mudar algum número do restaurante.</span></div>
+    <div id="riscosRes">${riscosRes()}</div>`;
+}
+function riscosRes(){
+  const R = U.riscos.res;
+  if (U.riscos.erro) return `<ul class="avisos erros"><li>${esc(U.riscos.erro)}</li></ul>`;
+  if (!R) return '<div class="vazio"><p>Medindo os riscos…</p></div>';
+  const maxP = Math.max(1, ...R.choques.map(c => Math.abs(Number(c.perda_lucro))));
+  const folgaTxt = (c) => c.folga == null ? '—' : c.folga_em === 'pontos' ? (c.folga > 1 ? 'mais de 100 pontos' : nf(c.folga * 100, 1) + ' pontos') : (c.folga >= 1 ? 'mais de 100%' : pctf(c.folga));
+  const ap = R.dependencia_apps, co = R.concentracao;
+  return `<div class="kpis">
+      ${kpi('Lucro de partida', brl0(R.lucro_partida), R.base === 'hoje' ? 'com o preço de hoje' : 'com o preço ideal', R.lucro_partida < 0)}
+      ${kpi('Margem de segurança', pctf(R.margem_seguranca_pct), 'quanto as vendas podem cair até o prejuízo', R.margem_seguranca_pct != null && R.margem_seguranca_pct < 0)}
+      ${ap ? kpi('Dependência de aplicativo', pctf(ap.participacao_receita) + ' da receita', pctf(ap.participacao_margem) + ' da margem') : kpi('Dependência de aplicativo', 'nenhuma', 'sem canal com comissão')}
+      ${co ? kpi('Item que mais pesa', esc(co.nome), pctf(co.participacao_margem) + ' da margem de contribuição') : ''}
+    </div>
+    ${R.alertas.length ? `<ul class="avisos">${R.alertas.map(a => `<li class="alto">${esc(a.texto)}</li>`).join('')}</ul>` : ''}
+    <div class="barras"><h3>Quanto o lucro cai com cada choque</h3>
+      ${R.choques.map(c => `<div class="bar-item"><span class="nome" title="${esc(c.nome)}">${esc(c.nome)}</span><div class="bar-trilhos"><div class="bar-linha"><i class="${c.gravidade === 'alta' ? 'c-ifood' : c.gravidade === 'media' ? 'c-ideal' : 'c-hoje'}" style="width:${(Math.abs(c.perda_lucro) / maxP * 100).toFixed(1)}%"></i><span>−${brl0(c.perda_lucro)}</span></div></div></div>`).join('')}</div>
+    <div class="tabela"><table><thead><tr><th>Choque</th><th class="num">Lucro depois</th><th class="num">Perda por mês</th><th class="num">% do lucro</th><th class="num">Aguenta até zerar o lucro</th><th>Gravidade</th></tr></thead><tbody>
+      ${R.choques.map(c => `<tr><td>${esc(c.nome)}</td><td class="num ${c.lucro_depois < 0 ? 'neg' : ''}">${brl(c.lucro_depois)}</td><td class="num">${brl(c.perda_lucro)}</td><td class="num">${pctf(c.perda_pct_lucro)}</td><td class="num">${folgaTxt(c)}</td><td><span class="selo-g g-${c.gravidade}">${({alta:'Alta',media:'Média',baixa:'Baixa'})[c.gravidade]}</span></td></tr>`).join('')}
+    </tbody></table></div>
+    <div class="resumo"><p>O choque que mais pesa é <b>${esc(R.choques[0].nome.toLowerCase())}</b>: ${brl0(R.choques[0].perda_lucro)} a menos por mês${R.choques[0].folga != null ? `, e essa variável aguenta ${folgaTxt(R.choques[0])} antes de zerar o lucro` : ''}.</p>
+      ${ap ? `<p>Os aplicativos trazem ${pctf(ap.participacao_receita)} da receita e ${pctf(ap.participacao_margem)} da margem. ${ap.participacao_margem < ap.participacao_receita ? 'Deixam proporcionalmente menos do que vendem.' : ''}</p>` : ''}</div>
+    <p class="ajuda">${esc(R.criterio)}</p>
+    <div class="linha-acoes"><a class="btn" href="#estrategias">Ver o plano de estratégias →</a><a class="btn" href="#simulador">Testar no simulador →</a></div>`;
+}
+
+// ---------- Plano de estratégias ----------
+const TIPO_ESTR = {preco:'Preço', custo:'Custo', volume:'Movimento', valor:'Valor percebido', canal:'Canal', ticket:'Ticket médio', operacao:'Operação'};
+function estrategiasTela(){
+  if (!RES) return semBaseEstr('estrategias');
+  const E = U.estrategias.res;
+  if (!E && !U.estrategias.erro) setTimeout(() => medir('estrategias'), 0);
+  return topoTela('estrategias','Estratégias que aparecem porque um número deste restaurante pediu, e as alavancas de cada forma de vender do cardápio. Marque as que vão para o relatório.') + `
+    <div class="linha-acoes"><button class="btn" type="button" data-acao="medirEstrategias">Atualizar</button><span class="ajuda">Preencha o "Preço do concorrente" no cardápio (em Ajustar) para ver as estratégias de acima e abaixo do concorrente.</span></div>
+    <div id="estrRes">${estrategiasRes()}</div>`;
+}
+function estrategiasRes(){
+  const E = U.estrategias.res, esc0 = U.estrategias.escolhidas;
+  if (U.estrategias.erro) return `<ul class="avisos erros"><li>${esc(U.estrategias.erro)}</li></ul>`;
+  if (!E) return '<div class="vazio"><p>Montando o plano…</p></div>';
+  const PR = {alta:'Prioridade alta', media:'Prioridade média', baixa:'Prioridade baixa', forma:'Forma de vender'};
+  return `<p class="ajuda">${esc0.length} ${esc0.length === 1 ? 'estratégia marcada' : 'estratégias marcadas'} para o relatório.</p>` + E.grupos.map(g => `<div class="caixa grupo-estr g-${g.prioridade}">
+      <div class="ge-cab"><h2>${esc(g.titulo)}</h2><span class="selo-g g-${g.prioridade === 'forma' ? 'baixa' : g.prioridade}">${PR[g.prioridade] || ''}</span></div>
+      <p class="motivo">${esc(g.motivo)}</p>
+      <div class="estr-lista">${g.estrategias.map(s => `<label class="estr"><input type="checkbox" data-es="${s.id}"${esc0.includes(s.id) ? ' checked' : ''}><span><b>${esc(s.titulo)}</b> <span class="tipo-e">${TIPO_ESTR[s.tipo] || ''}</span><br>${esc(s.texto)}</span></label>`).join('')}</div></div>`).join('')
+    + `<p class="ajuda">${esc(E.criterio)}</p>`;
+}
+async function medir(qual){
+  if (!sbc || !RES) return;
+  const fn = qual === 'riscos' ? 'fn_food_riscos' : 'fn_food_estrategias', alvo = qual === 'riscos' ? U.riscos : U.estrategias;
+  const { data, error } = await sbc.rpc(fn, { p: { entrada: montarEntrada() } });
+  if (error){ alvo.erro = erroAmigavel(error.message); alvo.res = null; } else { alvo.erro = null; alvo.res = data; alvo.quando = new Date().toISOString(); }
+  agendarSalvar();
+  const box = document.getElementById(qual === 'riscos' ? 'riscosRes' : 'estrRes'); if (box) box.innerHTML = qual === 'riscos' ? riscosRes() : estrategiasRes();
+}
+// estratégias escolhidas, com o motivo do grupo, para o relatório
+function estrategiasEscolhidas(){
+  const E = U.estrategias.res; if (!E) return [];
+  return E.grupos.map(g => ({ g, itens: g.estrategias.filter(s => U.estrategias.escolhidas.includes(s.id)) })).filter(x => x.itens.length);
+}
+
+// ================= telas =================
+const TELAS = {
+  inicio: () => `
+    <div class="cab"><h1>Início</h1><span class="trilha"><b>Lissun Food Restaurante</b> › Início</span></div>
+    <section class="cartao">
+      <h2>Lissun Food Restaurante</h2>
+      <p class="frase">Preço e resultado para restaurantes: buffet a quilo, buffet livre, à la carte, marmitas e prato executivo. Do primeiro atendimento ao relatório, com o preço certo em cada canal e a DRE do mês.</p>
+      <div class="rot-sec">A jornada com cada restaurante · 5 passos</div>
+      <div class="passos">
+        <div class="passo"><span class="n">1 · Entrada</span><b>Restaurante cadastrado</b><span>Nome, segmento e mês de referência. Tudo o que vier depois fica guardado nele.</span><div class="lk"><a href="#carteira">Carteira de restaurantes →</a></div></div>
+        <div class="passo"><span class="n">2 · Diagnóstico</span><b>Onde o restaurante perde dinheiro</b><span>Perguntas curtas para a primeira conversa com o dono.</span><div class="lk"><a href="#diagnostico">Diagnóstico rápido →</a></div></div>
+        <div class="passo"><span class="n">3 · Proposta</span><b>O que o dono vai contratar</b><span>O diagnóstico vira proposta de trabalho, com escopo e investimento.</span><div class="lk"><a href="#proposta">Proposta comercial →</a></div></div>
+        <div class="passo"><span class="n">4 · Montagem</span><b>Os números do restaurante</b><span>Canais, cardápio com cada forma de vender, fichas técnicas, pessoal, custos e imposto.</span><div class="lk">${['operacao','cardapio','fichas','pessoal','imposto'].map(i=>`<a href="#${i}">${TITULO[i]} →</a>`).join('')}</div></div>
+        <div class="passo"><span class="n">5 · Análises e entrega</span><b>Preço, resultado e relatório</b><span>O preço ideal por canal, o mês em DRE, os canais, as marmitas e o PDF para o dono.</span><div class="lk">${['preco','atual','resultado','canais','marmitas','simulador','riscos','estrategias','relatorio'].map(i=>`<a href="#${i}">${TITULO[i]} →</a>`).join('')}</div></div>
+      </div>
+      <div class="rot-sec">As partes da ferramenta</div>
+      <div class="partes">${PARTES.map(p=>`<div class="pl"><div class="pl-cab">${svg(p.ic)}<b>${p.t}</b><span class="pl-n">${p.n}</span><button class="pl-q" type="button" aria-expanded="false" aria-label="O que é ${p.t}">?</button></div>
+        <p class="pl-txt">${p.serve}</p>
+        <div class="pl-mais" hidden><p><b>Para quem:</b> ${p.quem}</p><p><b>Perguntas que responde:</b></p><ul>${p.perg.map(x=>`<li>${x}</li>`).join('')}</ul></div></div>`).join('')}</div>
+      <div class="rot-sec">As quatro formas de vender</div>
+      <div class="tabela"><table><thead><tr><th>Forma</th><th>Unidade</th><th>No restaurante</th></tr></thead><tbody>
+        <tr><td>Por quilo</td><td>kg</td><td>Buffet a quilo</td></tr><tr><td>Por pessoa</td><td>pessoa</td><td>Buffet livre</td></tr>
+        <tr><td>Por item</td><td>unidade</td><td>À la carte, marmitas, bebidas e sobremesas</td></tr><tr><td>Combo</td><td>unidade</td><td>Prato executivo</td></tr></tbody></table></div>
+    </section>`,
+
+  carteira: carteiraTela,
+  historico: historicoTela,
+  diagnostico: diagTela,
+  proposta: propostaTela,
+  relatorio: relatorioTela,
+  academia: academiaTela,
+  simulador: simuladorTela,
+  riscos: riscosTela,
+  estrategias: estrategiasTela,
+  fichas: () => {
+    const preps = U.fichas.filter(f => f.tipo === 'preparacao');
+    return `${topoTela('fichas','O custo real de cada prato e de cada preparação do buffet, ingrediente por ingrediente. O cálculo é feito no servidor e segue para o cardápio.')}
+    <div class="linha-acoes"><button class="btn pri" type="button" data-acao="novaFicha" data-tipo="prato">Nova ficha de prato</button><button class="btn" type="button" data-acao="novaFicha" data-tipo="preparacao">Nova preparação do buffet</button></div>
+    ${U.fichas.length ? '' : '<div class="vazio"><p>Nenhuma ficha ainda. Comece pelas preparações do buffet (arroz, feijão, carnes, saladas) ou pelos pratos e marmitas.</p></div>'}
+    ${U.fichas.map((f, fi) => `<section class="caixa ficha"><details class="ficha-d" data-fi="${fi}" ${(!f.nome || f.aberto) ? 'open' : ''}>
+      <summary><span class="seta-f" aria-hidden="true">›</span><b>${esc(f.nome || 'Ficha sem nome')}</b><span class="selo-t">${f.tipo === 'prato' ? 'Prato ou porção' : 'Preparação do buffet'}</span>
+        <span class="res-f">${f.res ? (f.tipo === 'prato' && f.res.custo_porcao != null ? brl(f.res.custo_porcao) + ' por porção' : (f.res.custo_kg_pronto != null ? brl(f.res.custo_kg_pronto) + ' por kg pronto' : '')) : 'não calculada'}</span></summary>
+      <div class="corpo-f">
+      <div class="ficha-cab"><span></span><button class="rm" type="button" data-acao="rmFicha" data-i="${fi}" aria-label="Excluir ficha">Excluir ficha</button></div>
+      <div class="grade">
+        ${inp(`fichas.${fi}.nome`, 'Nome', '', 'nome')}
+        ${sel(`fichas.${fi}.tipo`, 'Tipo', [['prato','Prato ou porção'],['preparacao','Preparação do buffet']], 'ficha_tipo')}
+        ${inp(`fichas.${fi}.ic`, 'Índice de cocção', 'ficha_ic')}
+        ${f.tipo === 'prato' ? inp(`fichas.${fi}.porcoes`, 'Porções', 'ficha_porcoes') : ''}
+        ${inp(`fichas.${fi}.rend`, 'Rendimento pronto (kg), se já pesou', 'ficha_rend')}
+      </div>
+      <div class="tabela"><table><thead><tr><th>Ingrediente</th>${th('Quantidade limpa','ing_qtd')}${th('Unidade','ing_un',false)}${th('Preço por unidade comprada (R$)','ing_preco')}${th('Fator de correção','ing_fc')}<th></th></tr></thead><tbody>
+        ${f.ingr.map((g, gi) => `<tr>${celT(`fichas.${fi}.ingr.${gi}.nome`,'Ingrediente')}${cel(`fichas.${fi}.ingr.${gi}.qtd`,'Quantidade limpa')}${selT(`fichas.${fi}.ingr.${gi}.un`,'Unidade',[['kg','kg'],['l','litro'],['un','unidade']], false)}${cel(`fichas.${fi}.ingr.${gi}.preco`,'Preço por unidade comprada')}${cel(`fichas.${fi}.ingr.${gi}.fc`,'Fator de correção')}${rmB('rmIng', gi, `data-f="${fi}"`)}</tr>`).join('')}
+      </tbody></table></div>
+      <div class="linha-acoes"><button class="btn" type="button" data-acao="addIng" data-f="${fi}">Adicionar ingrediente</button><button class="btn pri" type="button" data-acao="calcFicha" data-f="${fi}">Calcular ficha</button></div>
+      ${f.erro ? `<ul class="avisos erros"><li>${esc(f.erro)}</li></ul>` : ''}
+      ${f.res ? `<div class="ind-grade">
+        <div class="ind"><span>Custo total da receita</span><b>${brl(f.res.custo_total)}</b></div>
+        <div class="ind"><span>Rendimento pronto</span><b>${nf(f.res.rendimento_kg, 3)} kg</b></div>
+        <div class="ind"><span>Custo por kg pronto</span><b>${f.res.custo_kg_pronto != null ? brl(f.res.custo_kg_pronto) : '—'}</b></div>
+        <div class="ind"><span>Custo por porção</span><b>${f.res.custo_porcao != null ? brl(f.res.custo_porcao) : '—'}</b></div>
+      </div>${(f.res.avisos || []).length ? `<ul class="avisos">${f.res.avisos.map(a=>`<li>${esc(a)}</li>`).join('')}</ul>` : ''}` : ''}
+      </div></details></section>`).join('')}
+    <section class="caixa"><h2>Composição do buffet ${ajB('buffet_part')}</h2>
+      <p class="ajuda">As preparações que vão para o balcão e quanto cada uma pesa no total servido. O servidor calcula o custo do quilo do buffet a partir daqui, e o buffet a quilo e o buffet livre podem usar essa composição no cardápio.</p>
+      ${preps.length ? '' : '<p class="ajuda">Crie primeiro as preparações do buffet (botão "Nova preparação do buffet").</p>'}
+      <div class="tabela"><table><thead><tr><th>Preparação</th>${th('Participação no balcão (%)','buffet_part')}<th></th></tr></thead><tbody>
+        ${U.buffet.map((b, bi) => `<tr>${selT(`buffet.${bi}.fichaId`,'Preparação', preps.map(p => [p.id, p.nome || 'Preparação sem nome']))}${cel(`buffet.${bi}.part`,'Participação no balcão')}${rmB('rmBuffet', bi)}</tr>`).join('')}
+      </tbody></table></div>
+      <div class="linha-acoes"><button class="btn" type="button" data-acao="addBuffet">Adicionar preparação</button></div>
+    </section>`;
+  },
+
+  operacao: () => `${topoTela('operacao','Como o restaurante funciona: dias de operação, canais de venda e meios de pagamento.')}
+    <div class="caixa"><div class="grade">${inp('dias','Dias de funcionamento por mês','dias')}</div></div>
+    <div class="caixa"><h2>Canais de venda</h2>
+      <div class="tabela"><table><thead><tr><th>Canal</th>${th('Participação nas vendas (%)','canal_part')}${th('Comissão (%)','canal_com')}${th('Taxa de pagamento no app (%)','canal_tp')}${th('Embalagem por item (R$)','canal_emb')}${th('Custo da entrega por pedido (R$)','canal_pedido')}${th('Itens por pedido','canal_ipp')}</tr></thead><tbody>
+      ${CANAIS.map(([k,n]) => `<tr><td>${n}</td>${cel(`canais.${k}.part`, n+' · participação')}${cel(`canais.${k}.com`, n+' · comissão')}${cel(`canais.${k}.tp`, n+' · taxa no app')}${cel(`canais.${k}.emb`, n+' · embalagem por item')}${cel(`canais.${k}.pedido`, n+' · custo da entrega por pedido')}${cel(`canais.${k}.ipp`, n+' · itens por pedido')}</tr>`).join('')}
+      </tbody></table></div>
+      <p class="ajuda">Toque no "?" de cada coluna para ver o que é e onde pegar o número. Campos de custo em branco contam como zero.</p></div>
+    <div class="caixa"><h2>Meios de pagamento</h2>
+      <div class="tabela"><table><thead><tr><th>Meio</th>${th('Participação (%)','meio_part')}${th('Taxa (%)','meio_taxa')}</tr></thead><tbody>
+      ${MEIOS.map(([k,n]) => `<tr><td>${n}</td>${cel(`meios.${k}.part`, n+' · participação')}${cel(`meios.${k}.taxa`, n+' · taxa')}</tr>`).join('')}
+      </tbody></table></div></div>`,
+
+  cardapio: () => {
+    const opsF = U.fichas.map(f => [f.id, (f.nome || 'Ficha sem nome') + (f.tipo === 'prato' ? ' (prato)' : ' (preparação)')]);
+    const canaisAtivos = CANAIS.filter(([k]) => (num(U.canais[k].part) || 0) > 0);
+    const semMix = canaisAtivos.length > 1 ? U.itens.filter(it => it.nome && !CANAIS.some(([k]) => (num(it['mix_' + k]) || 0) > 0)).map(it => it.nome) : [];
+    const avisoMix = semMix.length ? `<ul class="avisos"><li>Sem divisão por canal: <b>${semMix.map(esc).join(', ')}</b>. Esses itens entram com a participação geral dos canais (${canaisAtivos.map(([k,n]) => esc(n.split(' /')[0]) + ' ' + esc(U.canais[k].part) + '%').join(', ')}). Se algum não é vendido em todos os canais, preencha a divisão em "Ajustar".</li></ul>` : '';
+    return `${topoTela('cardapio','Tudo o que o restaurante vende, uma linha por item, com a forma de vender. Bebidas e sobremesas costumam ter preço fixo e ajudam a pagar a meta.')}${avisoMix}
+    <div class="caixa">
+      <div class="tabela"><table class="cardapio"><thead><tr>
+        <th>Item ${ajB('item_nome')}</th><th>Forma de vender ${ajB('item_forma')}</th><th>Preço ${ajB('item_tipo')}</th>${th('Quantidade por mês','item_qtd')}<th>CMV unitário ${ajB('item_cmv')}</th>${th('Perda (%)','item_perda')}${th('Embalagem do item (R$)','item_emb')}${th('Preço fixo ou de hoje (R$)','item_preco')}<th>Canais e peso ${ajB('item_mix')}</th><th></th></tr></thead>
+        <tbody>${U.itens.map((it,i) => {
+          const livre = it.forma === 'livre', buf = it.cmvOrig === 'buffet';
+          const cmvCel = `<td class="cmv"><select id="f_itens_${i}_cmvOrig" data-k="itens.${i}.cmvOrig" aria-label="Origem do CMV"><option value="digitar">Digitar</option><option value="ficha">Ficha técnica</option><option value="buffet">Composição do buffet</option></select>
+            ${it.cmvOrig === 'ficha' ? `<select id="f_itens_${i}_fichaId" data-k="itens.${i}.fichaId" aria-label="Ficha técnica"><option value="">Escolha a ficha</option>${opsF.map(([v,t])=>`<option value="${v}">${esc(t)}</option>`).join('')}</select>`
+              : buf ? (livre ? `<input id="f_itens_${i}_consumo" data-k="itens.${i}.consumo" inputmode="decimal" placeholder="kg por pessoa" aria-label="Consumo por pessoa (kg)">` : '<span class="ajuda">custo do quilo pela composição</span>')
+              : `<input id="f_itens_${i}_custo" data-k="itens.${i}.custo" inputmode="decimal" aria-label="CMV unitário (R$)">`}</td>`;
+          return `<tr>
+          ${celT(`itens.${i}.nome`, 'Item')}
+          <td><select id="f_itens_${i}_forma" data-k="itens.${i}.forma" aria-label="Forma de vender"><option value="">Escolha</option>${Object.entries(FORMAS).map(([k,f])=>`<option value="${k}">${f.rot}</option>`).join('')}</select></td>
+          <td><select id="f_itens_${i}_tipo" data-k="itens.${i}.tipo" aria-label="Preço"><option value="calcular">A calcular</option><option value="fixo">Fixo</option></select></td>
+          ${cel(`itens.${i}.qtd`,'Quantidade por mês')}${cmvCel}${cel(`itens.${i}.perda`,'Perda')}${cel(`itens.${i}.emb`,'Embalagem do item')}${cel(`itens.${i}.preco`,'Preço fixo ou de hoje')}
+          <td><button class="btn mini" type="button" data-acao="abrirCanais" data-i="${i}" aria-expanded="${!!it.aberto}">${it.aberto ? 'Fechar' : 'Ajustar'}</button></td>
+          ${rmB('rmItem', i)}</tr>
+          <tr class="sub" ${it.aberto ? '' : 'hidden'}><td colspan="10"><div class="sub-in"><span class="ajuda">Divisão deste item entre os canais (%). Em branco, vale a divisão geral de Operação e canais.</span>
+            <label class="mini-campo">Peso na divisão dos custos ${ajB('item_peso')} <input id="f_itens_${i}_peso" data-k="itens.${i}.peso" inputmode="decimal" aria-label="Peso na divisão dos custos"></label>
+            <label class="mini-campo">Embalagem do item no salão ${ajB('item_emb_salao')} <select id="f_itens_${i}_embSalao" data-k="itens.${i}.embSalao" aria-label="Embalagem do item no salão"><option value="">Cobra</option><option value="nao">Não cobra (só na entrega)</option></select></label>
+            <label class="mini-campo">Preço do concorrente ${ajB('item_conc')} <input id="f_itens_${i}_conc" data-k="itens.${i}.conc" inputmode="decimal" aria-label="Preço do concorrente"></label>
+            ${CANAIS.map(([k,n]) => `<label class="mini-campo">${n.split(' /')[0]} <input id="f_itens_${i}_mix_${k}" data-k="itens.${i}.mix_${k}" inputmode="decimal" aria-label="${n} (%)"></label>`).join('')}</div></td></tr>`; }).join('')}</tbody></table></div>
+      <div class="linha-acoes"><button class="btn" type="button" data-acao="addItem">Adicionar item</button><span class="ajuda">Quantidade: kg no buffet a quilo, pessoas no buffet livre, unidades nos demais.</span></div>
+    </div>`;
+  },
+
+  pessoal: () => `${topoTela('pessoal','A folha completa da equipe e os custos que não mudam com o volume vendido, separados por grupo.')}
+    <div class="caixa"><h2>Equipe com carteira</h2>
+      <div class="tabela"><table><thead><tr><th>Cargo ${ajB('cargo')}</th>${th('Quantidade','cargo_qtd')}${th('Salário (R$)','cargo_sal')}${th('Benefícios por pessoa (R$)','cargo_benef')}<th></th></tr></thead><tbody>
+      ${U.cargos.map((c,i) => `<tr>${celT(`cargos.${i}.cargo`,'Cargo')}${cel(`cargos.${i}.qtd`,'Quantidade')}${cel(`cargos.${i}.sal`,'Salário')}${cel(`cargos.${i}.benef`,'Benefícios por pessoa')}${rmB('rmCargo', i)}</tr>`).join('')}
+      </tbody></table></div>
+      <div class="linha-acoes"><button class="btn" type="button" data-acao="addCargo">Adicionar cargo</button></div>
+      <div class="grade">${inp('encargos','Encargos e provisões sobre salários (%)','encargos')}${inp('prolabore','Pró-labore dos sócios (R$ por mês)','prolabore')}</div></div>
+    <div class="caixa"><h2>Extras e diaristas</h2>
+      <div class="tabela"><table><thead><tr><th>Descrição</th>${th('Diárias por mês','extras_diarias')}${th('Valor da diária (R$)','extras_valor')}<th></th></tr></thead><tbody>
+      ${U.extras.map((x,i) => `<tr>${celT(`extras.${i}.desc`,'Descrição')}${cel(`extras.${i}.diarias`,'Diárias por mês')}${cel(`extras.${i}.valor`,'Valor da diária')}${rmB('rmExtra', i)}</tr>`).join('')}
+      </tbody></table></div>
+      <div class="linha-acoes"><button class="btn" type="button" data-acao="addExtra">Adicionar extra</button></div></div>
+    ${GRUPOS.map(([g, rot]) => `<div class="caixa"><h2>${rot} ${ajB('grupo_' + g)}</h2>
+      <div class="tabela"><table><thead><tr><th>Custo</th><th class="num">Valor mensal (R$)</th><th></th></tr></thead><tbody>
+      ${U.fixos[g].map((c,i) => `<tr>${celT(`fixos.${g}.${i}.nome`,'Custo')}${cel(`fixos.${g}.${i}.valor`, 'Valor mensal')}${rmB('rmFixo', i, `data-g="${g}"`)}</tr>`).join('')}
+      </tbody></table></div>
+      <div class="linha-acoes"><button class="btn" type="button" data-acao="addFixo" data-g="${g}">Adicionar custo</button></div></div>`).join('')}
+    <p class="ajuda">Parcela de empréstimo ou financiamento não entra aqui: é dívida, não custo do mês. Ela entra no fluxo de caixa (próxima versão).</p>`,
+
+  imposto: () => `${topoTela('imposto','Imposto sobre a venda, despesas que crescem com a venda e a meta do restaurante.')}
+    <div class="caixa"><h2>Imposto</h2><div class="grade">
+      ${sel('regime','Regime',[['simples','Simples Nacional (Anexo I)'],['manual','Alíquota informada']],'regime')}
+      ${inp('rbt12','Faturamento dos últimos 12 meses (R$)','rbt12')}
+      ${inp('aliqMan','Alíquota efetiva informada (%)','aliqMan')}</div></div>
+    <div class="caixa"><h2>Despesas variáveis</h2>
+      <div class="tabela"><table><thead><tr><th>Despesa ${ajB('dv_nome')}</th>${th('% sobre a venda','dv_pct')}<th></th></tr></thead><tbody>
+      ${U.dv.map((d,i) => `<tr>${celT(`dv.${i}.nome`,'Despesa')}${cel(`dv.${i}.pct`,'% sobre a venda')}${rmB('rmDv', i)}</tr>`).join('')}</tbody></table></div>
+      <div class="linha-acoes"><button class="btn" type="button" data-acao="addDv">Adicionar despesa</button></div></div>
+    <div class="caixa"><h2>Meta e política de preço</h2><div class="grade">
+      ${sel('metaTipo','Meta',[['lucro','Lucro em R$ por mês'],['margem','Margem líquida (%)']],'metaTipo')}
+      ${inp('metaValor','Valor da meta','metaValor')}
+      ${sel('politica','Preço',[['por_canal','Um preço por canal'],['unico','Preço único em todos os canais']],'politica')}
+      ${sel('arred','Arredondamento',[['centavos','Centavos'],['inteiro','Real inteiro'],['50','Final ,50'],['90','Final ,90']],'arred')}
+      ${sel('base','Como dividir custos fixos e lucro entre os itens',[['cmv','Proporcional ao custo variável (comida, embalagem e entrega)'],['unidade','Igual por unidade vendida']],'base')}</div>
+      <p class="ajuda">Em branco, o preço sai por canal, com centavos, e os custos são divididos pelo custo da comida.</p></div>`,
+
+  preco: () => `${topoTela('preco','O preço de cada item, em cada canal, para o restaurante bater a meta de lucro com os custos que ele tem.')}
+    ${abas('preco', [dadosTab(['operacao','cardapio','pessoal','imposto']), precoSint(), precoComp(), premissasTab()])}`,
+  resultado: () => `${topoTela('resultado','O mês do restaurante em uma DRE gerencial, com os indicadores que o dono acompanha.')}
+    ${abas('resultado', [dadosTab(['operacao','cardapio','pessoal','imposto']), resSint(), resComp(), premissasTab()])}`
+};
+TELAS.atual = () => `${topoTela('atual','Compara o preço que o restaurante pratica hoje com o preço ideal e mostra quanto dinheiro fica na mesa por mês.')}
+    ${abas('atual', [dadosTab(['cardapio','operacao','pessoal','imposto']) + '<p class="ajuda">O preço de hoje é a coluna "Preço fixo ou de hoje" dos itens "A calcular", no cardápio. Ele vale para todos os canais.</p>', atualSint(), atualComp(), premissasTab()])}`;
+TELAS.canais = () => `${topoTela('canais','Salão, iFood e WhatsApp lado a lado: quanto cada canal vende e quanto sobra depois de comissão, taxa, comida e embalagem.')}
+    ${abas('canais', [dadosTab(['operacao','cardapio','imposto']), canaisSint(), canaisComp(), canaisPrem()])}`;
+TELAS.marmitas = () => `${topoTela('marmitas','A conta das marmitas por tamanho e canal: comida, embalagem, entrega e quanto sobra em cada venda.')}
+    ${abas('marmitas', [dadosTab(['cardapio','fichas','operacao']), marmSint(), marmComp(), canaisPrem()])}`;
+
+// ================= menu lateral =================
+const sb = document.getElementById('sbItens');
+SECOES.forEach(s => {
+  let h = s.rot ? `<div class="sb-rot">${s.rot}</div>` : '';
+  s.itens.forEach(it => {
+    if (it.filhos){
+      h += `<div class="cat" data-cat="${it.k}"><button class="linha" type="button" aria-expanded="false" title="${it.t}">${svg(it.ic)}<span class="rot">${it.t}</span>${svg('chev','ic chev')}</button>
+        <div class="filhos"><div class="filhos-in">${it.filhos.map(([id,t])=>`<a class="filho" href="#${id}" data-id="${id}">${t}</a>`).join('')}</div></div></div>`;
+    } else h += `<a class="linha" href="#${it.id}" data-id="${it.id}" title="${it.t}">${svg(it.ic)}<span class="rot">${it.t}</span></a>`;
+  });
+  sb.appendChild(el(h));
+});
+sb.addEventListener('click', e => {
+  const b = e.target.closest('.cat > .linha'); if (!b) return;
+  const c = b.parentElement, ab = !c.classList.contains('aberta');
+  c.classList.toggle('aberta', ab); b.setAttribute('aria-expanded', ab);
+});
+
+// ================= desenhar tela =================
+const tela = document.getElementById('tela');
+let TELA_ID = 'inicio';
+function mostrar(rolar = true){
+  let id = (location.hash || '#inicio').slice(1);
+  if (!TELAS[id]) id = 'inicio';
+  TELA_ID = id;
+  tela.innerHTML = `<div class="miolo">${TELAS[id]()}</div>`;
+  tela.querySelectorAll('[data-k]').forEach(i => { const v = getP(U, i.dataset.k); i.value = v == null ? '' : v; });
+  sb.querySelectorAll('[data-id]').forEach(a => {
+    const on = a.dataset.id === id; a.classList.toggle('ativa', on);
+    if (on) a.setAttribute('aria-current','page'); else a.removeAttribute('aria-current');
+  });
+  sb.querySelectorAll('.cat').forEach(c => {
+    const tem = !!c.querySelector(`[data-id="${id}"]`);
+    c.classList.toggle('tem-ativa', tem);
+    if (tem){ c.classList.add('aberta'); c.firstElementChild.setAttribute('aria-expanded','true'); }
+  });
+  document.body.classList.remove('menu-aberto');
+  if (rolar) window.scrollTo(0, 0);
+}
+
+// mudanças que mudam o desenho da linha pedem redesenho da tela
+const REDESENHA = /(\.cmvOrig|\.forma|\.tipo)$|^fichas\.\d+\.tipo$/;
+tela.addEventListener('input', e => {
+  const ek = e.target.dataset && e.target.dataset.e;
+  if (ek && CTX.empresa){
+    if (ek === 'nome') CTX.empresa.nome = e.target.value; else CTX.empresa.dados = Object.assign({}, CTX.empresa.dados, { [ek]: e.target.value });
+    mostrarChip(); agendarSalvarEmpresa(); return;
+  }
+  const sl = e.target.dataset && e.target.dataset.sl;
+  if (sl){
+    const v = Number(e.target.value); U.cenario.aj[sl] = v;
+    const a = AJUSTES.find(x => x[0] === sl), o = document.getElementById('slv_' + sl);
+    if (o){ o.textContent = v ? sinal(v, a[2]) : 'sem mudança'; o.className = v > 0 ? 'pos' : v < 0 ? 'neg' : ''; }
+    agendarCenario(); return;
+  }
+  const k = e.target.dataset && e.target.dataset.k; if (!k) return;
+  setP(U, k, e.target.value); agendarSalvar();
+  if (/^(proposta|relatorio)\./.test(k)) atualizarDoc();
+});
+function atualizarDoc(){
+  const ap = document.getElementById('areaProposta'); if (ap && U.diag.res) ap.innerHTML = propostaDoc();
+  const ar = document.getElementById('areaRelatorio'); if (ar && RES) ar.innerHTML = relatorioDoc();
+}
+tela.addEventListener('change', e => {
+  const ds = e.target.dataset || {};
+  if (ds.dq){ U.diag.resp[ds.dq] = e.target.value; agendarSalvar(); const q = tela.querySelector('.calc-barra .quando'); if (q && PERGUNTAS) q.textContent = PERGUNTAS.filter(x => U.diag.resp[x.id]).length + ' de ' + PERGUNTAS.length + ' respondidas'; return; }
+  if (ds.cb){ U.cenario.base = ds.cb; agendarCenario(); return; }
+  if (ds.es){ const f = U.estrategias.escolhidas, i = f.indexOf(ds.es); if (e.target.checked && i < 0) f.push(ds.es); if (!e.target.checked && i >= 0) f.splice(i, 1); agendarSalvar(); const c = tela.querySelector('#estrRes > .ajuda'); if (c) c.textContent = f.length + (f.length === 1 ? ' estratégia marcada' : ' estratégias marcadas') + ' para o relatório.'; return; }
+  if (ds.sv){ const f = U.proposta.fora, i = f.indexOf(ds.sv); if (e.target.checked && i >= 0) f.splice(i, 1); if (!e.target.checked && i < 0) f.push(ds.sv); agendarSalvar(); atualizarDoc(); return; }
+  const k = ds.k; if (!k) return;
+  setP(U, k, e.target.value); agendarSalvar();
+  if (REDESENHA.test(k)) mostrar(false);
+});
+
+// ---------- caixinha de ajuda do "?" ----------
+const pop = document.createElement('div'); pop.className = 'aj-pop'; pop.setAttribute('role', 'dialog'); pop.hidden = true; document.body.appendChild(pop);
+let popDe = null;
+function fecharAjuda(){ pop.hidden = true; if (popDe) popDe.setAttribute('aria-expanded','false'); popDe = null; }
+function abrirAjuda(btn){
+  const a = AJUDA[btn.dataset.aj]; if (!a) return;
+  if (popDe === btn) return fecharAjuda();
+  pop.innerHTML = `<button class="aj-x" type="button" aria-label="Fechar ajuda">×</button><p><b>O que é</b>${esc(a[0])}</p><p><b>Onde pegar</b>${esc(a[1])}</p><p><b>Como chegar no número</b>${esc(a[2])}</p>`;
+  pop.hidden = false; popDe = btn; btn.setAttribute('aria-expanded','true');
+  const r = btn.getBoundingClientRect(), w = Math.min(340, window.innerWidth - 32);
+  pop.style.width = w + 'px';
+  pop.style.left = Math.max(16, Math.min(window.innerWidth - w - 16, r.left + window.scrollX - 12)) + 'px';
+  pop.style.top = (r.bottom + window.scrollY + 8) + 'px';
+}
+document.addEventListener('click', e => {
+  const b = e.target.closest('.aj'); if (b){ e.preventDefault(); e.stopPropagation(); abrirAjuda(b); return; }
+  if (!e.target.closest('.aj-pop') || e.target.closest('.aj-x')) fecharAjuda();
+}, true);
+document.addEventListener('keydown', e => { if (e.key === 'Escape') fecharAjuda(); });
+window.addEventListener('hashchange', fecharAjuda);
+tela.addEventListener('toggle', e => { const d = e.target; if (d.matches && d.matches('details.ficha-d')){ const f = U.fichas[Number(d.dataset.fi)]; if (f) f.aberto = d.open; } }, true);
+
+tela.addEventListener('click', async e => {
+  const q = e.target.closest('.pl-q');
+  if (q){ const pl = q.closest('.pl'), m = pl.querySelector('.pl-mais'); m.hidden = !m.hidden; pl.classList.toggle('mais', !m.hidden); q.setAttribute('aria-expanded', !m.hidden); return; }
+  const t = e.target.closest('[role="tab"]');
+  if (t){
+    const [, id, i] = t.id.split('_'); ABAS_MEM[id] = Number(i);
+    tela.querySelectorAll('[role="tab"]').forEach(b => b.setAttribute('aria-selected', b === t));
+    for (let k=0;k<4;k++){ const p = document.getElementById(`pn_${id}_${k}`); if (p) p.hidden = String(k) !== i; }
+    return;
+  }
+  const b = e.target.closest('[data-acao]'); if (!b) return;
+  const ac = b.dataset.acao, i = Number(b.dataset.i), muda = () => { agendarSalvar(); mostrar(false); };
+  if (await acaoF3(ac, b)) return;
+  const tirar = (lista, fazer) => { lista.splice(i, 1); if (!lista.length) lista.push(fazer()); };
+  if (ac === 'addItem'){ U.itens.push(novoItem()); muda(); }
+  if (ac === 'rmItem'){ tirar(U.itens, novoItem); muda(); }
+  if (ac === 'abrirCanais'){ U.itens[i].aberto = !U.itens[i].aberto; muda(); }
+  if (ac === 'addCargo'){ U.cargos.push({cargo:'',qtd:'',sal:'',benef:''}); muda(); }
+  if (ac === 'rmCargo'){ tirar(U.cargos, () => ({cargo:'',qtd:'',sal:'',benef:''})); muda(); }
+  if (ac === 'addExtra'){ U.extras.push({desc:'',diarias:'',valor:''}); muda(); }
+  if (ac === 'rmExtra'){ tirar(U.extras, () => ({desc:'',diarias:'',valor:''})); muda(); }
+  if (ac === 'addFixo'){ U.fixos[b.dataset.g].push({nome:'',valor:''}); muda(); }
+  if (ac === 'rmFixo'){ U.fixos[b.dataset.g].splice(i, 1); muda(); }
+  if (ac === 'addDv'){ U.dv.push({nome:'',pct:''}); muda(); }
+  if (ac === 'rmDv'){ tirar(U.dv, () => ({nome:'',pct:''})); muda(); }
+  if (ac === 'novaFicha'){ U.fichas.push(novaFicha(b.dataset.tipo)); muda(); }
+  if (ac === 'rmFicha'){ U.fichas.splice(i, 1); muda(); }
+  if (ac === 'addIng'){ U.fichas[Number(b.dataset.f)].ingr.push(novoIng()); muda(); }
+  if (ac === 'rmIng'){ const f = U.fichas[Number(b.dataset.f)]; f.ingr.splice(i, 1); if (!f.ingr.length) f.ingr.push(novoIng()); muda(); }
+  if (ac === 'addBuffet'){ U.buffet.push({fichaId:'',part:''}); muda(); }
+  if (ac === 'rmBuffet'){ tirar(U.buffet, () => ({fichaId:'',part:''})); muda(); }
+  if (ac === 'calcFicha') await calcularFicha(Number(b.dataset.f), b);
+  if (ac === 'calcular') await calcular(b);
+});
+
+// ================= servidor =================
+const salvoEl = document.getElementById('salvo');
+const status = (t, cls='') => { salvoEl.textContent = t; salvoEl.className = 'salvo' + (cls ? ' ' + cls : ''); };
+let tSalvar = null;
+function agendarSalvar(){ status('Salvando…','pend'); clearTimeout(tSalvar); tSalvar = setTimeout(salvar, 1200); }
+async function salvar(){
+  if (!sbc || !CTX.sim) return;
+  const entrada = Object.assign(montarEntrada(), { _tela: U, _calc_em: RES_QUANDO ? RES_QUANDO.toISOString() : null });
+  const { error } = await sbc.from('simulacoes').update({ entrada, resultado: RES, versao_motor: RES ? RES.versao_motor : null }).eq('id', CTX.sim.id);
+  if (error) status('Não salvou: ' + error.message, 'erro'); else status('Salvo');
+}
+async function calcularFicha(fi, btn){
+  const f = U.fichas[fi]; if (!f) return;
+  if (!sbc){ f.erro = 'Sem conexão com o servidor.'; mostrar(false); return; }
+  btn.disabled = true; btn.textContent = 'Calculando…';
+  const { data, error } = await sbc.rpc('fn_food_ficha', { p: fichaPayload(f) });
+  if (error){ f.erro = erroAmigavel(error.message); f.res = null; } else { f.erro = null; f.res = data; }
+  agendarSalvar(); mostrar(false);
+}
+async function calcular(btn){
+  if (!sbc) { ERRO_CALC = 'Sem conexão com o servidor.'; mostrar(false); return; }
+  const falta = conferirAntes();
+  if (falta){ ERRO_CALC = falta; RES = null; mostrar(false); return; }
+  btn.disabled = true; btn.textContent = 'Calculando…';
+  const entrada = montarEntrada();
+  window.__enviado = entrada;   // para a conferência de ponta a ponta
+  const { data, error } = await sbc.rpc('fn_food_calcular', { p: entrada });
+  if (error){ ERRO_CALC = erroAmigavel(error.message); RES = null; RES_QUANDO = null; }
+  else { ERRO_CALC = null; RES = data; RES_QUANDO = new Date(); ABAS_MEM[TELA_ID] = 1; U.cenario.res = null; U.riscos.res = null; U.estrategias.res = null; }
+  await salvar();
+  mostrar(false);
+}
+
+// ================= entrada (login) =================
+const telaEntrada = document.getElementById('entrada');
+const eMsg = document.getElementById('eMsg');
+const msgEntrada = (t, cls) => { eMsg.textContent = t; eMsg.className = 'msg ' + cls; eMsg.hidden = !t; };
+async function carregarConta(user){
+  CTX.user = user;
+  document.getElementById('usuario').textContent = user.email;
+  const { data: acesso, error: eA } = await sbc.rpc('fn_food_tem_acesso', { p_segmento: SEGMENTO });
+  if (eA || !acesso){
+    telaEntrada.hidden = false;
+    msgEntrada('Você entrou como ' + user.email + ', mas o acesso ao Restaurante ainda não foi liberado para esta conta. Assim que for liberado, é só entrar de novo.', 'info');
+    return;
+  }
+  await carregarEmpresas();
+  if (!EMPRESAS.length){
+    const r = await sbc.from('empresas').insert({ segmento: SEGMENTO, nome: 'Meu restaurante', dados: {} }).select().single();
+    if (r.data) EMPRESAS = [r.data];
+  }
+  let ult = null; try { ult = localStorage.getItem(LS_EMP); } catch(e) {}
+  const emp = EMPRESAS.find(x => x.id === ult) || EMPRESAS[0];
+  if (emp) await abrirEmpresa(emp);
+  telaEntrada.hidden = true;
+  status('Salvo');
+  mostrar();
+}
+document.getElementById('formEntrada').addEventListener('submit', async e => {
+  e.preventDefault();
+  if (!sbc) return msgEntrada('Não foi possível carregar a conexão com o servidor. Confira a internet e recarregue a página.', 'erro');
+  const email = document.getElementById('eEmail').value.trim(), senha = document.getElementById('eSenha').value;
+  if (!email || senha.length < 6) return msgEntrada('Informe o e-mail e uma senha com pelo menos 6 caracteres.', 'erro');
+  msgEntrada('Entrando…', 'info');
+  const { data, error } = await sbc.auth.signInWithPassword({ email, password: senha });
+  if (error){
+    const m = /confirm/i.test(error.message) ? 'Esta conta ainda não foi liberada. Assim que for, é só entrar com este e-mail e senha.'
+            : /invalid/i.test(error.message) ? 'E-mail ou senha incorretos.' : error.message;
+    return msgEntrada(m, 'erro');
+  }
+  msgEntrada('', ''); carregarConta(data.user);
+});
+document.getElementById('bCriar').addEventListener('click', async () => {
+  if (!sbc) return msgEntrada('Não foi possível carregar a conexão com o servidor.', 'erro');
+  const email = document.getElementById('eEmail').value.trim(), senha = document.getElementById('eSenha').value;
+  if (!email || senha.length < 6) return msgEntrada('Para criar a conta, informe o e-mail e uma senha com pelo menos 6 caracteres.', 'erro');
+  const { data, error } = await sbc.auth.signUp({ email, password: senha });
+  if (error) return msgEntrada(error.message, 'erro');
+  if (data.session) return carregarConta(data.user);
+  msgEntrada('Conta criada. Não precisa abrir o e-mail de confirmação: o acesso é liberado pela Lissun e depois você entra com este e-mail e senha.', 'ok');
+});
+document.getElementById('bSair').addEventListener('click', async () => {
+  if (sbc) await sbc.auth.signOut();
+  CTX = {user:null, empresa:null, sim:null}; U = vazioU(); RES = null; RES_QUANDO = null; EMPRESAS = []; SIMS = []; PERGUNTAS = null; mostrarChip();
+  document.getElementById('usuario').textContent = ''; status('');
+  telaEntrada.hidden = false; msgEntrada('', '');
+});
+
+// ================= retorno do beta =================
+const fb = document.getElementById('fb'), fbMsg = document.getElementById('fbMsg');
+const fbAviso = (t, cls) => { fbMsg.textContent = t; fbMsg.className = 'msg ' + cls; fbMsg.hidden = !t; };
+document.getElementById('bRetorno').addEventListener('click', () => { fb.hidden = false; fbAviso('', ''); document.getElementById('fbTexto').focus(); });
+document.getElementById('fbFechar').addEventListener('click', () => { fb.hidden = true; });
+fb.addEventListener('click', e => { if (e.target === fb) fb.hidden = true; });
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && !fb.hidden) fb.hidden = true; });
+document.getElementById('fbForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  const texto = document.getElementById('fbTexto').value.trim();
+  if (texto.length < 3) return fbAviso('Escreva o que aconteceu.', 'erro');
+  if (!sbc || !CTX.user) return fbAviso('Entre na sua conta para enviar.', 'erro');
+  fbAviso('Enviando…', 'info');
+  const contexto = { versao_tela: LF_VERSAO, versao_motor: RES ? RES.versao_motor : null, calculado_em: RES_QUANDO ? RES_QUANDO.toISOString() : null, largura: window.innerWidth, navegador: navigator.userAgent, simulacao: CTX.sim ? CTX.sim.id : null };
+  const { error } = await sbc.from('feedback').insert({ segmento: SEGMENTO, tela: TELA_ID, tipo: document.getElementById('fbTipo').value, texto, empresa_id: CTX.empresa ? CTX.empresa.id : null, contexto });
+  if (error) return fbAviso('Não foi enviado: ' + error.message, 'erro');
+  document.getElementById('fbTexto').value = '';
+  fbAviso('Recebido. Obrigado: a Lissun lê cada retorno.', 'ok');
+});
+window.addEventListener('afterprint', () => { delete document.body.dataset.imprimir; });
+
+// ================= menu, tema =================
+const celular = () => matchMedia('(max-width:860px)').matches;
+document.getElementById('btnHam').addEventListener('click', () => { if (celular()) document.body.classList.toggle('menu-aberto'); else document.body.classList.toggle('rec'); });
+document.getElementById('btnRec').addEventListener('click', () => document.body.classList.toggle('rec'));
+document.getElementById('veu').addEventListener('click', () => document.body.classList.remove('menu-aberto'));
+const raiz = document.documentElement;
+const escuroAgora = () => raiz.dataset.theme ? raiz.dataset.theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+try { const t = localStorage.getItem('lf_tema'); if (t === 'dark' || t === 'light') raiz.dataset.theme = t; } catch(e) {}
+document.getElementById('btnTema').addEventListener('click', () => {
+  const novo = escuroAgora() ? 'light' : 'dark'; raiz.dataset.theme = novo;
+  try { localStorage.setItem('lf_tema', novo); } catch(e) {}
+});
+
+window.addEventListener('hashchange', () => mostrar());
+mostrar();
+if (!sbc) msgEntrada('Não foi possível carregar a conexão com o servidor. Abra o arquivo com internet ligada.', 'erro');
+else sbc.auth.getSession().then(({ data }) => { if (data.session) carregarConta(data.session.user); });
+})();
+</script>
+</body></html>
